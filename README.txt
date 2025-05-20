@@ -1,34 +1,51 @@
-Fases del Desarrollo del Proyecto
 Fase 1: Análisis y Planificación (Semana 1)
 
-1. Definir los requisitos del sistema:
+Gestión de Usuarias
+CRUD de usuarias (Las usuarias pueden registrarse, consultar, editar y eliminar sus cuentas).
+Formularios:
+Registro: Accesible para todas.
+Inicio de sesión: Solo usuarias autenticadas.
+Perfil de usuaria:
+Solo usuarias autenticadas pueden:
+Ver su información personal.
+Editar datos del perfil.
+Eliminar su cuenta.
 
-o Qué funcionalidades serán implementadas (historias de usuario).
+Gestión de Trueques
+Solo usuarias autenticadas pueden:
+CRUD de trueques (Crear, consultar, editar y eliminar sus propios trueques).
+Mercado de trueques:
+Ver sus propios trueques y los de otras usuarias.
+Buscador de trueques:
+Filtrar y encontrar trueques disponibles.
 
-o Cómo interactúan los usuarios con el sistema (las tareas).
+Gestión de Publicaciones y Publicidad
+Solo usuarias autenticadas pueden:
+CRUD de publicaciones (Crear, consultar, editar y eliminar sus propias publicaciones).
+Muro de publicaciones:
+Ver sus publicaciones y las de otras usuarias.
+Ver publicidad.
 
-2. Tecnologías:
+Solo administradoras autenticadas y autorizadas pueden:
+CRUD de publicidad (Crear, consultar, editar y eliminar anuncios publicitarios).
+Contacto
+Solo usuarias autenticadas pueden:
+Llenar el formulario de contacto (solo acción Create).
+Solo administradoras autenticadas y autorizadas pueden:
+Ver y eliminar mensajes.
 
-o Front-End: React.
+Gestión de Imágenes
+CRUD de imágenes (Investigar cómo almacenarlas correctamente dentro de la plataforma).
 
-o Back-End: Python (Django)
+Tecnologías:
 
-o Base de datos: MySQL
+Front-End: React., Back-End: Python (Django), Base de datos: MySQL, para imagenes aun no se
 
-3. Planificación en Trello:
+Diseño de la arquitectura del sistema:
+Crear un diagrama ER para la base de datos.
+Wireframes o Mockups para la interfaz de usuario.
 
-o Con ayuda del coach, deben crear un tablero en Trello o Jira para gestionar las
-tareas de sus proyectos, los coaches tienen una guía que se debe adaptar a los
-requisitos de cada uno de los proyectos (proporcionada de las tareas de
-usuario).
-o Asignar responsabilidades y establecer plazos (Llevar tareas en proceso
-semana a semana).
 
-4. Diseño de la arquitectura del sistema:
-
-o Crear un diagrama ER para la base de datos.
-
-o Wireframes o Mockups para la interfaz de usuario.
 
 Fase 2: Diseño de la Interfaz y Configuración del Entorno (Semana 2)
 
