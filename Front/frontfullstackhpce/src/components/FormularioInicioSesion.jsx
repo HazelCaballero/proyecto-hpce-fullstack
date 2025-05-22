@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function formularioInicioSesión() {
+export default function FormularioInicioSesion() {
   return (
     <div>
         <h1>Formulario de Inicio de Sesión</h1>
@@ -17,9 +17,3 @@ export default function formularioInicioSesión() {
   )
 }
 
-
-// Nombre
-
-// Contraseña
-
-// Botón de Iniciar Sesión

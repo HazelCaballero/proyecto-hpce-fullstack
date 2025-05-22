@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function formularioContacto() {
+export default function FormularioContacto() {
   return (
     <div>
         <h1>Formulario de Contacto</h1>

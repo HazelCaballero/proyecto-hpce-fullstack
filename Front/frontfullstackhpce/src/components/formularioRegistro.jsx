@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function formularioRegistro() {
+export default function FormularioRegistro() {
   return (
     <div>
         <h1>Registro</h1>
