@@ -1,10 +1,12 @@
 import React from 'react'
+import "../styles/Scomponents/AContactos.css"
 
 export default function Contactos() {
   return (
-    <div>
+    <div className="container-contactos">
       
-      <div>
+      <div className='resumen'>
+        
         <h2>Mensajes a revisar</h2>
         <p>numero</p>
         <h2>Publicidad por aprobar</h2>
@@ -13,7 +15,7 @@ export default function Contactos() {
 
       <ul>
         <h3>Lista de Mensajes</h3>
-        <li> mensajes</li>
+        <li>mensajes</li>
       </ul>
 
       <ul>
@@ -21,7 +23,7 @@ export default function Contactos() {
         <li>anuncios</li>
       </ul>
       
-      <div>
+      <div className="form-anuncio">
         <label htmlFor="Producto"></label>
         <input type="text" id="Producto" placeholder="Producto" />
         <label htmlFor="Contenido"></label>

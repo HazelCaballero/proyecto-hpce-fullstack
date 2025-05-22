@@ -2,10 +2,12 @@ import React from 'react'
 import AsideUsuarias from '../components/AsideUsuarias'
 import Header from '../components/Header';
 import Main from '../components/Main';
-import Hogar from '../components/Hogar';
+import Mercado from '../components/Mercado';
 import Footer from '../components/Footer';
 
-export default function UserHogar() {
+
+export default function 
+() {
   return (
     <div>
             <div >
@@ -13,12 +15,12 @@ export default function UserHogar() {
             </div>
             
             <div>
-                <Header titulo="Hogar" />
+                <Header titulo="Mercado" />
             </div>
     
             <div>
                 <Main>
-                <Hogar/>
+                <Mercado/>
                 </Main>
             </div>   
     
@@ -29,4 +31,3 @@ export default function UserHogar() {
     </div>
   )
 }
-

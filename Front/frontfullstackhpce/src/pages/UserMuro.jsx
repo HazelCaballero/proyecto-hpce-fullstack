@@ -2,29 +2,29 @@ import React from 'react'
 import AsideUsuarias from '../components/AsideUsuarias'
 import Header from '../components/Header';
 import Main from '../components/Main';
-import Inicio from '../components/Inicio';
+import Muro from '../components/Muro';
 import Footer from '../components/Footer';
 
-export default function UserPanel() {
+export default function UserMuro() {
   return (
     <div>
-         <div >
+        <div >
             <AsideUsuarias/>
-          </div>
-          
-          <div>
-            <Header titulo="Inicio"/>
-          </div>
-
-          <div>
+        </div>
+        
+        <div>
+            <Header titulo="Muro" />
+        </div>
+    
+        <div>
             <Main>
-              <Inicio/>
+            <Muro/>
             </Main>
-          </div>   
-
-          <div>
+        </div>   
+    
+        <div>
             <Footer/>
-          </div>   
+        </div>
     </div>
   )
 }
