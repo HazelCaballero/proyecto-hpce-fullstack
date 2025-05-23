@@ -1,5 +1,5 @@
 import React from 'react';
-import FormularioRegistro from './FormularioRegistro';
+import FormularioRegistro from './formularioRegistro';
 import FormularioInicioSesion from './FormularioInicioSesion'
 
 

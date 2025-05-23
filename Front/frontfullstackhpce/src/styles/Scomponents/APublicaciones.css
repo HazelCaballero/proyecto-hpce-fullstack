@@ -1,0 +1,36 @@
+.publicaciones-container {
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 24px;
+  background: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.publicaciones-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 24px;
+}
+
+.publicaciones-list h3 {
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.publicaciones-list li {
+  padding: 8px 0;
+  border-bottom: 1px solid #e0e0e0;
+  color: #555;
+}
+
+.publicaciones-info h2 {
+  margin: 12px 0 4px 0;
+  font-size: 1.1em;
+  color: #2a4d69;
+}
+
+.publicaciones-info p {
+  margin: 0 0 12px 0;
+  color: #4b4b4b;
+}
