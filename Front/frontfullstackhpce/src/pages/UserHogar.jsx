@@ -7,16 +7,13 @@ import Footer from '../components/Footer';
 
 export default function UserHogar() {
   return (
-    <div>
+    <div className="page-grid">
             <div >
                 <AsideUsuarias/>
             </div>
             
             <div>
                 <Header titulo="Hogar" />
-            </div>
-    
-            <div>
                 <Main>
                 <Hogar/>
                 </Main>

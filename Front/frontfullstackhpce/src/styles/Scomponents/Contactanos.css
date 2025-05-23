@@ -1,0 +1,49 @@
+.contactanos-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  background: #f7f7fa;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  max-width: 700px;
+  margin: 2rem auto;
+}
+
+.contactanos-form {
+  width: 100%;
+  max-width: 400px;
+}
+
+.contactanos-fundadora {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contactanos-fundadora img {
+  width: 160px;
+  height: auto;
+  border: 3px solid #b6a1e6;
+  margin-bottom: 0.5rem;
+  background: #fff;
+}
+
+.contactanos-fundadora h3 {
+  margin: 0;
+  color: #6a4fb6;
+  font-weight: 600;
+}
+
+.contactanos-horario {
+  text-align: center;
+  background: #eae6fa;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+}
+
+.contactanos-horario h4 {
+  margin-bottom: 0.5rem;
+  color: #6a4fb6;
+}

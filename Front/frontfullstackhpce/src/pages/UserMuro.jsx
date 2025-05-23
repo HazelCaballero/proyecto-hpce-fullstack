@@ -7,16 +7,13 @@ import Footer from '../components/Footer';
 
 export default function UserMuro() {
   return (
-    <div>
+    <div className="page-grid">
         <div >
             <AsideUsuarias/>
         </div>
         
         <div>
             <Header titulo="Muro" />
-        </div>
-    
-        <div>
             <Main>
             <Muro/>
             </Main>

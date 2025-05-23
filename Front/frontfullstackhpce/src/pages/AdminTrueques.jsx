@@ -7,16 +7,13 @@ import Footer from '../components/Footer';
 
 export default function AdminTrueques() {
   return (
-    <div>
+    <div className="page-grid">
         <div >
             <AsideAdmin/>
         </div>
         
         <div>
             <Header titulo="Panel De Administración Trueques" />
-        </div>
-    
-        <div>
             <Main>
             <ATrueques/>
             </Main>

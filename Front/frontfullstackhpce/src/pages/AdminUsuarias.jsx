@@ -8,15 +8,13 @@ import Footer from '../components/Footer';
 
 function AdminUsuarias() {
   return (
-    <div>
+    <div className="page-grid">
       <div>
           <AsideAdmin/>
       </div>
       
       <div>
         <Header titulo="Panel De Administración Usuarias" />
-      </div>
-      <div>
         <Main>
           <AUsuarias/>
         </Main>

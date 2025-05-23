@@ -1,0 +1,38 @@
+.hogar-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 32px;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.hogar-section {
+  margin-bottom: 32px;
+}
+
+.hogar-title {
+  color: #7c3aed;
+  margin-bottom: 10px;
+  font-size: 1.7rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.hogar-text {
+  color: #333;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.hogar-list {
+  padding-left: 20px;
+  color: #444;
+  font-size: 1.05rem;
+}
+
+.hogar-list li {
+  margin-bottom: 8px;
+  list-style-type: disc;
+}

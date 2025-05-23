@@ -2,23 +2,29 @@ import React from 'react'
 import AsideUsuarias from '../components/AsideUsuarias'
 import Header from '../components/Header';
 import Main from '../components/Main';
-import Inicio from '../components/Inicio';
 import Footer from '../components/Footer';
+import FormularioRegistro from '../components/formularioRegistro';
+import FormularioInicioSesion from '../components/FormularioInicioSesion';
+import '../styles/Spages/UserInicio.css';
 
-export default function UserPanel() {
+export default function UserInicio() {
   return (
-    <div>
+    <div className="page-grid">
          <div >
             <AsideUsuarias/>
           </div>
           
           <div>
             <Header titulo="Inicio"/>
-          </div>
-
-          <div>
             <Main>
-              <Inicio/>
+              <div className="formularios-grid">
+                <div >
+                  <FormularioRegistro />
+                </div>
+                <div>
+                  <FormularioInicioSesion />
+                </div>
+              </div>
             </Main>
           </div>   
 

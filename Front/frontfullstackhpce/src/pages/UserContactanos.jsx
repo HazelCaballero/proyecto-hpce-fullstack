@@ -8,16 +8,13 @@ import Footer from '../components/Footer';
 
 export default function UserContactanos() {
   return (
-    <div>
+    <div className="page-grid">
         <div >
             <AsideUsuarias/>
         </div>
         
         <div>
             <Header titulo="Este espacio es para vos. Contáctanos con ¡Confianza!" />
-        </div>
-    
-        <div>
             <Main>
             <Contactanos/>
             </Main>

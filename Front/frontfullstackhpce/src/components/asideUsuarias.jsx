@@ -1,20 +1,22 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+import '../styles/Scomponents/AsideUsuarias.css' // Importa el CSS
 
 export default function AsideUsuarias() {
   return (
-    <div>
+    <div className="aside-usuarias">
 
-      <div>
+      <div className="aside-logo">
         <img src="../public/Screenshot_2025-05-22_082701-removebg-preview.png" alt="LogoConexCreat" />
       </div>
 
-      <div>
+      <div className="aside-menu">
         <ul>
-            <li>Muro</li>
-            <li>Hogar</li>
-            <li>Perfil</li>
-            <li>Inicio</li>
-            <li>Mercado</li>
+            <li><Link to="/UserMuro">Muro</Link></li>
+            <li><Link to="/UserHogar">Hogar</Link></li>
+            <li><Link to="/UserPerfil">Perfil</Link></li>
+            <li><Link to="/UserInicio">Inicio</Link></li>
+            <li><Link to="/UserMercado">Mercado</Link></li>
          </ul>   
       </div>
 

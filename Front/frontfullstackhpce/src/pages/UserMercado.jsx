@@ -9,16 +9,13 @@ import Footer from '../components/Footer';
 export default function 
 () {
   return (
-    <div>
+    <div className="page-grid">
             <div >
                 <AsideUsuarias/>
             </div>
             
             <div>
                 <Header titulo="Mercado" />
-            </div>
-    
-            <div>
                 <Main>
                 <Mercado/>
                 </Main>

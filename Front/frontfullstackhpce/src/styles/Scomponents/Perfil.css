@@ -1,0 +1,59 @@
+.perfil-container {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 32px 24px;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.perfil-nombre {
+  font-size: 2rem;
+  margin-bottom: 16px;
+  color: #2d2d2d;
+}
+
+.perfil-img-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.perfil-img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #e0e0e0;
+  background: #f5f5f5;
+}
+
+.perfil-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+.perfil-lista li {
+  padding: 10px 0;
+  border-bottom: 1px solid #ececec;
+  font-size: 1.05rem;
+}
+
+.perfil-lista li:last-child {
+  border-bottom: none;
+}
+
+.perfil-eliminar {
+  color: #e74c3c;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+  transition: color 0.2s;
+}
+
+.perfil-eliminar:hover {
+  color: #c0392b;
+}

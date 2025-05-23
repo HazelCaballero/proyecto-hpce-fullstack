@@ -8,16 +8,13 @@ import Footer from '../components/Footer';
 export default function 
 () {
   return (
-    <div>
+    <div className="page-grid">
         <div >
             <AsideAdmin/>
         </div>
         
         <div>
             <Header titulo="Panel De Administración Contactos" />
-        </div>
-    
-        <div>
             <Main>
             <AContactos/>
             </Main>
