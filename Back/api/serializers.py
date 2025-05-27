@@ -12,35 +12,13 @@ class CustomUserSerializer(serializers.ModelSerializer):
             'telefono', 'fecha_nacimiento', 'intereses',
             'aportaciones', 'ubicacion', 'imagen_url'
         ]
-        #si elimino esto puedo ver la contraseña
-        extra_kwargs = {
-            'password': {'write_only': True}
-        }
-
-    def create(self, validated_data):
-        user = CustomUser.objects.create_user(
-            username=validated_data['username'],
-            password=validated_data['password']
-        )
-        user.email = validated_data.get('email', '')
-        user.telefono = validated_data.get('telefono', '')
-        user.fecha_nacimiento = validated_data.get('fecha_nacimiento', None)
-        user.intereses = validated_data.get('intereses', '')
-        user.aportaciones = validated_data.get('aportaciones', '')
-        user.ubicacion = validated_data.get('ubicacion', '')
-        user.imagen_url = validated_data.get('imagen_url', '')
-        user.save()
-        return user
-
+        
+    #    extra_kwargs = {
+    #        'password': {'write_only': True}
+        
     def validate_telefono(self, value):
         if value and (not value.replace("+", "").isdigit() or not (7 <= len(value.replace("+", "")) <= 15)):
             raise serializers.ValidationError("Número de teléfono inválido.")
-        return value
-
-    def validate_fecha_nacimiento(self, value):
-        from datetime import date
-        if value and value > date.today():
-            raise serializers.ValidationError("La fecha de nacimiento no puede ser en el futuro.")
         return value
 
 class CategoriaSerializer(serializers.ModelSerializer):

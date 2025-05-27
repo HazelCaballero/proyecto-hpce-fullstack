@@ -1,4 +1,5 @@
 from django.urls import path
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from .views import (
     CustomUserListCreateView, CustomUserDetailView,
     CategoriaListCreateView, CategoriaDetailView,
@@ -8,7 +9,8 @@ from .views import (
     ServicioListCreateView, ServicioDetailView,
     InteraccionTruequeListCreateView, InteraccionTruequeDetailView,
     PublicidadesListCreateView, PublicidadesDetailView,
-    ContactosListCreateView, ContactosDetailView
+    ContactosListCreateView, ContactosDetailView,
+    CrearSuperUsuario
 )
 
 urlpatterns = [
@@ -21,7 +23,6 @@ urlpatterns = [
     path('trueques/', TruequeListCreateView.as_view(), name='trueques-listar-crear'),
     path('trueques/<int:pk>/', TruequeDetailView.as_view(), name='trueques-detalle'),
 
-#hice pruebas en postman hasta aca
     path('publicaciones/', PublicacionListCreateView.as_view(), name='publicaciones-listar-crear'),
     path('publicaciones/<int:pk>/', PublicacionDetailView.as_view(), name='publicaciones-detalle'),
 
@@ -39,4 +40,8 @@ urlpatterns = [
 
     path('contactos/', ContactosListCreateView.as_view(), name='contactos-listar-crear'),
     path('contactos/<int:pk>/', ContactosDetailView.as_view(), name='contactos-detalle'),
+    
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path("crear-superusuario/", CrearSuperUsuario.as_view(), name="crear-superusuario")
 ]
