@@ -10,6 +10,7 @@ class CustomUser(AbstractUser):
     aportaciones = models.TextField(null=False, blank=False)
     ubicacion = models.CharField(max_length=80, null=False, blank=False)
     imagen_url = models.TextField(null=True, blank=True)
+    
 
     def clean(self):
         if len(self.username) < 3:

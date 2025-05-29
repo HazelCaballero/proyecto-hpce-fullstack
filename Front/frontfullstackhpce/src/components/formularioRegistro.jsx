@@ -23,3 +23,121 @@ export default function FormularioRegistro() {
     </div>
   )
 }
+
+
+
+
+// ejemplo basado en como trabaje en el mini proyecto
+
+/*
+
+import React, { useState, useEffect } from 'react';
+import Swal from 'sweetalert2';
+import CallsUsuarias from '../services/CallsUsuarias';
+
+export default function UsuariosByHazelCC() {
+  const [usuarios, setUsuarios] = useState([]);
+  const [nombre, setNombre] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [telefono, setTelefono] = useState('');
+  const [fechaNacimiento, setFechaNacimiento] = useState('');
+  const [direccion, setDireccion] = useState('');
+
+  useEffect(() => {
+    fetchUsuarios();
+  }, []);
+
+  const fetchUsuarios = async () => {
+    const data = await CallsUsuarias.GetUsers();
+    setUsuarios(data);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const usuario = {
+        nombre,
+        email,
+        password,
+        telefono,
+        fechaNacimiento,
+        direccion,
+      };
+
+      await CallsUsuarias.PostUser(usuario);
+      Swal.fire('Agregado', 'Usuario registrado con éxito.', 'success');
+
+      setNombre('');
+      setEmail('');
+      setPassword('');
+      setTelefono('');
+      setFechaNacimiento('');
+      setDireccion('');
+
+      fetchUsuarios();
+    } catch (error) {
+      Swal.fire('Error', 'Hubo un problema al guardar el usuario.', 'error');
+    }
+  };
+
+  return (
+    <div className="registro-container">
+      <div className="registro-form">
+        <h2>Usuarios</h2>
+        
+          <label>Nombre</label>
+          <input 
+            className="registro-input"
+            value={nombre} 
+            onChange={e => setNombre(e.target.value)} 
+            type="text" 
+            placeholder="Nombre del usuario" 
+          />
+          <label>Email</label>
+          <input 
+            className="registro-input"
+            value={email} 
+            onChange={e => setEmail(e.target.value)} 
+            type="email" 
+            placeholder="Correo electrónico" 
+          />
+          <label>Contraseña</label>
+          <input 
+            className="registro-input"
+            value={password} 
+            onChange={e => setPassword(e.target.value)} 
+            type="password" 
+            placeholder="Contraseña" 
+          />
+          <label>Teléfono</label>
+          <input 
+            className="registro-input"
+            value={telefono} 
+            onChange={e => setTelefono(e.target.value)} 
+            type="text" 
+            placeholder="Teléfono" 
+          />
+          <label>Fecha de Nacimiento</label>
+          <input 
+            className="registro-input"
+            value={fechaNacimiento} 
+            onChange={e => setFechaNacimiento(e.target.value)} 
+            type="date" 
+          />
+          <label>Dirección</label>
+          <input 
+            className="registro-input"
+            value={direccion} 
+            onChange={e => setDireccion(e.target.value)} 
+            type="text" 
+            placeholder="Dirección" 
+          />
+          <button className="registro-form-button" type="submit">Agregar Usuario</button>
+      </div>
+    </div>
+  );
+}
+
+
+*/

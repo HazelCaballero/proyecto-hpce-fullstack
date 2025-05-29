@@ -10,7 +10,7 @@ from .views import (
     InteraccionTruequeListCreateView, InteraccionTruequeDetailView,
     PublicidadesListCreateView, PublicidadesDetailView,
     ContactosListCreateView, ContactosDetailView,
-    CrearSuperUsuario
+    CrearSuperUsuario, VerSuperUsuario, ActualizarSuperUsuario, EliminarSuperUsuario
 )
 
 urlpatterns = [
@@ -43,5 +43,10 @@ urlpatterns = [
     
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path("crear-superusuario/", CrearSuperUsuario.as_view(), name="crear-superusuario")
+    
+    #admins 
+    path("crear-superusuario/", CrearSuperUsuario.as_view(), name="crear-superusuario"),
+    path("ver-superusuario/", VerSuperUsuario.as_view(), name="ver-superusuario"),
+    path("actualizar-superusuario/<int:pk>/", ActualizarSuperUsuario.as_view(), name="actualizar-superusuario"),
+    path("eliminar-superusuario/<int:pk>/", EliminarSuperUsuario.as_view(), name="eliminar-superusuario")
 ]
