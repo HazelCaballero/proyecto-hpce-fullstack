@@ -1,0 +1,58 @@
+Guía de instalación y funcionamiento del backend Django
+
+1. Creación del proyecto y la app
+- Se creó el proyecto Django y la app principal api
+
+2. Instalación de dependencias necesarias
+Ejecuta en la terminal:
+
+pip install django djangorestframework,
+ djangorestframework-simplejwt
+
+
+3. Configuración en settings.py
+- Agrega 'rest_framework' y 'api' a INSTALLED_APPS.
+- Configura el modelo de usuario personalizado:
+  
+  AUTH_USER_MODEL = 'api.CustomUser'
+  
+- Configura la autenticación JWT en REST_FRAMEWORK:
+  
+  REST_FRAMEWORK = {
+      'DEFAULT_AUTHENTICATION_CLASSES': (
+          'rest_framework_simplejwt.authentication.JWTAuthentication',
+      ),
+  }
+
+
+4. Modelos personalizados
+- Se creó el modelo `CustomUser` extendiendo `AbstractUser`.
+- Se crearon modelos: `Categoria`, `Trueque`, `Publicacion`, `InteraccionPublicacion`, `Servicio`, `InteraccionTrueque`, `Publicidades`, `Contactos`.
+
+5. Migraciones
+Ejecuta:
+
+python manage.py makemigrations
+python manage.py migrate
+
+
+6. Serializadores
+- Se crearon serializadores para cada modelo en `serializers.py`.
+
+7. Vistas
+- Se crearon vistas basadas en clases para CRUD de cada modelo en `views.py`.
+- Se agregaron permisos personalizados y vistas para gestión de superusuarios.
+
+8. Rutas
+- Se definieron rutas en api/urls.py para cada recurso y para autenticación JWT (`token/`, `token/refresh/`).
+
+9. Autenticación JWT
+- Se habilitó JWT con `rest_framework_simplejwt`.
+- Usa `/token/` para obtener un token y `/token/refresh/` para renovarlo.
+
+10. Superusuario y pruebas
+- Crea un superusuario con:
+
+  python manage.py createsuperuser
+
+- Prueba los endpoints con herramientas como Postman.

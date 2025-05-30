@@ -1,3 +1,4 @@
+# Importaciones necesarias de DRF y modelos propios
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from .models import (
     CustomUser, Categoria, Trueque, Publicacion, InteraccionPublicacion,
@@ -14,28 +15,41 @@ from .serializers import (
     PublicidadesSerializer, ContactosSerializer
 )
 
+
+# Permiso personalizado para verificar si el usuario es superusuario
 class IsSuperUser(BasePermission):
-  
     def has_permission(self, request, view):
         return request.user and request.user.is_superuser
-    
 
+
+# Vista para listar y crear usuarios personalizados
 class CustomUserListCreateView(ListCreateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
     
+    # Al crear un usuario, se asegura de que la contraseña se guarde de forma segura
+    def perform_create(self, serializer):
+        user = serializer.save()
+        user.set_password(user.password)
+        user.save()
 
+
+# Vista para obtener, actualizar o eliminar un usuario específico
 class CustomUserDetailView(RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
 
 
+
+# Vista para listar y crear categorías
 class CategoriaListCreateView(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     queryset = Categoria.objects.all()
     serializer_class = CategoriaSerializer
 
+
+# Vista para obtener, actualizar o eliminar una categoría (solo superusuarios pueden modificar)
 class CategoriaDetailView(RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated, IsSuperUser]
     queryset = Categoria.objects.all()
@@ -43,11 +57,15 @@ class CategoriaDetailView(RetrieveUpdateDestroyAPIView):
 
 
 
+
+# Vista para listar y crear trueques
 class TruequeListCreateView(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     queryset = Trueque.objects.all()
     serializer_class = TruequeSerializer
 
+
+# Vista para obtener, actualizar o eliminar un trueque
 class TruequeDetailView(RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
     queryset = Trueque.objects.all()
@@ -55,11 +73,15 @@ class TruequeDetailView(RetrieveUpdateDestroyAPIView):
 
 
 
+
+# Vista para listar y crear publicaciones
 class PublicacionListCreateView(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     queryset = Publicacion.objects.all()
     serializer_class = PublicacionSerializer
 
+
+# Vista para obtener, actualizar o eliminar una publicación
 class PublicacionDetailView(RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
     queryset = Publicacion.objects.all()
@@ -67,24 +89,29 @@ class PublicacionDetailView(RetrieveUpdateDestroyAPIView):
 
 
 
+
+# Vista para listar y crear interacciones en publicaciones
 class InteraccionPublicacionListCreateView(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     queryset = InteraccionPublicacion.objects.all()
     serializer_class = InteraccionPublicacionSerializer
 
+
+# Vista para obtener, actualizar o eliminar una interacción en publicación (solo superusuarios pueden modificar)
 class InteraccionPublicacionDetailView(RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated, IsSuperUser]
     queryset = InteraccionPublicacion.objects.all()
     serializer_class = InteraccionPublicacionSerializer
-    
-    
-    
 
+
+# Vista para listar y crear servicios
 class ServicioListCreateView(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     queryset = Servicio.objects.all()
     serializer_class = ServicioSerializer
 
+
+# Vista para obtener, actualizar o eliminar un servicio (solo superusuarios pueden modificar)
 class ServicioDetailView(RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated, IsSuperUser]
     queryset = Servicio.objects.all()
@@ -92,24 +119,29 @@ class ServicioDetailView(RetrieveUpdateDestroyAPIView):
 
 
 
+
+# Vista para listar y crear interacciones en trueques
 class InteraccionTruequeListCreateView(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     queryset = InteraccionTrueque.objects.all()
     serializer_class = InteraccionTruequeSerializer
 
+
+# Vista para obtener, actualizar o eliminar una interacción en trueque (solo superusuarios pueden modificar)
 class InteraccionTruequeDetailView(RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated, IsSuperUser]
     queryset = InteraccionTrueque.objects.all()
     serializer_class = InteraccionTruequeSerializer
-    
-    
-    
 
+
+# Vista para listar y crear publicidades
 class PublicidadesListCreateView(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     queryset = Publicidades.objects.all()
     serializer_class = PublicidadesSerializer
 
+
+# Vista para obtener, actualizar o eliminar una publicidad (solo superusuarios pueden modificar)
 class PublicidadesDetailView(RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated, IsSuperUser]
     queryset = Publicidades.objects.all()
@@ -118,43 +150,43 @@ class PublicidadesDetailView(RetrieveUpdateDestroyAPIView):
 
 
 
+
+# Vista para listar y crear contactos
 class ContactosListCreateView(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     queryset = Contactos.objects.all()
     serializer_class = ContactosSerializer
 
+
+# Vista para obtener, actualizar o eliminar un contacto (solo superusuarios pueden modificar)
 class ContactosDetailView(RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated, IsSuperUser]
     queryset = Contactos.objects.all()
     serializer_class = ContactosSerializer
-    
-    
-    
 
+
+# Vista para crear un superusuario (solo superusuarios pueden acceder)
 class CrearSuperUsuario(APIView):
     permission_classes = [IsAuthenticated, IsSuperUser]
     def post(self,request):
         usuername = request.data.get('username')
         password = request.data.get('password')
-        
+        # Crea un nuevo superusuario
         User.objects.create_superuser(
             usuername=usuername,
             password=password,
         )
-        
         return Response({"message": "Superusuario creado exitosamente."}, status=status.HTTP_201_CREATED)
-    
-    
-    
+
+# Vista para listar todos los superusuarios
 class VerSuperUsuario(APIView):
     permission_classes = [IsAuthenticated, IsSuperUser]
     def get(self, request):
         superusers = User.objects.filter(is_superuser=True)
         serializer = CustomUserSerializer(superusers, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
-    
-    
+
+# Vista para eliminar un superusuario por su ID
 class EliminarSuperUsuario(APIView):
     permission_classes = [IsAuthenticated, IsSuperUser]
     def delete(self, request, pk):
@@ -165,8 +197,7 @@ class EliminarSuperUsuario(APIView):
         except User.DoesNotExist:
             return Response({"error": "Superusuario no encontrado."}, status=status.HTTP_404_NOT_FOUND)
 
-
-
+# Vista para actualizar los datos de un superusuario
 class ActualizarSuperUsuario(APIView):
     permission_classes = [IsAuthenticated, IsSuperUser]
     def put(self, request, pk):

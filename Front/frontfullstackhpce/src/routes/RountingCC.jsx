@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"; 
+import ProtectedRoute from './ProtectedRoute';
 import AdminUsuarias from '../pages/AdminUsuarias';
 import AdminTrueques from '../pages/AdminTrueques';
 import AdminPublicaciones from '../pages/AdminPublicaciones';
@@ -25,11 +26,31 @@ function RountingCC() {
         <Route path="/AdminPublicaciones" element={<AdminPublicaciones />} />
         <Route path="/AdminContactos" element={<AdminContactos />} />
         <Route path="/UserInicio" element={<UserInicio />} />
-        <Route path="/UserHogar" element={<UserHogar />} />
-        <Route path="/UserPerfil" element={<UserPerfil />} />
-        <Route path="/UserContactanos" element={<UserContactanos />} />
-        <Route path="/UserMercado" element={<UserMercado />} />
-        <Route path="/UserMuro" element={<UserMuro />} />
+        <Route path="/UserHogar" element={
+          <ProtectedRoute>
+            <UserHogar />
+          </ProtectedRoute>
+        } />
+        <Route path="/UserPerfil" element={
+          <ProtectedRoute>
+            <UserPerfil />
+          </ProtectedRoute>
+        } />
+        <Route path="/UserContactanos" element={
+          <ProtectedRoute>
+            <UserContactanos />
+          </ProtectedRoute>
+        } />
+        <Route path="/UserMercado" element={
+          <ProtectedRoute>
+            <UserMercado />
+          </ProtectedRoute>
+        } />
+        <Route path="/UserMuro" element={
+          <ProtectedRoute>
+            <UserMuro />
+          </ProtectedRoute>
+        } />
         
       </Routes>
     </Router>
