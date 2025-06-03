@@ -56,8 +56,6 @@ class CategoriaDetailView(RetrieveUpdateDestroyAPIView):
     serializer_class = CategoriaSerializer
 
 
-
-
 # Vista para listar y crear trueques
 class TruequeListCreateView(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
@@ -72,8 +70,6 @@ class TruequeDetailView(RetrieveUpdateDestroyAPIView):
     serializer_class = TruequeSerializer
 
 
-
-
 # Vista para listar y crear publicaciones
 class PublicacionListCreateView(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
@@ -86,7 +82,6 @@ class PublicacionDetailView(RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
     queryset = Publicacion.objects.all()
     serializer_class = PublicacionSerializer
-
 
 
 
@@ -119,7 +114,6 @@ class ServicioDetailView(RetrieveUpdateDestroyAPIView):
 
 
 
-
 # Vista para listar y crear interacciones en trueques
 class InteraccionTruequeListCreateView(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
@@ -148,14 +142,14 @@ class PublicidadesDetailView(RetrieveUpdateDestroyAPIView):
     serializer_class = PublicidadesSerializer
 
 
-
-
-
 # Vista para listar y crear contactos
 class ContactosListCreateView(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     queryset = Contactos.objects.all()
     serializer_class = ContactosSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(usuario=self.request.user)
 
 
 # Vista para obtener, actualizar o eliminar un contacto (solo superusuarios pueden modificar)

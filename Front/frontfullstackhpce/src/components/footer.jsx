@@ -17,9 +17,21 @@ export default function Footer() {
         <ul>
           <li><strong>Teléfono:</strong> 83031497</li>
           <li><strong>Correo:</strong> hazelcaballeroelizondo@gmail.com</li>
-          <li><strong>Instagram</strong></li>
+          <li>
+            <strong>
+              <a
+                href="https://www.instagram.com/imagenes_coloresypalabras/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-link"
+              >
+                Instagram
+              </a>
+            </strong>
+          </li>
         </ul>
       </div>
     </footer>
   )
 }
+

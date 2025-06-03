@@ -1,22 +1,103 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import Swal from 'sweetalert2'
+import CallsContactos from '../services/CallsContactos'
 import '../styles/Scomponents/FormularioContacto.css'
 
 export default function FormularioContacto() {
+  const [nombreUsuario, setNombreUsuario] = useState('')
+  const [email, setEmail] = useState('')
+  const [mensaje, setMensaje] = useState('')
+  const [interEnPromocionarse, setInterEnPromocionarse] = useState(false)
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    const usuario = localStorage.getItem('usuario')
+    if (usuario) {
+      setNombreUsuario(usuario)
+    }
+  }, [])
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    if (!email.trim() || !mensaje.trim()) {
+      Swal.fire('Error', 'Por favor, completa todos los campos obligatorios.', 'error')
+      return
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+      Swal.fire('Error', 'Por favor, ingresa un correo válido.', 'error')
+      return
+    }
+
+    setLoading(true)
+    try {
+      await CallsContactos.PostContactos({
+        correo: email,
+        mensaje,
+        promocionarse: interEnPromocionarse
+      })
+      Swal.fire('Enviado', 'Mensaje enviado correctamente.', 'success')
+      setEmail('')
+      setMensaje('')
+      setInterEnPromocionarse(false)
+    } catch (err) {
+      Swal.fire('Error', 'Error al enviar el mensaje.', 'error')
+    }
+    setLoading(false)
+  }
+
   return (
     <div className="formulario-contacto-container">
-        <h1 className="formulario-titulo">Formulario de Contacto</h1>
-        <form className="formulario-contacto-form">
-            <label htmlFor="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" required />
+      <div className="formulario-contacto-form" onSubmit={handleSubmit}>
+        {nombreUsuario && <h3 className="saludo-contacto">¡Hola {nombreUsuario}! esperamos con gusto tu mensaje.</h3>}
+        <h2>Formulario de Contacto</h2>
 
-            <label htmlFor="email">Email:</label>
-            <input type="email" id="email" name="email" required />
+        <label htmlFor="email">Email</label>
+        <input
+          id="email"
+          className="contacto-input"
+          type="email"
+          name="email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          placeholder="Tu correo electrónico"
+          required
+        />
 
-            <label htmlFor="mensaje">Mensaje:</label>
-            <textarea id="mensaje" name="mensaje" required></textarea>
+        <label htmlFor="mensaje">Mensaje</label>
+        <textarea
+          id="mensaje"
+          className="contacto-input"
+          name="mensaje"
+          value={mensaje}
+          onChange={e => setMensaje(e.target.value)}
+          placeholder="Escribe tu mensaje"
+          required
+        />
 
-            <button type="submit">Enviar</button>
-        </form>
+        <div className="contacto-checkbox-row">
+          <input
+            type="checkbox"
+            id="interEnPromocionarse"
+            name="interEnPromocionarse"
+            checked={interEnPromocionarse}
+            onChange={e => setInterEnPromocionarse(e.target.checked)}
+          />
+          <label htmlFor="interEnPromocionarse" style={{ marginLeft: 8 }}>
+            Interesada en promocionarse
+          </label>
+        </div>
+
+        <button
+          className="formulario-contacto-button"
+          onClick={handleSubmit}
+          disabled={loading}
+        >
+          {loading ? 'Enviando...' : 'Enviar'}
+        </button>
+      </div>
     </div>
   )
 }

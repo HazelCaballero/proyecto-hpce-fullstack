@@ -19,7 +19,7 @@ function RountingCC() {
     <Router>
       <Routes>
 
-        <Route path="/" element={<Navigate to="/AdminUsuarias" />} />
+        <Route path="/" element={<Navigate to="/UserInicio" />} />
         
         <Route path="/AdminUsuarias" element={<AdminUsuarias />} />
         <Route path="/AdminTrueques" element={<AdminTrueques />} />

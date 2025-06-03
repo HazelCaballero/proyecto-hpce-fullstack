@@ -1,4 +1,3 @@
-// aun no hago pruebas
 import React, { useState } from 'react'
 import Swal from 'sweetalert2'
 import CallsAuth from '../services/CallsAuth'
@@ -20,8 +19,8 @@ export default function FormularioInicioSesion() {
       const data = await CallsAuth.login(username, password)
       localStorage.setItem('access', data.access)
       localStorage.setItem('refresh', data.refresh)
+      localStorage.setItem('usuario', username)
       Swal.fire('Bienvenida', 'Inicio de sesión exitoso.', 'success')
-      
       navigate('/UserPerfil')
     } catch (error) {
       Swal.fire('Error', 'Credenciales incorrectas o error de servidor.', 'error')

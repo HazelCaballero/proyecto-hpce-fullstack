@@ -5,9 +5,13 @@ const BASE_URL = "http://127.0.0.1:8000/api/";
 async function GetPublicaciones() {
   try {
  
+    const token = localStorage.getItem('access');
     const response = await fetch(`${BASE_URL}publicaciones/`, {
       method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token ? { 'Authorization': 'Bearer ' + token } : {})
+      }
     });
   
     if (!response.ok) throw new Error('Error fetching publicaciones');
@@ -24,10 +28,13 @@ async function GetPublicaciones() {
 async function PostPublicaciones(objeto) {
   try {
    
+    const token = localStorage.getItem('access');
     const response = await fetch(`${BASE_URL}publicaciones/`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token ? { 'Authorization': 'Bearer ' + token } : {})
+      },
       body: JSON.stringify(objeto)
     });
     
@@ -45,10 +52,13 @@ async function PostPublicaciones(objeto) {
 async function UpdatePublicaciones(id, objeto) {
   try {
    
+    const token = localStorage.getItem('access');
     const response = await fetch(`${BASE_URL}publicaciones/${id}/`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-   
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token ? { 'Authorization': 'Bearer ' + token } : {})
+      },
       body: JSON.stringify(objeto)
     });
    

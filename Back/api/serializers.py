@@ -70,4 +70,4 @@ class PublicidadesSerializer(serializers.ModelSerializer):
 class ContactosSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contactos
-        fields = '__all__'
+        fields = ['correo', 'mensaje', 'promocionarse']
