@@ -50,7 +50,7 @@ async function UpdateUsuarias(id, objeto) {
   
     const token = localStorage.getItem('access');
     const response = await fetch(`${BASE_URL}usuarios/${id}/`, {
-      method: 'PUT',
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
         ...(token ? { 'Authorization': 'Bearer ' + token } : {})
@@ -71,17 +71,17 @@ async function UpdateUsuarias(id, objeto) {
 
 async function DeleteUsuarias(id) {
   try {
-   
+    const token = localStorage.getItem('access');
     const response = await fetch(`${BASE_URL}usuarios/${id}/`, {
       method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' }
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token ? { 'Authorization': 'Bearer ' + token } : {})
+      }
     });
-    
     if (!response.ok) throw new Error(`Error deleting user with id ${id}`);
-
     return { message: `User with id ${id} deleted successfully` };
   } catch (error) {
-
     console.error('Error deleting user:', error);
     throw error;
   }

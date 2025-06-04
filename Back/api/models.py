@@ -5,12 +5,12 @@ from django.utils import timezone
 # Usuario personalizado extendiendo AbstractUser
 class CustomUser(AbstractUser):
     # Campos adicionales para el usuario
-    telefono = models.CharField(max_length=20, null=False, blank=False)
-    fecha_nacimiento = models.DateField(null=False, blank=False)
-    intereses = models.TextField(null=False, blank=False)
-    aportaciones = models.TextField(null=False, blank=False)
-    ubicacion = models.CharField(max_length=80, null=False, blank=False)
-    imagen_url = models.TextField(null=True, blank=True)
+    telefono = models.CharField(max_length=20, null=False, blank=False, default='00000000')
+    fecha_nacimiento = models.DateField(null=False, blank=False, default='1990-01-01')
+    intereses = models.TextField(null=False, blank=False, default='N/A')
+    aportaciones = models.TextField(null=False, blank=False, default='N/A')
+    ubicacion = models.CharField(max_length=80, null=False, blank=False, default='N/A')
+    imagen_url = models.TextField(null=True, blank=True, default='')
     
     # Validaciones personalizadas para el modelo
     def clean(self):
