@@ -11,17 +11,37 @@ export default function FormularioInicioSesion() {
 
   const handleLogin = async (e) => {
     e.preventDefault()
+
+ 
     if (!username.trim() || !password.trim()) {
       Swal.fire('Error', 'Por favor, completa todos los campos.', 'error')
       return
     }
+
     try {
       const data = await CallsAuth.login(username, password)
+      console.log(data);
+
       localStorage.setItem('access', data.access)
       localStorage.setItem('refresh', data.refresh)
       localStorage.setItem('usuario', username)
+      localStorage.setItem('is_superuser', data.is_superuser)
+
+      // extraer y guardar el id del usuario desde el token jwt
+      if (data.access) {
+        const payload = JSON.parse(atob(data.access.split('.')[1]))
+        if (payload.user_id) {
+          localStorage.setItem('usuario_id', payload.user_id)
+        }
+      }
+
       Swal.fire('Bienvenida', 'Inicio de sesión exitoso.', 'success')
-      navigate('/UserPerfil')
+      if (data.is_superuser) {
+        navigate('/AdminUsuarias')  // ruta para admin
+      } else {
+        navigate('/UserPerfil')     // ruta para usuaria
+      }
+
     } catch (error) {
       Swal.fire('Error', 'Credenciales incorrectas o error de servidor.', 'error')
     }
@@ -58,4 +78,3 @@ export default function FormularioInicioSesion() {
     </div>
   )
 }
-

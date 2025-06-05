@@ -26,7 +26,6 @@ async function GetTrueques() {
 
 async function PostTrueques(objeto) {
   try {
-   
     const token = localStorage.getItem('access');
     const response = await fetch(`${BASE_URL}trueques/`, {
       method: 'POST',
@@ -36,9 +35,13 @@ async function PostTrueques(objeto) {
       },
       body: JSON.stringify(objeto)
     });
-   
-    if (!response.ok) throw new Error('Error posting trueque');
-  
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Detalle del error backend:', errorText); // <-- AGREGA ESTA LÍNEA
+      throw new Error('Error posting trueque');
+    }
+
     return await response.json();
   } catch (error) {
    
@@ -75,14 +78,17 @@ async function UpdateTrueques(id, objeto) {
 async function DeleteTrueque(id) {
   try {
     
+    const token = localStorage.getItem('access')
     const response = await fetch(`${BASE_URL}trueques/${id}/`, {
       method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' }
-    });
-    
-    if (!response.ok) throw new Error(`Error deleting trueque with id ${id}`);
-   
-    return { message: `Employe with id ${id} deleted successfully` };
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    if (!response.ok) {
+      throw new Error(`Error deleting trueque with id ${id}`)
+    }
   } catch (error) {
     
     console.error('Error deleting trueque:', error);

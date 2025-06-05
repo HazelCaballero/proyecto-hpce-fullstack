@@ -12,7 +12,7 @@ from .views import (
     InteraccionTruequeListCreateView, InteraccionTruequeDetailView,
     PublicidadesListCreateView, PublicidadesDetailView,
     ContactosListCreateView, ContactosDetailView,
-    CrearSuperUsuario, VerSuperUsuario, ActualizarSuperUsuario, EliminarSuperUsuario
+    CrearSuperUsuario, VerSuperUsuario, ActualizarSuperUsuario, EliminarSuperUsuario, CustomTokenObtainPairView
 )
 
 
@@ -52,15 +52,12 @@ urlpatterns = [
 
     # Rutas para contactos
     path('contactos/', ContactosListCreateView.as_view(), name='contactos-listar-crear'),
-    path('contactos/<int:pk>/', ContactosDetailView.as_view(), name='contactos-detalle'),
-    
-    # Rutas para autenticación JWT
-    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('contactos/<int:pk>/', ContactosDetailView.as_view(), name='contactos-detalle'),   
     
     # Rutas para administración de superusuarios
     path("crear-superusuario/", CrearSuperUsuario.as_view(), name="crear-superusuario"),
     path("ver-superusuario/", VerSuperUsuario.as_view(), name="ver-superusuario"),
     path("actualizar-superusuario/<int:pk>/", ActualizarSuperUsuario.as_view(), name="actualizar-superusuario"),
-    path("eliminar-superusuario/<int:pk>/", EliminarSuperUsuario.as_view(), name="eliminar-superusuario")
+    path("eliminar-superusuario/<int:pk>/", EliminarSuperUsuario.as_view(), name="eliminar-superusuario"),
+    path('token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair')
 ]

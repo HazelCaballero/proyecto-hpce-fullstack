@@ -1,0 +1,11 @@
+Obtener el token de acceso (para llamadas autenticadas)
+const accessToken = localStorage.getItem('access')
+
+Obtener el token refresh (para renovar el accessToken si expira)
+const refreshToken = localStorage.getItem('refresh')
+
+Obtener el nombre de usuaria
+const username = localStorage.getItem('usuario')
+
+Saber si es superusuario
+const isSuperuser = localStorage.getItem('is_superuser') === 'true' // recordar convertir a boolean

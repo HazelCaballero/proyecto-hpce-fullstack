@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import '../styles/Scomponents/Perfil.css';
 import CallsUsuarias from '../services/CallsUsuarias';
 
@@ -6,6 +8,7 @@ export default function Perfil() {
   const [usuaria, setUsuaria] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     async function fetchUsuaria() {
@@ -35,31 +38,51 @@ export default function Perfil() {
     fetchUsuaria();
   }, []);
 
- 
   const handleEliminar = async () => {
     if (!usuaria) return;
-    try {
-       await CallsUsuarias.DeleteUsuarias(usuaria.id);
 
-      localStorage.removeItem('usuario');
-      window.location.reload();
-    } catch (err) {
-      setError('Error al eliminar el perfil.');
+    const confirm = await Swal.fire({
+      title: '¿Estás segura?',
+      text: 'Esta acción eliminará tu perfil de forma permanente.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    });
+
+    if (confirm.isConfirmed) {
+      try {
+        await CallsUsuarias.DeleteUsuarias(usuaria.id);
+        localStorage.clear(); 
+        navigate('/');
+      } catch (err) {
+        setError('Error al eliminar el perfil.');
+      }
     }
   };
 
- 
-  if (loading) {
-    return <div className="perfil-container">Cargando...</div>;
-  }
+  const handleCerrarSesion = async () => {
+    const confirm = await Swal.fire({
+      title: '¿Cerrar sesión?',
+      text: 'Tu sesión se cerrará y volverás al inicio.',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, cerrar sesión',
+      cancelButtonText: 'Cancelar'
+    });
 
-  if (error) {
-    return <div className="perfil-container perfil-error">{error}</div>;
-  }
+    if (confirm.isConfirmed) {
+      localStorage.removeItem('usuario');
+      localStorage.removeItem('access');
+      localStorage.removeItem('refresh');
+      localStorage.removeItem('is_superuser');
+      navigate('/');
+    }
+  };
 
-  if (!usuaria) {
-    return null;
-  }
+  if (loading) return <div className="perfil-container">Cargando...</div>;
+  if (error) return <div className="perfil-container perfil-error">{error}</div>;
+  if (!usuaria) return null;
 
   return (
     <div className="perfil-container">
@@ -81,11 +104,13 @@ export default function Perfil() {
         <EditableItem label="Intereses" value={usuaria.intereses} field="intereses" onSave={setUsuaria} usuaria={usuaria} />
         <EditableItem label="Ubicación" value={usuaria.ubicacion} field="ubicacion" onSave={setUsuaria} usuaria={usuaria} />
         <EditableItem label="Aportaciones" value={usuaria.aportaciones} field="aportaciones" onSave={setUsuaria} usuaria={usuaria} />
-        <li className="perfil-cerrar-sesion" onClick={() => {
-          localStorage.removeItem('usuario');
-          window.location.reload();
-        }}><strong>Cerrar sesión</strong> </li>
-        <li className="perfil-eliminar" onClick={handleEliminar}>Eliminar perfil</li>
+
+        <li className="perfil-cerrar-sesion" onClick={handleCerrarSesion}>
+          <strong>Cerrar sesión</strong>
+        </li>
+        <li className="perfil-eliminar" onClick={handleEliminar}>
+          Eliminar perfil
+        </li>
       </ul>
     </div>
   );

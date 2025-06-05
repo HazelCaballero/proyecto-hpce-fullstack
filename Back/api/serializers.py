@@ -4,6 +4,8 @@ from .models import (
     Servicio, InteraccionTrueque, Publicidades, Contactos
 )
 
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
 # Serializador para el modelo de usuario personalizado
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -68,6 +70,24 @@ class PublicidadesSerializer(serializers.ModelSerializer):
 
 # Serializador para el modelo Contactos
 class ContactosSerializer(serializers.ModelSerializer):
+    usuario_nombre = serializers.CharField(source='usuario.username', read_only=True)
+    fecha_envio = serializers.DateTimeField(format="%Y-%m-%d %H:%M", read_only=True)
+
     class Meta:
         model = Contactos
-        fields = ['correo', 'mensaje', 'promocionarse']
+        fields = ['id', 'correo', 'mensaje', 'promocionarse', 'usuario_nombre', 'fecha_envio']
+        
+
+
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token= super().get_token(user)
+        token ['is_superuser'] = user.is_superuser
+        return token
+    
+    
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        data['is_superuser'] = self.user.is_superuser
+        return data
