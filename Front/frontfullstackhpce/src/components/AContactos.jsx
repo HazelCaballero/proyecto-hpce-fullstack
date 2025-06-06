@@ -1,10 +1,3 @@
-// trabaje el crud de contactos, la parte de publicidad aun no se 
-// trabaja me di cuenta que olvide hacer el componente y trabajar la 
-// pagina para los servicios que se hacen antes que la publicidad 
-// tambien debo editar mi modelo de contactos porque quiero marcar 
-// si el mensaje esta o no leido 
-// el crud de contactos = mensajes no lleva update porque no se deben editar los mensajes, estos solo los postea una 
-// usuaria, los obtiene la admin y los puede o no eliminar la admin
 import React, { useEffect, useState } from 'react'
 import "../styles/Scomponents/AContactos.css"
 import CallsContactos from '../services/CallsContactos'
@@ -88,8 +81,23 @@ export default function Contactos() {
             <li key={msg.id || idx}>
               mensaje: {msg.contenido || msg.mensaje || '-'}<br />
               usuaria: {msg.usuario_nombre || msg.usuaria || msg.usuario || '-'}<br />
-              Promocionarse: {(msg.promocionarse === true || msg.promocionarse === 'si' || msg.promocionarse === 'sí') ? 'sí' : 'no'}
-              <br />
+              Promocionarse: {(msg.promocionarse === true || msg.promocionarse === 'si' || msg.promocionarse === 'sí') ? 'sí' : 'no'}<br />
+              <label style={{marginRight:8}}>
+                <input
+                  type="checkbox"
+                  checked={!!msg.leido}
+                  onChange={async (e) => {
+                    const nuevoLeido = e.target.checked;
+                    try {
+                      await CallsContactos.UpdateContactos(msg.id, { ...msg, leido: nuevoLeido });
+                      setMensajes(mensajes => mensajes.map(m => m.id === msg.id ? { ...m, leido: nuevoLeido } : m));
+                    } catch (err) {
+                      alert('Error al actualizar el estado de leído');
+                    }
+                  }}
+                />
+                {' '}Leído
+              </label>
               <button style={{marginRight:8}} onClick={() => setModalMsg(msg)}>Ver</button>
               <button onClick={() => handleEliminarMensaje(msg.id)} disabled={eliminando}>Eliminar</button>
             </li>
@@ -107,6 +115,7 @@ export default function Contactos() {
             <p><b>Correo:</b> {modalMsg.correo || '-'}</p>
             <p><b>Promocionarse:</b> {(modalMsg.promocionarse === true || modalMsg.promocionarse === 'si' || modalMsg.promocionarse === 'sí') ? 'sí' : 'no'}</p>
             <p><b>Fecha:</b> {modalMsg.fecha || modalMsg.created_at || modalMsg.fecha_envio || '-'}</p>
+            <p><b>Leído:</b> {modalMsg.leido ? 'Sí' : 'No'}</p>
             <button onClick={() => setModalMsg(null)} style={{marginTop:8}}>Cerrar</button>
           </div>
         </div>
@@ -125,44 +134,7 @@ export default function Contactos() {
         )}
       </ul>
       
-      <div className="form-anuncio">
-        <h3>Postear anuncio</h3>
-        <div>
-          <label htmlFor="Producto">Producto</label>
-          <input
-            type="text"
-            id="Producto"
-            placeholder="Producto"
-            value={form.producto}
-            onChange={handleChange}
-          /> <br />
-          <label htmlFor="Contenido">Contenido</label>
-          <input
-            type="text"
-            id="Contenido"
-            placeholder="Contenido"
-            value={form.contenido}
-            onChange={handleChange}
-          /> <br />
-          <label htmlFor="Precio">Precio</label>
-          <input
-            type="text"
-            id="Precio"
-            placeholder="Precio"
-            value={form.precio}
-            onChange={handleChange}
-          /> <br />
-          <label htmlFor="Imagen">Imagen</label>
-          <input
-            type="text"
-            id="Imagen"
-            placeholder="Imagen"
-            value={form.imagen}
-            onChange={handleChange}
-          /> <br />
-          <button onClick={handleCrearAnuncio}>Crear Anuncio</button>
-        </div>
-      </div>
+      
     </div>
   )
 }

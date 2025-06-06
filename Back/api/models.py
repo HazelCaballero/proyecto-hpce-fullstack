@@ -136,6 +136,7 @@ class Contactos(models.Model):
     promocionarse = models.BooleanField(default=False)
     mensaje = models.TextField()
     fecha_envio = models.DateTimeField(auto_now_add=True)
+    leido = models.BooleanField(default=False)  # Nuevo campo para marcar si el mensaje fue leído
 
     # Validaciones para el mensaje y el correo
     def clean(self):

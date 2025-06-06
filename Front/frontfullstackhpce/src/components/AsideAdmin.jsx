@@ -26,6 +26,9 @@ function AsideAdmin() {
           <li className="aside-admin__nav-item">
             <Link to="/AdminContactos">Contactos</Link>
           </li>
+          <li className="aside-admin__nav-item">
+            <Link to="/AdminPublicidad">Publicidad</Link>
+          </li>
         </ul>
       </nav>
     </aside>

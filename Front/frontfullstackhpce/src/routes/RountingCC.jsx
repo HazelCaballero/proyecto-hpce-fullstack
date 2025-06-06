@@ -5,6 +5,7 @@ import AdminUsuarias from '../pages/AdminUsuarias';
 import AdminTrueques from '../pages/AdminTrueques';
 import AdminPublicaciones from '../pages/AdminPublicaciones';
 import AdminContactos from '../pages/AdminContactos';
+import AdminPublicidad from '../pages/AdminPublicidad';
 import UserInicio from '../pages/UserInicio';
 import UserHogar from '../pages/UserHogar';
 import UserPerfil from '../pages/UserPerfil';
@@ -25,6 +26,7 @@ function RountingCC() {
         <Route path="/AdminTrueques" element={<AdminTrueques />} />
         <Route path="/AdminPublicaciones" element={<AdminPublicaciones />} />
         <Route path="/AdminContactos" element={<AdminContactos />} />
+        <Route path="/AdminPublicidad" element={<AdminPublicidad />} />
         <Route path="/UserInicio" element={<UserInicio />} />
         <Route path="/UserHogar" element={
           <ProtectedRoute>

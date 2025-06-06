@@ -34,6 +34,8 @@ class CategoriaSerializer(serializers.ModelSerializer):
 
 # Serializador para el modelo Trueque
 class TruequeSerializer(serializers.ModelSerializer):
+    categoria = CategoriaSerializer(read_only=True)  
+
     class Meta:
         model = Trueque
         fields = '__all__'
@@ -75,7 +77,7 @@ class ContactosSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Contactos
-        fields = ['id', 'correo', 'mensaje', 'promocionarse', 'usuario_nombre', 'fecha_envio']
+        fields = ['id', 'correo', 'mensaje', 'promocionarse', 'usuario_nombre', 'fecha_envio', 'leido']
         
 
 
