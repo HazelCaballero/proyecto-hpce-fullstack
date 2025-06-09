@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import CallsCategorias from '../services/CallsCategorias';
+import Swal from 'sweetalert2';
 
 export default function CategoriasAdmin() {
   const [categorias, setCategorias] = useState([]);
@@ -23,8 +24,57 @@ export default function CategoriasAdmin() {
     setEditCatId(null);
     cargarDatos();
   };
-  const handleCatEdit = c => { setCatForm(c); setEditCatId(c.id); };
-  const handleCatDelete = async id => { if(window.confirm('¿Eliminar categoría?')) { await CallsCategorias.DeleteCategorias(id); cargarDatos(); } };
+  // Edición con SweetAlert2
+  const handleCatEdit = async (c) => {
+    const { value: formValues } = await Swal.fire({
+      title: 'Editar categoría',
+      html:
+        `<input id="swal-input1" class="swal2-input" placeholder="Nombre" value="${c.nombre || ''}">`,
+      focusConfirm: false,
+      showCancelButton: true,
+      confirmButtonText: 'Guardar',
+      cancelButtonText: 'Cancelar',
+      preConfirm: () => {
+        return [
+          document.getElementById('swal-input1').value
+        ];
+      }
+    });
+    if (formValues) {
+      const [nombre] = formValues;
+      if (!nombre.trim()) {
+        Swal.fire('Error', 'El nombre es obligatorio.', 'error');
+        return;
+      }
+      try {
+        await CallsCategorias.UpdateCategorias(c.id, { nombre });
+        Swal.fire('Actualizado', 'La categoría ha sido actualizada.', 'success');
+        cargarDatos();
+      } catch (error) {
+        Swal.fire('Error', 'No se pudo actualizar la categoría.', 'error');
+      }
+    }
+  };
+  const handleCatDelete = async id => {
+    const result = await Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Esta acción eliminará la categoría de forma permanente.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    });
+    if (!result.isConfirmed) return;
+    try {
+      await CallsCategorias.DeleteCategorias(id);
+      Swal.fire('Eliminado', 'La categoría ha sido eliminada.', 'success');
+      cargarDatos();
+    } catch (error) {
+      Swal.fire('Error', 'No se pudo eliminar la categoría.', 'error');
+    }
+  };
 
   return (
     <div>

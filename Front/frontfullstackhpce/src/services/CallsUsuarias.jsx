@@ -88,4 +88,23 @@ async function DeleteUsuarias(id) {
 }
 
 
-export default { GetUsuarias, PostUsuarias, UpdateUsuarias, DeleteUsuarias };
+async function GetUsuaria(id) {
+  try {
+    const token = localStorage.getItem('access');
+    const response = await fetch(`${BASE_URL}usuarios/${id}/`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token ? { 'Authorization': 'Bearer ' + token } : {})
+      }
+    });
+    if (!response.ok) throw new Error('Error fetching user');
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    throw error;
+  }
+}
+
+
+export default { GetUsuarias, GetUsuaria, PostUsuarias, UpdateUsuarias, DeleteUsuarias };

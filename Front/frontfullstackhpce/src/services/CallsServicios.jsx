@@ -27,7 +27,6 @@ async function GetServicios() {
 
 async function PostServicios(objeto) {
   try {
-   
     const token = localStorage.getItem('access');
     const response = await fetch(`${BASE_URL}servicios/`, {
       method: 'POST',
@@ -37,12 +36,15 @@ async function PostServicios(objeto) {
       },
       body: JSON.stringify(objeto)
     });
-    
-    if (!response.ok) throw new Error('Error posting servicio');
- 
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      console.error('Detalles del error:', JSON.stringify(errorData, null, 2)); // <-- Así verás el error real
+      throw new Error('Error posting servicio');
+    }
+
     return await response.json();
   } catch (error) {
-   
     console.error('Error posting servicio:', error);
     throw error;
   }
@@ -92,4 +94,22 @@ async function DeleteServicios(id) {
 }
 
 
-export default { GetServicios, PostServicios, UpdateServicios, DeleteServicios };
+async function GetServicio(id) {
+  try {
+    const token = localStorage.getItem('access');
+    const response = await fetch(`${BASE_URL}servicios/${id}/`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token ? { 'Authorization': 'Bearer ' + token } : {})
+      }
+    });
+    if (!response.ok) throw new Error('Error fetching servicio');
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching servicio:', error);
+    throw error;
+  }
+}
+
+export default { GetServicios, PostServicios, UpdateServicios, DeleteServicios, GetServicio };

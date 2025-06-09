@@ -27,7 +27,6 @@ async function GetPublicidad() {
 
 async function PostPublicidad(objeto) {
   try {
-   
     const token = localStorage.getItem('access');
     const response = await fetch(`${BASE_URL}publicidades/`, {
       method: 'POST',
@@ -37,12 +36,14 @@ async function PostPublicidad(objeto) {
       },
       body: JSON.stringify(objeto)
     });
-    
-    if (!response.ok) throw new Error('Error posting publicidad');
- 
-    return await response.json();
+
+    const data = await response.json();
+    if (!response.ok) {
+      // Lanza el error con el mensaje del backend
+      throw new Error(JSON.stringify(data));
+    }
+    return data;
   } catch (error) {
-   
     console.error('Error posting publicidad:', error);
     throw error;
   }
