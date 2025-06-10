@@ -3,7 +3,7 @@ import "../styles/Scomponents/AContactos.css"
 import CallsContactos from '../services/CallsContactos'
 import CallsPublicidades from '../services/CallsPublicidades'
 import CallsUsuarias from '../services/CallsUsuarias'
-import CallsServicios from '../services/CallsServicios' // <-- aquí
+import CallsServicios from '../services/CallsServicios'
 
 export default function Contactos() {
   const [mensajes, setMensajes] = useState([]);
@@ -71,7 +71,7 @@ export default function Contactos() {
     }
   };
 
-  // Cuando se abre el modal de anuncio, busca el usuario
+
   useEffect(() => {
     if (modalMsg && modalMsg.precio_publicidad) {
       setUsuarioDetalle(null);
@@ -162,7 +162,6 @@ export default function Contactos() {
             ) : (
               <p>Cargando datos del servicio...</p>
             )}
-            {/* <p><b>Fecha de creación:</b> {modalMsg.created_at || modalMsg.fecha || '-'}</p> */}
             <button onClick={() => setModalMsg(null)} style={{marginTop:8}}>Cerrar</button>
           </div>
         </div>

@@ -75,15 +75,18 @@ async function UpdateInterTrueques(id, objeto) {
 
 async function DeleteInterTrueques(id) {
   try {
- 
+    const token = localStorage.getItem('access');
     const response = await fetch(`${BASE_URL}interacciones-trueque/${id}/`, {
       method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' }
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token ? { 'Authorization': 'Bearer ' + token } : {})
+      }
     });
- 
+
     if (!response.ok) throw new Error(`Error deleting interTrueque with id ${id}`);
- 
-    return { message: `Employe with id ${id} deleted successfully` };
+
+    return { message: `Interaccion with id ${id} deleted successfully` };
   } catch (error) {
 
     console.error('Error deleting interTrueque:', error);
@@ -92,4 +95,28 @@ async function DeleteInterTrueques(id) {
 }
 
 
-export default { GetInterTrueques, PostInterTrueques, UpdateInterTrueques, DeleteInterTrueques };
+async function GetInterTruequesPorTrueque(truequeId) {
+  try {
+    const token = localStorage.getItem('access');
+    const response = await fetch(`${BASE_URL}interacciones-trueque/?trueque=${truequeId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token ? { 'Authorization': 'Bearer ' + token } : {})
+      }
+    });
+    if (!response.ok) throw new Error('Error fetching interTrueques por trueque');
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching interTrueques por trueque:', error);
+    throw error;
+  }
+}
+
+export default { 
+  GetInterTrueques, 
+  PostInterTrueques, 
+  UpdateInterTrueques, 
+  DeleteInterTrueques,
+  GetInterTruequesPorTrueque 
+};

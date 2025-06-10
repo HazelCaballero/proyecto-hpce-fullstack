@@ -34,7 +34,10 @@ class CategoriaSerializer(serializers.ModelSerializer):
 
 # Serializador para el modelo Trueque
 class TruequeSerializer(serializers.ModelSerializer):
-    categoria = CategoriaSerializer(read_only=True)  
+    categoria = CategoriaSerializer(read_only=True)
+    categoria_id = serializers.PrimaryKeyRelatedField(
+        queryset=Categoria.objects.all(), source='categoria', write_only=True
+    )
 
     class Meta:
         model = Trueque
@@ -60,9 +63,11 @@ class ServicioSerializer(serializers.ModelSerializer):
 
 # Serializador para el modelo InteraccionTrueque
 class InteraccionTruequeSerializer(serializers.ModelSerializer):
+    usuario_nombre = serializers.CharField(source='usuario.username', read_only=True)
+
     class Meta:
         model = InteraccionTrueque
-        fields = '__all__'
+        fields = ['id', 'trueque', 'usuario', 'usuario_nombre', 'comentario', 'me_interesa']
 
 # Serializador para el modelo Publicidades
 class PublicidadesSerializer(serializers.ModelSerializer):

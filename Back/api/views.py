@@ -25,6 +25,12 @@ class IsSuperUser(BasePermission):
         return request.user and request.user.is_superuser
 
 
+# Permiso personalizado para verificar si el usuario es el propietario del objeto o un superusuario
+class IsOwnerOrSuperUser(BasePermission):
+    def has_object_permission(self, request, view, obj):
+        return request.user.is_superuser or obj.usuario == request.user
+
+
 # Vista para listar y crear usuarios personalizados
 class CustomUserListCreateView(ListCreateAPIView):
     queryset = CustomUser.objects.all()
@@ -120,13 +126,19 @@ class ServicioDetailView(RetrieveUpdateDestroyAPIView):
 # Vista para listar y crear interacciones en trueques
 class InteraccionTruequeListCreateView(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
-    queryset = InteraccionTrueque.objects.all()
     serializer_class = InteraccionTruequeSerializer
+
+    def get_queryset(self):
+        queryset = InteraccionTrueque.objects.all()
+        trueque_id = self.request.query_params.get('trueque')
+        if trueque_id:
+            queryset = queryset.filter(trueque_id=trueque_id)
+        return queryset
 
 
 # Vista para obtener, actualizar o eliminar una interacción en trueque (solo superusuarios pueden modificar)
 class InteraccionTruequeDetailView(RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAuthenticated, IsSuperUser]
+    permission_classes = [IsAuthenticated, IsOwnerOrSuperUser]
     queryset = InteraccionTrueque.objects.all()
     serializer_class = InteraccionTruequeSerializer
 
@@ -213,4 +225,3 @@ class ActualizarSuperUsuario(APIView):
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
 
-   
