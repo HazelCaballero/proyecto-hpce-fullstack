@@ -77,10 +77,13 @@ async function UpdateServicios(id, objeto) {
 
 async function DeleteServicios(id) {
   try {
- 
+    const token = localStorage.getItem('access');
     const response = await fetch(`${BASE_URL}servicios/${id}/`, {
       method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' }
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token ? { 'Authorization': 'Bearer ' + token } : {})
+      }
     });
  
     if (!response.ok) throw new Error(`Error deleting servicio with id ${id}`);

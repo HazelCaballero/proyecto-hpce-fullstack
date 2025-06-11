@@ -206,7 +206,7 @@ function UsuariaModal({ usuaria, setUsuarias, onClose }) {
       setEditMode(false);
       onClose();
     } catch (e) {
-      alert('Error al guardar');
+      Swal.fire('Error', 'Error al guardar', 'error');
     } finally {
       setGuardando(false);
     }

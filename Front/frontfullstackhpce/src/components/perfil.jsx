@@ -135,7 +135,7 @@ function EditableItem({ label, value, field, onSave, usuaria }) {
       onSave(actualizado);
       setEditando(false);
     } catch (e) {
-      alert('Error al guardar');
+      Swal.fire('Error', 'Error al guardar', 'error');
     } finally {
       setGuardando(false);
     }

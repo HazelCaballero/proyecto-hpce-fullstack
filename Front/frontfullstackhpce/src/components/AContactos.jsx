@@ -4,6 +4,7 @@ import CallsContactos from '../services/CallsContactos'
 import CallsPublicidades from '../services/CallsPublicidades'
 import CallsUsuarias from '../services/CallsUsuarias'
 import CallsServicios from '../services/CallsServicios'
+import Swal from 'sweetalert2';
 
 export default function Contactos() {
   const [mensajes, setMensajes] = useState([]);
@@ -43,19 +44,26 @@ export default function Contactos() {
         .then(data => setPublicidades(data));
       setForm({ producto: '', contenido: '', precio: '', imagen: '' });
     } catch (error) {
-      alert('Error al crear el anuncio');
+      Swal.fire('Error', 'Error al crear el anuncio', 'error');
     }
   };
 
   const handleEliminarMensaje = async (id) => {
     if (eliminando) return;
-    if (!window.confirm('¿Seguro que deseas eliminar este mensaje?')) return;
+    const result = await Swal.fire({
+      title: '¿Seguro que deseas eliminar este mensaje?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    });
+    if (!result.isConfirmed) return;
     setEliminando(true);
     try {
       await CallsContactos.DeleteContacto(id);
       setMensajes(mensajes => mensajes.filter(m => m.id !== id));
     } catch (e) {
-      alert('Error al eliminar el mensaje');
+      Swal.fire('Error', 'Error al eliminar el mensaje', 'error');
     } finally {
       setEliminando(false);
     }
@@ -112,7 +120,7 @@ export default function Contactos() {
                       await CallsContactos.UpdateContactos(msg.id, { ...msg, leido: nuevoLeido });
                       setMensajes(mensajes => mensajes.map(m => m.id === msg.id ? { ...m, leido: nuevoLeido } : m));
                     } catch (err) {
-                      alert('Error al actualizar el estado de leído');
+                      Swal.fire('Error', 'Error al actualizar el estado de leído', 'error');
                     }
                   }}
                 />
@@ -190,7 +198,7 @@ export default function Contactos() {
                         )
                       );
                     } catch (err) {
-                      alert('Error al actualizar el estado');
+                      Swal.fire('Error', 'Error al actualizar el estado', 'error');
                     }
                   }}
                 />
@@ -207,7 +215,7 @@ export default function Contactos() {
                   await CallsPublicidades.DeletePublicidad(ad.id);
                   setPublicidades(publicidades => publicidades.filter(p => p.id !== ad.id));
                 } catch (err) {
-                  alert('Error al eliminar el anuncio');
+                  Swal.fire('Error', 'Error al eliminar el anuncio', 'error');
                 }
               }}>Eliminar</button>
             </li>

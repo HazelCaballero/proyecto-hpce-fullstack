@@ -1,10 +1,12 @@
+// al crear anuncios no se ven hasta que se refresca la página debo arreglarlo e igual al mostrar
+// un anuncio activo o sesactivarlo no se actualiza hasta que se refresca la página
+// el precio del anuncio debe poder ser un nuero mas grande
 import React, { useState, useEffect } from 'react';
 import CallsUsuarias from '../services/CallsUsuarias';
 import CallsPublicidades from '../services/CallsPublicidades';
 import CallsServicios from '../services/CallsServicios';
 import Swal from 'sweetalert2';
 
-// Componente para mostrar el nombre del usuario
 function UsuarioNombre({ usuarioId }) {
   const [nombre, setNombre] = useState('Cargando...');
   useEffect(() => {
@@ -35,7 +37,7 @@ export default function Publicity({ onCreated }) {
   const [editPubId, setEditPubId] = useState(null);
   const [modalAnuncio, setModalAnuncio] = useState(null);
   const [servicioDetalle, setServicioDetalle] = useState(null);
-  // Fetch service details when modalAnuncio changes
+  
   useEffect(() => {
     if (modalAnuncio && modalAnuncio.servicio) {
       setServicioDetalle(null);
@@ -46,7 +48,7 @@ export default function Publicity({ onCreated }) {
   }, [modalAnuncio]);
 
   useEffect(() => {
-    // Obtener servicios al montar el componente
+
     async function fetchServicios() {
       try {
         const token = localStorage.getItem('access');
@@ -66,7 +68,7 @@ export default function Publicity({ onCreated }) {
   }, []);
 
   useEffect(() => {
-    // Obtener publicidades al montar el componente
+   
     async function fetchPublicidades() {
       try {
         const token = localStorage.getItem('access');
@@ -91,7 +93,7 @@ export default function Publicity({ onCreated }) {
 
   const handleCrearAnuncio = async () => {
     if (!form.producto || !form.contenido || !form.precio || !form.servicioId) {
-      alert('Completa todos los campos y selecciona un servicio');
+      Swal.fire('Error', 'Completa todos los campos y selecciona un servicio', 'error');
       return;
     }
     setLoading(true);
@@ -111,54 +113,60 @@ export default function Publicity({ onCreated }) {
       setForm({ producto: '', contenido: '', precio: '', imagen: '', servicioId: '' });
       if (onCreated) onCreated();
     } catch (error) {
-      console.log('Error posting publicidad:', error, error.response?.data);
       if (error.response && error.response.data) {
-        alert('Error: ' + JSON.stringify(error.response.data));
+        Swal.fire('Error', 'Error: ' + JSON.stringify(error.response.data), 'error');
       } else {
-        alert('Error al crear el anuncio');
+        Swal.fire('Error', 'Error al crear el anuncio', 'error');
       }
     }
     setLoading(false);
   };
 
 
-  // Edición con SweetAlert2
+  
   const handleEditPublicidad = async (anuncio) => {
+    let selectedServicio = servicios.find(s => s.id === anuncio.servicio);
     const { value: formValues } = await Swal.fire({
       title: 'Editar anuncio',
       html:
-        `<input id="swal-input1" class="swal2-input" placeholder="Producto" value="${anuncio.producto || ''}">` +
-        `<input id="swal-input2" class="swal2-input" placeholder="Contenido" value="${anuncio.contenido || ''}">` +
-        `<input id="swal-input3" class="swal2-input" placeholder="Precio" type="number" value="${anuncio.precio_publicidad || ''}">` +
-        `<input id="swal-input4" class="swal2-input" placeholder="Imagen (URL)" value="${anuncio.imagen || ''}">` +
-        `<select id="swal-input5" class="swal2-input">` +
-        servicios.map(s => `<option value="${s.id}" ${anuncio.servicio === s.id ? 'selected' : ''}>${s.producto || `Servicio ${s.id}`}</option>`).join('') +
-        `</select>`,
+        `<select id="swal-input-servicio" class="swal2-input">
+          ${servicios.map(s => `<option value="${s.id}" ${anuncio.servicio === s.id ? 'selected' : ''}>${s.producto || `Servicio ${s.id}`}</option>`).join('')}
+        </select>
+        <input id="swal-input-precio" class="swal2-input" placeholder="Precio" type="number" value="${anuncio.precio_publicidad || ''}">
+        <input id="swal-input-imagen" class="swal2-input" placeholder="Imagen (URL)" value="${anuncio.imagen || ''}">
+        <div style="margin-top:8px;text-align:left;">
+          <b>Producto:</b> <span id="swal-producto">${selectedServicio?.producto || '-'}</span><br/>
+          <b>Contenido:</b> <span id="swal-contenido">${selectedServicio?.contenido || '-'}</span>
+        </div>`,
       focusConfirm: false,
       showCancelButton: true,
       confirmButtonText: 'Guardar',
       cancelButtonText: 'Cancelar',
+      didOpen: () => {
+        const servicioSelect = document.getElementById('swal-input-servicio');
+        servicioSelect.addEventListener('change', function() {
+          const servicio = servicios.find(s => s.id === Number(this.value));
+          document.getElementById('swal-producto').textContent = servicio?.producto || '-';
+          document.getElementById('swal-contenido').textContent = servicio?.contenido || '-';
+        });
+      },
       preConfirm: () => {
         return [
-          document.getElementById('swal-input1').value,
-          document.getElementById('swal-input2').value,
-          document.getElementById('swal-input3').value,
-          document.getElementById('swal-input4').value,
-          document.getElementById('swal-input5').value
+          document.getElementById('swal-input-servicio').value,
+          document.getElementById('swal-input-precio').value,
+          document.getElementById('swal-input-imagen').value
         ];
       }
     });
     if (formValues) {
-      const [producto, contenido, precio, imagen, servicioId] = formValues;
-      if (!producto.trim() || !contenido.trim() || !precio || !servicioId) {
+      const [servicioId, precio, imagen] = formValues;
+      if (!precio || !servicioId) {
         Swal.fire('Error', 'Completa todos los campos obligatorios.', 'error');
         return;
       }
       try {
         const usuarioId = Number(localStorage.getItem('usuario_id'));
         const dataToSend = {
-          producto,
-          contenido,
           precio_publicidad: Number(precio),
           imagen,
           servicio: Number(servicioId),
@@ -166,7 +174,6 @@ export default function Publicity({ onCreated }) {
         };
         await CallsPublicidades.UpdatePublicidad(anuncio.id, dataToSend);
         Swal.fire('Actualizado', 'El anuncio ha sido actualizado.', 'success');
-        // Refrescar lista
         const data = await CallsPublicidades.GetPublicidad();
         setPublicidades(Array.isArray(data) ? data : []);
       } catch (error) {
@@ -201,50 +208,54 @@ export default function Publicity({ onCreated }) {
       <h3>Postear anuncio</h3>
       <div>
         <label htmlFor="Producto">Producto</label>
-        <input
-          type="text"
-          id="Producto"
-          placeholder="Producto"
-          value={form.producto}
-          onChange={handleChange}
-        /> <br />
-        <label htmlFor="Contenido">Contenido</label>
-        <input
-          type="text"
-          id="Contenido"
-          placeholder="Contenido"
-          value={form.contenido}
-          onChange={handleChange}
-        /> <br />
-        <label htmlFor="Precio">Precio</label>
-        <input
-          type="text"
-          id="Precio"
-          placeholder="Precio"
-          value={form.precio}
-          onChange={handleChange}
-        /> <br />
-        <label htmlFor="Imagen">Imagen</label>
-        <input
-          type="text"
-          id="Imagen"
-          placeholder="Imagen"
-          value={form.imagen}
-          onChange={handleChange}
-        /> <br />
-        <label htmlFor="ServicioId">Servicio</label>
         <select
-          name="servicioId"
-          value={form.servicioId}
-          onChange={handleChange}
+          id="Producto"
+          name="producto"
+          value={form.producto}
+          onChange={e => {
+            const selectedServicio = servicios.find(s => s.producto === e.target.value);
+            setForm({
+              ...form,
+              producto: e.target.value,
+              contenido: selectedServicio ? selectedServicio.contenido : '',
+              servicioId: selectedServicio ? selectedServicio.id : ''
+            });
+          }}
         >
-          <option value="">Selecciona un servicio</option>
+          <option value="">Selecciona un producto</option>
           {servicios.map(servicio => (
-            <option key={servicio.id} value={servicio.id}>
+            <option key={servicio.id} value={servicio.producto}>
               {servicio.producto || `Servicio ${servicio.id}`}
             </option>
           ))}
         </select>
+        <label htmlFor="Contenido">Contenido</label>
+        <input
+          type="text"
+          id="Contenido"
+          name="contenido"
+          placeholder="Contenido"
+          value={form.contenido}
+          readOnly
+        />
+        <label htmlFor="Precio">Precio</label>
+        <input
+          type="text"
+          id="Precio"
+          name="precio"
+          placeholder="Precio"
+          value={form.precio}
+          onChange={handleChange}
+        />
+        <label htmlFor="Imagen">Imagen</label>
+        <input
+          type="text"
+          id="Imagen"
+          name="imagen"
+          placeholder="Imagen"
+          value={form.imagen}
+          onChange={handleChange}
+        />
         <br />
         <button onClick={handleCrearAnuncio} disabled={loading}>
           {loading ? 'Creando...' : 'Crear Anuncio'}
@@ -268,7 +279,14 @@ export default function Publicity({ onCreated }) {
                     onChange={async (e) => {
                       const nuevoEstado = e.target.checked ? 'activada' : 'desactivada';
                       try {
-                        await CallsPublicidades.UpdatePublicidad(anuncio.id, { ...anuncio, estado: nuevoEstado });
+                        
+                        const dataToSend = {
+                          precio_publicidad: anuncio.precio_publicidad,
+                          servicio: anuncio.servicio,
+                          usuario: anuncio.usuario,
+                          estado: nuevoEstado
+                        };
+                        await CallsPublicidades.UpdatePublicidad(anuncio.id, dataToSend);
                         setPublicidades(publicidades =>
                           publicidades.map(p =>
                             p.id === anuncio.id ? { ...p, estado: nuevoEstado } : p

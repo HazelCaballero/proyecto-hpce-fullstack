@@ -74,17 +74,19 @@ async function UpdateCategorias(id, objeto) {
 
 async function DeleteCategorias(id) {
   try {
-   
+    const token = localStorage.getItem('access');
     const response = await fetch(`${BASE_URL}categorias/${id}/`, {
       method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' }
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token ? { 'Authorization': 'Bearer ' + token } : {})
+      }
     });
     
     if (!response.ok) throw new Error(`Error deleting categorie with id ${id}`);
 
     return { message: `User with id ${id} deleted successfully` };
   } catch (error) {
-
     console.error('Error deleting categorie:', error);
     throw error;
   }
