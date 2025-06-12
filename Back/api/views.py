@@ -103,7 +103,7 @@ class InteraccionPublicacionListCreateView(ListCreateAPIView):
 
 # Vista para obtener, actualizar o eliminar una interacción en publicación (solo superusuarios pueden modificar)
 class InteraccionPublicacionDetailView(RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAuthenticated, IsSuperUser]
+    permission_classes = [IsAuthenticated, IsOwnerOrSuperUser]
     queryset = InteraccionPublicacion.objects.all()
     serializer_class = InteraccionPublicacionSerializer
 

@@ -37,7 +37,7 @@ export default function Publicity({ onCreated }) {
   const [editPubId, setEditPubId] = useState(null);
   const [modalAnuncio, setModalAnuncio] = useState(null);
   const [servicioDetalle, setServicioDetalle] = useState(null);
-  
+
   useEffect(() => {
     if (modalAnuncio && modalAnuncio.servicio) {
       setServicioDetalle(null);
@@ -48,7 +48,6 @@ export default function Publicity({ onCreated }) {
   }, [modalAnuncio]);
 
   useEffect(() => {
-
     async function fetchServicios() {
       try {
         const token = localStorage.getItem('access');
@@ -68,7 +67,6 @@ export default function Publicity({ onCreated }) {
   }, []);
 
   useEffect(() => {
-   
     async function fetchPublicidades() {
       try {
         const token = localStorage.getItem('access');
@@ -262,60 +260,61 @@ export default function Publicity({ onCreated }) {
         </button>
       </div>
       <hr />
-      <h3>Anuncios existentes</h3>
+      <h3>Lista de anuncios</h3>
       <ul>
-        {Array.isArray(publicidades) && publicidades.length === 0 ? (
-          <li>No hay anuncios registrados.</li>
+        {publicidades.length === 0 ? (
+          <li>No hay anuncios</li>
         ) : (
-          publicidades.map(anuncio => (
-            <li key={anuncio.id} style={{ marginBottom: 16, border: '1px solid #eee', borderRadius: 6, padding: 10 }}>
-              <div><b>Precio:</b> {anuncio.precio_publicidad}</div>
+          publicidades.map((ad, idx) => (
+            <li key={ad.id || idx} style={{ marginBottom: 16, border: '1px solid #eee', borderRadius: 6, padding: 10 }}>
+              <div><b>Precio:</b> {ad.precio_publicidad}</div>
               <div>
                 <b>Estado:</b>
                 <label style={{marginLeft: 6}}>
                   <input
                     type="checkbox"
-                    checked={anuncio.estado === 'activada'}
+                    checked={ad.estado === 'activada'}
                     onChange={async (e) => {
                       const nuevoEstado = e.target.checked ? 'activada' : 'desactivada';
                       try {
-                        
-                        const dataToSend = {
-                          precio_publicidad: anuncio.precio_publicidad,
-                          servicio: anuncio.servicio,
-                          usuario: anuncio.usuario,
-                          estado: nuevoEstado
-                        };
-                        await CallsPublicidades.UpdatePublicidad(anuncio.id, dataToSend);
+                        await CallsPublicidades.UpdatePublicidad(ad.id, { ...ad, estado: nuevoEstado });
                         setPublicidades(publicidades =>
                           publicidades.map(p =>
-                            p.id === anuncio.id ? { ...p, estado: nuevoEstado } : p
+                            p.id === ad.id ? { ...p, estado: nuevoEstado } : p
                           )
                         );
                       } catch (err) {
-                        Swal.fire('Error', 'No se pudo actualizar el estado.', 'error');
+                        Swal.fire('Error', 'Error al actualizar el estado', 'error');
                       }
                     }}
                   />
-                  {' '}{anuncio.estado}
+                  {' '}{ad.estado}
                 </label>
               </div>
               <div>
-                <b>Usuario:</b> <UsuarioNombre usuarioId={anuncio.usuario} />
+                <b>Usuario:</b> <UsuarioNombre usuarioId={ad.usuario} />
               </div>
               <div>
-                <b>Servicio ID:</b> {anuncio.servicio}
+                <b>Servicio ID:</b> {ad.servicio}
               </div>
               <div style={{marginTop:8}}>
-                <button onClick={() => setModalAnuncio(anuncio)} style={{ marginRight: 8 }}>Ver</button>
-                <button onClick={() => handleEditPublicidad(anuncio)} style={{ marginRight: 8 }}>Editar</button>
-                <button onClick={() => handleDeletePublicidad(anuncio.id)}>Eliminar</button>
+                <button onClick={() => setModalAnuncio(ad)} style={{ marginRight: 8 }}>Ver</button>
+                <button onClick={() => handleEditPublicidad(ad)} style={{ marginRight: 8 }}>Editar</button>
+                <button onClick={async () => {
+                  if (!window.confirm('¿Seguro que deseas eliminar este anuncio?')) return;
+                  try {
+                    await CallsPublicidades.DeletePublicidad(ad.id);
+                    setPublicidades(publicidades => publicidades.filter(p => p.id !== ad.id));
+                  } catch (err) {
+                    Swal.fire('Error', 'Error al eliminar el anuncio', 'error');
+                  }
+                }}>Eliminar</button>
               </div>
             </li>
           ))
         )}
       </ul>
-      {/* Modal de detalles del anuncio */}
+    
       {modalAnuncio && (
         <div style={{position:'fixed',top:0,left:0,width:'100vw',height:'100vh',background:'rgba(0,0,0,0.4)',display:'flex',alignItems:'center',justifyContent:'center',zIndex:1000}}>
           <div style={{background:'#fff',padding:24,borderRadius:8,minWidth:300,maxWidth:400}}>
@@ -323,7 +322,7 @@ export default function Publicity({ onCreated }) {
             <p><b>ID:</b> {modalAnuncio.id}</p>
             <p><b>Precio:</b> {modalAnuncio.precio_publicidad}</p>
             <p><b>Estado:</b> {modalAnuncio.estado}</p>
-            <p><b>Usuario ID:</b> {modalAnuncio.usuario}</p>
+            <p><b>Usuario:</b> <UsuarioNombre usuarioId={modalAnuncio.usuario} /></p>
             <p><b>Servicio ID:</b> {modalAnuncio.servicio}</p>
             {servicioDetalle ? (
               <>

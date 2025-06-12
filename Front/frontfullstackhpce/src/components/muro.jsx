@@ -1,9 +1,12 @@
+
 import React, { useEffect, useState } from 'react'
 import CallsPublicidades from '../services/CallsPublicidades'
 import CallsServicios from '../services/CallsServicios'
 import CallsUsuarias from '../services/CallsUsuarias'
+import CallsInterPublicacion from '../services/CallsInterPublicacion'
 import Swal from 'sweetalert2'
 import '../styles/Scomponents/Muro.css'
+
 
 export default function Muro() {
   const [anuncios, setAnuncios] = useState([])
@@ -11,6 +14,9 @@ export default function Muro() {
   const [publicaciones, setPublicaciones] = useState([])
   const [formPub, setFormPub] = useState({ titulo: '', publicacion: '', imagen_url: '' })
   const [usuarios, setUsuarios] = useState({})
+  const [interaccionesPub, setInteraccionesPub] = useState({});
+  const [nuevoComentarioPub, setNuevoComentarioPub] = useState({});
+  const usuario_id = Number(localStorage.getItem('usuario_id'));
 
   useEffect(() => {
     CallsPublicidades.GetPublicidad()
@@ -26,8 +32,13 @@ export default function Muro() {
       CallsPublicaciones.GetPublicaciones()
         .then(async data => {
           setPublicaciones(Array.isArray(data) ? data : [])
-          
-          const ids = Array.from(new Set((data || []).map(p => p.usuario)))
+         
+          let ids = Array.from(new Set((data || []).map(p => p.usuario)))
+          try {
+            const interData = await CallsInterPublicacion.GetInterPublicacion();
+            const interUserIds = Array.from(new Set((interData || []).map(i => i.usuario)))
+            ids = Array.from(new Set([...ids, ...interUserIds]))
+          } catch {}
           const usuariosObj = {}
           await Promise.all(ids.map(async id => {
             try {
@@ -41,7 +52,70 @@ export default function Muro() {
         })
         .catch(() => setPublicaciones([]))
     })
+    precargarInteraccionesPublicacion();
   }, [])
+
+ 
+  const precargarInteraccionesPublicacion = async () => {
+    try {
+      const data = await CallsInterPublicacion.GetInterPublicacion();
+      const agrupadas = {};
+      data.forEach(inter => {
+        if (!agrupadas[inter.publicacion]) agrupadas[inter.publicacion] = [];
+        agrupadas[inter.publicacion].push(inter);
+      });
+      setInteraccionesPub(agrupadas);
+    } catch (error) {
+      // Manejo de error opcional
+    }
+  };
+
+ 
+  const handleEnviarInteraccionPub = async (pubId) => {
+    try {
+      const comentario = (nuevoComentarioPub[pubId] || '').trim();
+      if (!comentario) {
+        Swal.fire('Error', 'Debes escribir un comentario.', 'error');
+        return;
+      }
+      await CallsInterPublicacion.PostInterPublicacion({
+        publicacion: pubId,
+        usuario: usuario_id,
+        comentario
+      });
+      setNuevoComentarioPub(prev => ({ ...prev, [pubId]: '' }));
+      precargarInteraccionesPublicacion();
+      Swal.fire('¡Listo!', 'Tu comentario fue publicado.', 'success');
+    } catch (error) {
+      Swal.fire('Error', 'No se pudo enviar el comentario.', 'error');
+    }
+  };
+
+  
+  const handleEliminarInteraccionPub = async (pubId, interId) => {
+    const confirm = await Swal.fire({
+      title: '¿Eliminar comentario?',
+      text: 'Esta acción no se puede deshacer.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    });
+    if (confirm.isConfirmed) {
+      try {
+        await CallsInterPublicacion.DeleteInterPublicacion(interId);
+        precargarInteraccionesPublicacion();
+        Swal.fire('Eliminado', 'El comentario ha sido eliminado.', 'success');
+      } catch (error) {
+        Swal.fire('Error', 'No se pudo eliminar el comentario.', 'error');
+      }
+    }
+  };
+
+
+  const handleComentarioChangePub = (pubId, value) => {
+    setNuevoComentarioPub(prev => ({ ...prev, [pubId]: value }));
+  };
 
   const handleChangePub = e => {
     setFormPub({ ...formPub, [e.target.name]: e.target.value })
@@ -156,14 +230,14 @@ export default function Muro() {
           <button onClick={handleCrearPublicacion}>Publicar</button>
         </div>
         <div className="muro-lista">
-            <h2>Publicaciones</h2>
+          <h2>Publicaciones</h2>
           {publicaciones.length === 0 ? (
             <div>No hay publicaciones</div>
           ) : (
             publicaciones.map(pub => {
-              const usuarioActual = Number(localStorage.getItem('usuario_id'))
-              const esPropia = Number(pub.usuario) === usuarioActual
-              const usuarioNombre = usuarios[pub.usuario]?.username || usuarios[pub.usuario]?.email || pub.usuario
+              const usuarioActual = Number(localStorage.getItem('usuario_id'));
+              const esPropia = Number(pub.usuario) === usuarioActual;
+              const usuarioNombre = usuarios[pub.usuario]?.username || usuarios[pub.usuario]?.email || pub.usuario;
               return (
                 <div key={pub.id} className="muro-publicacion-item" style={{border:'1px solid #eee',borderRadius:6,padding:10,marginBottom:8}}>
                   <div style={{fontSize:13, color:'#888', marginBottom:4}}>
@@ -178,6 +252,84 @@ export default function Muro() {
                       <button onClick={() => handleEliminarPublicacion(pub)} style={{color:'red'}}>Eliminar</button>
                     </div>
                   )}
+                 
+                  <div style={{ marginTop: 10 }}>
+                    <p><b>Comentarios:</b></p>
+                    {(interaccionesPub[pub.id] || []).length === 0
+                      ? <div>No hay comentarios.</div>
+                      : interaccionesPub[pub.id].map(inter => (
+                          <div key={inter.id} style={{ marginBottom: 4 }}>
+                            <b>{usuarios[inter.usuario]?.nombre || usuarios[inter.usuario]?.username || usuarios[inter.usuario]?.email || inter.usuario_nombre || inter.usuario}</b>: {inter.comentario}
+                            {Number(inter.usuario) === usuario_id && (
+                              <button
+                                onClick={() => handleEliminarInteraccionPub(pub.id, inter.id)}
+                                style={{ marginLeft: 8, color: 'red', background: 'none', border: 'none', cursor: 'pointer' }}
+                                title="Eliminar comentario"
+                                aria-label="Eliminar comentario"
+                              >
+                                🗑️
+                              </button>
+                            )}
+                          </div>
+                        ))
+                    }
+                    <div style={{ marginTop: 8 }}>
+                     
+                      {usuario_id && Number(pub.usuario) !== usuario_id && (
+                        <div style={{ margin: '10px 0' }}>
+                          <label>
+                            <input
+                              type="checkbox"
+                              checked={!!(interaccionesPub[pub.id] || []).find(
+                                inter =>
+                                  Number(inter.usuario) === usuario_id &&
+                                  inter.comentario === "Me gusta esta publicación"
+                              )}
+                              onChange={async e => {
+                                const yaExiste = (interaccionesPub[pub.id] || []).find(
+                                  inter =>
+                                    Number(inter.usuario) === usuario_id &&
+                                    inter.comentario === "Me gusta esta publicación"
+                                );
+                                if (e.target.checked && !yaExiste) {
+                                  await CallsInterPublicacion.PostInterPublicacion({
+                                    publicacion: pub.id,
+                                    usuario: usuario_id,
+                                    comentario: "Me gusta esta publicación"
+                                  });
+                                  precargarInteraccionesPublicacion();
+                                } else if (!e.target.checked && yaExiste) {
+                                  await CallsInterPublicacion.DeleteInterPublicacion(yaExiste.id);
+                                  precargarInteraccionesPublicacion();
+                                }
+                              }}
+                              style={{ marginRight: 4 }}
+                              aria-label="Marcar como me gusta"
+                            />
+                            Me gusta esta publicación
+                          </label>
+                          <span style={{ marginLeft: 12, color: 'green' }}>
+                            {(interaccionesPub[pub.id] || []).filter(
+                              inter => inter.comentario === "Me gusta esta publicación"
+                            ).length || 0} me gusta
+                          </span>
+                        </div>
+                      )}
+                      <textarea
+                        placeholder="Escribe un comentario..."
+                        value={nuevoComentarioPub[pub.id] || ''}
+                        onChange={e => handleComentarioChangePub(pub.id, e.target.value)}
+                        style={{ width: '100%', minHeight: 40 }}
+                        aria-label="Escribe un comentario"
+                      />
+                      <button
+                        onClick={() => handleEnviarInteraccionPub(pub.id)}
+                        disabled={!(nuevoComentarioPub[pub.id] && nuevoComentarioPub[pub.id].trim())}
+                      >
+                        Enviar comentario
+                      </button>
+                    </div>
+                  </div>
                 </div>
               )
             })

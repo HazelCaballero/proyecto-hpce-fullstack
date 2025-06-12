@@ -4,7 +4,6 @@ import Header from '../components/Header';
 import Main from '../components/Main';
 import Footer from '../components/Footer';
 import ServiciosAdmin from '../components/ServiciosAdmin';
-import CategoriasAdmin from '../components/CategoriasAdmin';
 import Publicity from '../components/Publicity';
 
 export default function AdminPublicidad() {
@@ -19,7 +18,6 @@ export default function AdminPublicidad() {
         <Main>
           <div>
             <ServiciosAdmin />
-            <CategoriasAdmin />
           </div>
           <Publicity onCreated={() => setReload(r => !r)} />
         </Main>

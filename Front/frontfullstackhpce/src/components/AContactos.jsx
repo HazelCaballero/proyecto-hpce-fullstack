@@ -69,7 +69,6 @@ export default function Contactos() {
     }
   };
 
-  // Función para obtener el nombre del usuario por id
   const obtenerNombreUsuario = async (usuarioId) => {
     try {
       const usuario = await CallsUsuarias.GetUsuaria(usuarioId);
@@ -93,19 +92,53 @@ export default function Contactos() {
 
   return (
     <div className="container-contactos">
+
       <div className='resumen'>
-        <h2>Mensajes a revisar</h2>
-        <p>{mensajes.length}</p>
-        <h2>Publicidad por aprobar</h2>
-        <p>{publicidades.length}</p>
+        <h2>Mensajes por revisar</h2>
+        <p>{mensajes.filter(m => !m.leido).length}</p>
+        <h2>Mensajes revisados</h2>
+        <p>{mensajes.filter(m => m.leido).length}</p>
       </div>
 
       <ul>
-        <h3>Lista de Mensajes</h3>
-        {mensajes.length === 0 ? (
-          <li>No hay mensajes</li>
+        <h3>Mensajes por revisar</h3>
+        {mensajes.filter(m => !m.leido).length === 0 ? (
+          <li>No hay mensajes por revisar</li>
         ) : (
-          mensajes.map((msg, idx) => (
+          mensajes.filter(m => !m.leido).map((msg, idx) => (
+            <li key={msg.id || idx}>
+              mensaje: {msg.contenido || msg.mensaje || '-'}<br />
+              usuaria: {msg.usuario_nombre || msg.usuaria || msg.usuario || '-'}<br />
+              Promocionarse: {(msg.promocionarse === true || msg.promocionarse === 'si' || msg.promocionarse === 'sí') ? 'sí' : 'no'}<br />
+              <label style={{marginRight:8}}>
+                <input
+                  type="checkbox"
+                  checked={!!msg.leido}
+                  onChange={async (e) => {
+                    const nuevoLeido = e.target.checked;
+                    try {
+                      await CallsContactos.UpdateContactos(msg.id, { ...msg, leido: nuevoLeido });
+                      setMensajes(mensajes => mensajes.map(m => m.id === msg.id ? { ...m, leido: nuevoLeido } : m));
+                    } catch (err) {
+                      Swal.fire('Error', 'Error al actualizar el estado de leído', 'error');
+                    }
+                  }}
+                />
+                {' '}Leído
+              </label>
+              <button style={{marginRight:8}} onClick={() => setModalMsg(msg)}>Ver</button>
+              <button onClick={() => handleEliminarMensaje(msg.id)} disabled={eliminando}>Eliminar</button>
+            </li>
+          ))
+        )}
+      </ul>
+
+      <ul>
+        <h3>Mensajes revisados</h3>
+        {mensajes.filter(m => m.leido).length === 0 ? (
+          <li>No hay mensajes revisados</li>
+        ) : (
+          mensajes.filter(m => m.leido).map((msg, idx) => (
             <li key={msg.id || idx}>
               mensaje: {msg.contenido || msg.mensaje || '-'}<br />
               usuaria: {msg.usuario_nombre || msg.usuaria || msg.usuario || '-'}<br />
@@ -175,58 +208,12 @@ export default function Contactos() {
         </div>
       ) : null}
 
-      <ul>
-        <h3>Lista de anuncios</h3>
-        {publicidades.length === 0 ? (
-          <li>No hay anuncios</li>
-        ) : (
-          publicidades.map((ad, idx) => (
-            <li key={ad.id || idx}>
-              precio: {ad.precio_publicidad}<br />
-              estado: 
-              <label>
-                <input
-                  type="checkbox"
-                  checked={ad.estado === 'activada'}
-                  onChange={async (e) => {
-                    const nuevoEstado = e.target.checked ? 'activada' : 'desactivada';
-                    try {
-                      await CallsPublicidades.UpdatePublicidad(ad.id, { ...ad, estado: nuevoEstado });
-                      setPublicidades(publicidades =>
-                        publicidades.map(p =>
-                          p.id === ad.id ? { ...p, estado: nuevoEstado } : p
-                        )
-                      );
-                    } catch (err) {
-                      Swal.fire('Error', 'Error al actualizar el estado', 'error');
-                    }
-                  }}
-                />
-                {' '}{ad.estado}
-              </label>
-              <br />
-              usuario: 
-              <UsuarioNombre usuarioId={ad.usuario} />
-              <br />
-              <button style={{marginRight:8}} onClick={() => setModalMsg(ad)}>Ver</button>
-              <button onClick={async () => {
-                if (!window.confirm('¿Seguro que deseas eliminar este anuncio?')) return;
-                try {
-                  await CallsPublicidades.DeletePublicidad(ad.id);
-                  setPublicidades(publicidades => publicidades.filter(p => p.id !== ad.id));
-                } catch (err) {
-                  Swal.fire('Error', 'Error al eliminar el anuncio', 'error');
-                }
-              }}>Eliminar</button>
-            </li>
-          ))
-        )}
-      </ul>
+
     </div>
   )
 }
 
-// Componente para mostrar el nombre del usuario
+
 function UsuarioNombre({ usuarioId }) {
   const [nombre, setNombre] = useState('Cargando...');
   useEffect(() => {

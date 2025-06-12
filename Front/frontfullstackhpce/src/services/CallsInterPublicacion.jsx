@@ -74,17 +74,17 @@ async function UpdateInterPublicacion(id, objeto) {
 
 async function DeleteInterPublicacion(id) {
   try {
- 
+    const token = localStorage.getItem('access');
     const response = await fetch(`${BASE_URL}interacciones-publicacion/${id}/`, {
       method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' }
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token ? { 'Authorization': 'Bearer ' + token } : {})
+      }
     });
- 
     if (!response.ok) throw new Error(`Error deleting interPublicacion with id ${id}`);
- 
     return { message: `Employe with id ${id} deleted successfully` };
   } catch (error) {
-
     console.error('Error deleting interPublicacion:', error);
     throw error;
   }
