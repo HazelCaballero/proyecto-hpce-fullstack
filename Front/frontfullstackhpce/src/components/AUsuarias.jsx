@@ -13,6 +13,8 @@ export default function Usuarias() {
   const [editError, setEditError] = useState('');
   const [editLoading, setEditLoading] = useState(false);
 
+  const isSuperuser = localStorage.getItem('is_superuser') === 'true';
+
   useEffect(() => {
     async function fetchUsuarias() {
       try {
@@ -149,6 +151,27 @@ export default function Usuarias() {
                   >
                     Eliminar
                   </button>
+                  {isSuperuser && (
+                    <select
+                      value={u.rol || 'usuaria'}
+                      onChange={async (e) => {
+                        const nuevoRol = e.target.value;
+                        try {
+                          await CallsUsuarias.AsignarRolUsuaria(u.id, nuevoRol);
+                          setUsuarias(prev => prev.map(us => us.id === u.id ? { ...us, rol: nuevoRol } : us));
+                          Swal.fire('Rol actualizado', `Rol cambiado a ${nuevoRol}`, 'success');
+                        } catch {
+                          Swal.fire('Error', 'No se pudo cambiar el rol', 'error');
+                        }
+                      }}
+                      style={{ marginLeft: 8 }}
+                    >
+                      <option value="usuaria">Usuaria</option>
+                      <option value="moderador">Moderador</option>
+                      <option value="soporte">Soporte</option>
+                      <option value="superusuario">Superusuario</option>
+                    </select>
+                  )}
                 </td>
               </tr>
             ))}

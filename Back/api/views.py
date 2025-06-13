@@ -17,18 +17,42 @@ from .serializers import (
 
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .serializers import CustomTokenObtainPairSerializer
+from rest_framework.decorators import action
 
 
 # Permiso personalizado para verificar si el usuario es superusuario
 class IsSuperUser(BasePermission):
     def has_permission(self, request, view):
-        return request.user and request.user.is_superuser
+        return request.user and (request.user.is_superuser or getattr(request.user, 'rol', None) == 'superusuario')
+
+
+# Permiso personalizado para verificar si el usuario es moderador
+class IsModerator(BasePermission):
+    def has_permission(self, request, view):
+        return request.user and (getattr(request.user, 'rol', None) == 'moderador' or getattr(request.user, 'rol', None) == 'superusuario' or request.user.is_superuser)
+
+
+# Permiso personalizado para verificar si el usuario es soporte
+class IsSupport(BasePermission):
+    def has_permission(self, request, view):
+        return request.user and (getattr(request.user, 'rol', None) == 'soporte' or getattr(request.user, 'rol', None) == 'superusuario' or request.user.is_superuser)
+
+
+# Permiso personalizado para verificar si el usuario es el propietario del objeto, un moderador o un superusuario
+class IsOwnerOrModeratorOrSuperUser(BasePermission):
+    def has_object_permission(self, request, view, obj):
+        return (
+            request.user.is_superuser or
+            getattr(request.user, 'rol', None) == 'superusuario' or
+            getattr(request.user, 'rol', None) == 'moderador' or
+            obj.usuario == request.user
+        )
 
 
 # Permiso personalizado para verificar si el usuario es el propietario del objeto o un superusuario
 class IsOwnerOrSuperUser(BasePermission):
     def has_object_permission(self, request, view, obj):
-        return request.user.is_superuser or obj.usuario == request.user
+        return request.user.is_superuser or getattr(request.user, 'rol', None) == 'superusuario' or obj.usuario == request.user
 
 
 # Vista para listar y crear usuarios personalizados
@@ -88,7 +112,7 @@ class PublicacionListCreateView(ListCreateAPIView):
 
 # Vista para obtener, actualizar o eliminar una publicación
 class PublicacionDetailView(RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsOwnerOrModeratorOrSuperUser]
     queryset = Publicacion.objects.all()
     serializer_class = PublicacionSerializer
 
@@ -101,9 +125,9 @@ class InteraccionPublicacionListCreateView(ListCreateAPIView):
     serializer_class = InteraccionPublicacionSerializer
 
 
-# Vista para obtener, actualizar o eliminar una interacción en publicación (solo superusuarios pueden modificar)
+# Vista para obtener, actualizar o eliminar una interacción en publicación
 class InteraccionPublicacionDetailView(RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAuthenticated, IsOwnerOrSuperUser]
+    permission_classes = [IsAuthenticated, IsOwnerOrModeratorOrSuperUser]
     queryset = InteraccionPublicacion.objects.all()
     serializer_class = InteraccionPublicacionSerializer
 
@@ -136,9 +160,9 @@ class InteraccionTruequeListCreateView(ListCreateAPIView):
         return queryset
 
 
-# Vista para obtener, actualizar o eliminar una interacción en trueque (solo superusuarios pueden modificar)
+# Vista para obtener, actualizar o eliminar una interacción en trueque
 class InteraccionTruequeDetailView(RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAuthenticated, IsOwnerOrSuperUser]
+    permission_classes = [IsAuthenticated, IsOwnerOrModeratorOrSuperUser]
     queryset = InteraccionTrueque.objects.all()
     serializer_class = InteraccionTruequeSerializer
 
@@ -167,9 +191,9 @@ class ContactosListCreateView(ListCreateAPIView):
         serializer.save(usuario=self.request.user)
 
 
-# Vista para obtener, actualizar o eliminar un contacto (solo superusuarios pueden modificar)
+# Vista para obtener, actualizar o eliminar un contacto (soporte o superusuario pueden modificar)
 class ContactosDetailView(RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAuthenticated, IsSuperUser]
+    permission_classes = [IsAuthenticated, IsSupport]
     queryset = Contactos.objects.all()
     serializer_class = ContactosSerializer
 
@@ -224,4 +248,19 @@ class ActualizarSuperUsuario(APIView):
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
+
+
+class AsignarRolUsuariaView(APIView):
+    permission_classes = [IsAuthenticated, IsSuperUser]
+    def patch(self, request, pk):
+        try:
+            usuaria = CustomUser.objects.get(pk=pk)
+            nuevo_rol = request.data.get('rol')
+            if nuevo_rol not in dict(CustomUser.ROL_CHOICES):
+                return Response({'error': 'Rol no válido.'}, status=status.HTTP_400_BAD_REQUEST)
+            usuaria.rol = nuevo_rol
+            usuaria.save()
+            return Response({'message': f'Rol actualizado a {nuevo_rol} para {usuaria.username}.'}, status=status.HTTP_200_OK)
+        except CustomUser.DoesNotExist:
+            return Response({'error': 'Usuaria no encontrada.'}, status=status.HTTP_404_NOT_FOUND)
 

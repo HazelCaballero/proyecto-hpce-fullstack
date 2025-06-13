@@ -12,7 +12,8 @@ from .views import (
     InteraccionTruequeListCreateView, InteraccionTruequeDetailView,
     PublicidadesListCreateView, PublicidadesDetailView,
     ContactosListCreateView, ContactosDetailView,
-    CrearSuperUsuario, VerSuperUsuario, ActualizarSuperUsuario, EliminarSuperUsuario, CustomTokenObtainPairView
+    CrearSuperUsuario, VerSuperUsuario, ActualizarSuperUsuario, EliminarSuperUsuario, CustomTokenObtainPairView,
+    AsignarRolUsuariaView
 )
 
 
@@ -59,5 +60,6 @@ urlpatterns = [
     path("ver-superusuario/", VerSuperUsuario.as_view(), name="ver-superusuario"),
     path("actualizar-superusuario/<int:pk>/", ActualizarSuperUsuario.as_view(), name="actualizar-superusuario"),
     path("eliminar-superusuario/<int:pk>/", EliminarSuperUsuario.as_view(), name="eliminar-superusuario"),
-    path('token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair')
+    path('token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('asignar-rol-usuaria/<int:pk>/', AsignarRolUsuariaView.as_view(), name='asignar-rol-usuaria')
 ]

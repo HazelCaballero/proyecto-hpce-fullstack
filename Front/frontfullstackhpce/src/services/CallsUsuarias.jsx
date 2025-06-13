@@ -107,4 +107,19 @@ async function GetUsuaria(id) {
 }
 
 
-export default { GetUsuarias, GetUsuaria, PostUsuarias, UpdateUsuarias, DeleteUsuarias };
+async function AsignarRolUsuaria(id, rol) {
+  const token = localStorage.getItem('access');
+  const response = await fetch(`${BASE_URL}asignar-rol-usuaria/${id}/`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token ? { 'Authorization': 'Bearer ' + token } : {})
+    },
+    body: JSON.stringify({ rol })
+  });
+  if (!response.ok) throw new Error('Error asignando rol');
+  return await response.json();
+}
+
+
+export default { GetUsuarias, GetUsuaria, PostUsuarias, UpdateUsuarias, DeleteUsuarias, AsignarRolUsuaria };

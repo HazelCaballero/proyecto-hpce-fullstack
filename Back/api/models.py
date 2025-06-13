@@ -12,6 +12,14 @@ class CustomUser(AbstractUser):
     ubicacion = models.CharField(max_length=80, null=False, blank=False, default='N/A')
     imagen_url = models.TextField(null=True, blank=True, default='')
     
+    ROL_CHOICES = [
+        ('usuaria', 'Usuaria'),
+        ('moderador', 'Moderador'),
+        ('soporte', 'Soporte'),
+        ('superusuario', 'Superusuario'),
+    ]
+    rol = models.CharField(max_length=20, choices=ROL_CHOICES, default='usuaria')
+
     # Validaciones personalizadas para el modelo
     def clean(self):
         if len(self.username) < 3:
