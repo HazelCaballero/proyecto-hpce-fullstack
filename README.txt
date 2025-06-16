@@ -1,3 +1,51 @@
+# Proyecto HPCE Fullstack
+
+Este proyecto es una plataforma de trueques y servicios desarrollada con Django (backend) y React + Vite (frontend).
+
+## Estructura del proyecto
+
+- `Back/`: Backend en Django + Django REST Framework
+- `Front/`: Frontend en React (Vite)
+
+## Instalación y ejecución rápida
+
+### Backend
+1. Instala dependencias:
+   ```bash
+   pip install django djangorestframework djangorestframework-simplejwt
+   ```
+2. Aplica migraciones:
+   ```bash
+   python manage.py makemigrations
+   python manage.py migrate
+   ```
+3. Crea un superusuario:
+   ```bash
+   python manage.py createsuperuser
+   ```
+4. Ejecuta el servidor:
+   ```bash
+   python manage.py runserver
+   ```
+
+### Frontend
+1. Instala dependencias:
+   ```bash
+   npm install
+   ```
+2. Ejecuta la app:
+   ```bash
+   npm run dev
+   ```
+
+## Comunicación entre frontend y backend
+- El frontend consume la API REST del backend.
+- La autenticación se realiza mediante JWT (`/token/` y `/token/refresh/`).
+
+## Documentación adicional
+- Ver `Back/READBACK.txt` para detalles del backend.
+- Ver `Front/READFRONT.txt` para detalles del frontend.
+
 Fase 1: Análisis y Planificación (Semana 1)
 
 Gestión de Usuarias

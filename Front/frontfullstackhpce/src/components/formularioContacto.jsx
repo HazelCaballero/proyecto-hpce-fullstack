@@ -3,6 +3,10 @@ import Swal from 'sweetalert2'
 import CallsContactos from '../services/CallsContactos'
 import '../styles/Scomponents/FormularioContacto.css'
 
+/**
+ * Componente de formulario de contacto.
+ * Permite a la usuaria enviar mensajes y solicitudes de promoción.
+ */
 export default function FormularioContacto() {
   const [nombreUsuario, setNombreUsuario] = useState('')
   const [email, setEmail] = useState('')

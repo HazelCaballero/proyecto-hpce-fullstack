@@ -19,27 +19,41 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from .serializers import CustomTokenObtainPairSerializer
 from rest_framework.decorators import action
 
+# Permisos personalizados
 
 # Permiso personalizado para verificar si el usuario es superusuario
 class IsSuperUser(BasePermission):
+    """
+    Permite el acceso solo a superusuarios o usuarios con rol 'superusuario'.
+    """
     def has_permission(self, request, view):
         return request.user and (request.user.is_superuser or getattr(request.user, 'rol', None) == 'superusuario')
 
 
 # Permiso personalizado para verificar si el usuario es moderador
 class IsModerator(BasePermission):
+    """
+    Permite el acceso a usuarios con rol 'moderador', 'superusuario' o superusuarios.
+    """
     def has_permission(self, request, view):
         return request.user and (getattr(request.user, 'rol', None) == 'moderador' or getattr(request.user, 'rol', None) == 'superusuario' or request.user.is_superuser)
 
 
 # Permiso personalizado para verificar si el usuario es soporte
 class IsSupport(BasePermission):
+    """
+    Permite el acceso a usuarios con rol 'soporte', 'superusuario' o superusuarios.
+    """
     def has_permission(self, request, view):
         return request.user and (getattr(request.user, 'rol', None) == 'soporte' or getattr(request.user, 'rol', None) == 'superusuario' or request.user.is_superuser)
 
 
 # Permiso personalizado para verificar si el usuario es el propietario del objeto, un moderador o un superusuario
 class IsOwnerOrModeratorOrSuperUser(BasePermission):
+    """
+    Permite el acceso si el usuario es el propietario del objeto,
+    un moderador o un superusuario.
+    """
     def has_object_permission(self, request, view, obj):
         return (
             request.user.is_superuser or
@@ -51,9 +65,16 @@ class IsOwnerOrModeratorOrSuperUser(BasePermission):
 
 # Permiso personalizado para verificar si el usuario es el propietario del objeto o un superusuario
 class IsOwnerOrSuperUser(BasePermission):
+    """
+    Permite el acceso si el usuario es el propietario del objeto
+    o un superusuario.
+    """
     def has_object_permission(self, request, view, obj):
         return request.user.is_superuser or getattr(request.user, 'rol', None) == 'superusuario' or obj.usuario == request.user
 
+
+
+# Vistas
 
 # Vista para listar y crear usuarios personalizados
 class CustomUserListCreateView(ListCreateAPIView):

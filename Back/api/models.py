@@ -2,9 +2,15 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
 
+
+# Modelos de la aplicación
+
 # Usuario personalizado extendiendo AbstractUser
 class CustomUser(AbstractUser):
-    # Campos adicionales para el usuario
+    """
+    Modelo de usuario personalizado que extiende AbstractUser.
+    Incluye campos adicionales como teléfono, fecha de nacimiento, intereses, aportaciones, ubicación, imagen y rol.
+    """
     telefono = models.CharField(max_length=20, null=False, blank=False, default='00000000')
     fecha_nacimiento = models.DateField(null=False, blank=False, default='1990-01-01')
     intereses = models.TextField(null=False, blank=False, default='N/A')
@@ -20,8 +26,10 @@ class CustomUser(AbstractUser):
     ]
     rol = models.CharField(max_length=20, choices=ROL_CHOICES, default='usuaria')
 
-    # Validaciones personalizadas para el modelo
     def clean(self):
+        """
+        Validaciones personalizadas para el modelo de usuario.
+        """
         if len(self.username) < 3:
             raise Exception("El nombre de usuario debe tener al menos 3 caracteres.")
         if self.fecha_nacimiento and self.fecha_nacimiento > timezone.now().date():
@@ -36,6 +44,9 @@ class CustomUser(AbstractUser):
 
 # Modelo para categorías de trueques o publicaciones
 class Categoria(models.Model):
+    """
+    Modelo para representar categorías de trueques o publicaciones.
+    """
     nombre = models.CharField(
         max_length=25,
         unique=True,
@@ -54,6 +65,10 @@ class Categoria(models.Model):
 
 # Modelo para los trueques
 class Trueque(models.Model):
+    """
+    Modelo para representar trueques entre usuarios.
+    Incluye información sobre el título, descripción, fechas, usuario involucrado, estado y categoría del trueque.
+    """
     ESTADO_CHOICES = [
         ('pendiente', 'Pendiente'),
         ('aceptado', 'Aceptado'),
@@ -75,6 +90,10 @@ class Trueque(models.Model):
 
 # Modelo para publicaciones generales
 class Publicacion(models.Model):
+    """
+    Modelo para representar publicaciones generales de los usuarios.
+    Incluye campos para el título, contenido, fecha de creación, usuario autor e imagen.
+    """
     titulo = models.CharField(max_length=50)
     publicacion = models.TextField()
     fecha_creacion = models.DateTimeField(auto_now_add=True)
@@ -88,6 +107,10 @@ class Publicacion(models.Model):
 
 # Modelo para interacciones en publicaciones (comentarios y me gusta)
 class InteraccionPublicacion(models.Model):
+    """
+    Modelo para representar interacciones de los usuarios en las publicaciones.
+    Incluye campos para el comentario, me gusta y referencias a la publicación y usuario.
+    """
     publicacion = models.ForeignKey(Publicacion, on_delete=models.CASCADE)
     usuario = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     comentario = models.TextField()
@@ -100,6 +123,10 @@ class InteraccionPublicacion(models.Model):
 
 # Modelo para servicios ofrecidos
 class Servicio(models.Model):
+    """
+    Modelo para representar los servicios ofrecidos por los usuarios.
+    Incluye información sobre el producto, contenido, fechas de disponibilidad, precio y usuario oferente.
+    """
     producto = models.CharField(max_length=100)
     contenido = models.TextField()
     fecha_inicio = models.DateTimeField()
@@ -116,6 +143,10 @@ class Servicio(models.Model):
 
 # Modelo para interacciones en trueques (comentarios y me interesa)
 class InteraccionTrueque(models.Model):
+    """
+    Modelo para representar interacciones de los usuarios en los trueques.
+    Incluye campos para el comentario, me interesa y referencias al trueque y usuario.
+    """
     trueque = models.ForeignKey(Trueque, on_delete=models.CASCADE)
     usuario = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     comentario = models.TextField()
@@ -123,6 +154,10 @@ class InteraccionTrueque(models.Model):
 
 # Modelo para publicidades de servicios
 class Publicidades(models.Model):
+    """
+    Modelo para gestionar la publicidad de servicios ofrecidos por los usuarios.
+    Incluye campos para el precio, estado, usuario propietario y servicio asociado.
+    """
     ESTADO_CHOICES = [
         ('activada', 'Activada'),
         ('desactivada', 'Desactivada'),
@@ -139,6 +174,10 @@ class Publicidades(models.Model):
 
 # Modelo para contactos (mensajes de usuarios)
 class Contactos(models.Model):
+    """
+    Modelo para representar los mensajes de contacto enviados por los usuarios.
+    Incluye campos para el usuario remitente, correo, opción de promocionarse, mensaje y fecha de envío.
+    """
     usuario = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     correo = models.EmailField(max_length=50, unique=True)
     promocionarse = models.BooleanField(default=False)

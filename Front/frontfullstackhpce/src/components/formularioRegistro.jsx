@@ -3,7 +3,10 @@ import Swal from 'sweetalert2'
 import CallsUsuarias from '../services/CallsUsuarias'
 import '../styles/Scomponents/FormularioRegistro.css' 
 
-
+/**
+ * Componente de formulario de registro de usuaria.
+ * Permite registrar una nueva usuaria en la plataforma.
+ */
 export default function FormularioRegistro() {
 
   const [username, setUsername] = useState('')

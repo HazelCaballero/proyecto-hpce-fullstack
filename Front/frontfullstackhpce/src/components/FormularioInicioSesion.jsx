@@ -4,6 +4,10 @@ import CallsAuth from '../services/CallsAuth'
 import { useNavigate } from 'react-router-dom'
 import "../styles/Scomponents/FormularioInicioSesion.css"
 
+/**
+ * Componente de formulario de inicio de sesión.
+ * Permite a la usuaria autenticarse y guardar los tokens en localStorage.
+ */
 export default function FormularioInicioSesion() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')

@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import CallsCategorias from '../services/CallsCategorias';
 import Swal from 'sweetalert2';
 
+/**
+ * Componente de administración de categorías.
+ * Permite ver, crear, editar y eliminar categorías.
+ */
 export default function CategoriasAdmin() {
   const [categorias, setCategorias] = useState([]);
   const [catForm, setCatForm] = useState({ nombre: '' });

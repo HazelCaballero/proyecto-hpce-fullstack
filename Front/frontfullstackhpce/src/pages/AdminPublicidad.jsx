@@ -6,6 +6,10 @@ import Footer from '../components/Footer';
 import ServiciosAdmin from '../components/ServiciosAdmin';
 import Publicity from '../components/Publicity';
 
+/**
+ * Página de administración de publicidad, servicios y categorías.
+ * Permite gestionar anuncios, servicios y categorías desde un solo panel.
+ */
 export default function AdminPublicidad() {
   const [reload, setReload] = useState(false);
   return (

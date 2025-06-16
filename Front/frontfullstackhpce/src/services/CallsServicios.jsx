@@ -1,7 +1,12 @@
+// Servicio para operaciones CRUD de servicios
 // URL base de la API donde se hacen las peticiones
 const BASE_URL = "http://127.0.0.1:8000/api/";
 
 
+/**
+ * Obtiene la lista de servicios (requiere autenticación JWT).
+ * @returns {Promise<Array>} - Lista de servicios
+ */
 async function GetServicios() {
   try {
  
@@ -25,6 +30,11 @@ async function GetServicios() {
 }
 
 
+/**
+ * Crea un nuevo servicio.
+ * @param {Object} objeto - Datos del servicio
+ * @returns {Promise<Object>} - Servicio creado
+ */
 async function PostServicios(objeto) {
   try {
     const token = localStorage.getItem('access');

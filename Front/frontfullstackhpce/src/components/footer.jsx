@@ -2,6 +2,10 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../styles/Scomponents/Footer.css'
 
+/**
+ * Componente de pie de página.
+ * Muestra información de contacto y un botón para ir a la página de contacto.
+ */
 export default function Footer() {
   const navigate = useNavigate();
 

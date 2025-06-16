@@ -5,7 +5,10 @@ import Main from '../components/Main';
 import AUsuarias from '../components/AUsuarias';
 import Footer from '../components/Footer';
 
-
+/**
+ * Página de administración de usuarias.
+ * Muestra el panel de gestión de usuarias para el administrador.
+ */
 function AdminUsuarias() {
   return (
     <div className="page-grid">

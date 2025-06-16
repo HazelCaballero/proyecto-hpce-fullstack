@@ -4,6 +4,10 @@ import CallsPublicaciones from '../services/CallsPublicaciones';
 import CallsUsuarias from '../services/CallsUsuarias';
 import Swal from 'sweetalert2';
 
+/**
+ * Componente de administración de publicaciones.
+ * Permite ver, gestionar y mostrar detalles de publicaciones y usuarias.
+ */
 function UsuarioNombre({ usuarioId }) {
   const [nombre, setNombre] = useState('Cargando...');
   useEffect(() => {

@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import CallsServicios from '../services/CallsServicios';
 import Swal from 'sweetalert2';
 
+/**
+ * Componente de administración de servicios.
+ * Permite ver, crear, editar y eliminar servicios.
+ */
 export default function ServiciosAdmin() {
   const [servicios, setServicios] = useState([]);
   const [servForm, setServForm] = useState({

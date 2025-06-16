@@ -5,6 +5,10 @@ import Main from '../components/Main';
 import ATrueques from '../components/ATrueques';
 import Footer from '../components/Footer';
 
+/**
+ * Página de administración de trueques.
+ * Muestra el panel de gestión de trueques para el administrador.
+ */
 export default function AdminTrueques() {
   return (
     <div className="page-grid">

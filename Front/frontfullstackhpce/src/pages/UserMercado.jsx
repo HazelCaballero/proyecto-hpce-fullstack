@@ -5,9 +5,11 @@ import Main from '../components/Main';
 import Mercado from '../components/Mercado';
 import Footer from '../components/Footer';
 
-
-export default function 
-() {
+/**
+ * Página de mercado para usuarias.
+ * Muestra el panel de trueques y productos disponibles.
+ */
+export default function UserMercado() {
   return (
     <div className="page-grid">
             <div >

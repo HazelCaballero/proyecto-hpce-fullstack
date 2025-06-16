@@ -1,6 +1,11 @@
+// Servicio para operaciones CRUD de interacciones en publicaciones
 const BASE_URL = "http://127.0.0.1:8000/api/";
 
 
+/**
+ * Obtiene la lista de interacciones en publicaciones (requiere autenticación JWT).
+ * @returns {Promise<Array>} - Lista de interacciones
+ */
 async function GetInterPublicacion() {
   try {
  
@@ -24,6 +29,11 @@ async function GetInterPublicacion() {
 }
 
 
+/**
+ * Crea una nueva interacción en publicación.
+ * @param {Object} objeto - Datos de la interacción
+ * @returns {Promise<Object>} - Interacción creada
+ */
 async function PostInterPublicacion(objeto) {
   try {
    

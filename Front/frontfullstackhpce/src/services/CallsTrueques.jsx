@@ -1,6 +1,11 @@
+// Servicio para operaciones CRUD de trueques
 const BASE_URL = "http://127.0.0.1:8000/api/";
 
 
+/**
+ * Obtiene la lista de trueques (requiere autenticación JWT).
+ * @returns {Promise<Array>} - Lista de trueques
+ */
 async function GetTrueques() {
   try {
     
@@ -24,6 +29,11 @@ async function GetTrueques() {
 }
 
 
+/**
+ * Crea un nuevo trueque.
+ * @param {Object} objeto - Datos del trueque
+ * @returns {Promise<Object>} - Trueque creado
+ */
 async function PostTrueques(objeto) {
   try {
     const token = localStorage.getItem('access');
@@ -51,6 +61,12 @@ async function PostTrueques(objeto) {
 }
 
 
+/**
+ * Actualiza un trueque existente.
+ * @param {number} id - ID del trueque a actualizar
+ * @param {Object} objeto - Nuevos datos del trueque
+ * @returns {Promise<Object>} - Trueque actualizado
+ */
 async function UpdateTrueques(id, objeto) {
   try {
  
@@ -75,6 +91,11 @@ async function UpdateTrueques(id, objeto) {
 }
 
 
+/**
+ * Elimina un trueque.
+ * @param {number} id - ID del trueque a eliminar
+ * @returns {Promise<void>}
+ */
 async function DeleteTrueque(id) {
   try {
     

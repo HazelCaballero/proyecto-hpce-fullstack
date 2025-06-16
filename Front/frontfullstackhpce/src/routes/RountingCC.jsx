@@ -13,20 +13,23 @@ import UserContactanos from '../pages/UserContactanos';
 import UserMercado from '../pages/UserMercado';
 import UserMuro from '../pages/UserMuro';
 
-
-
+/**
+ * Componente principal de ruteo de la aplicación.
+ * Define las rutas públicas y protegidas para admin y usuarias.
+ */
 function RountingCC() {
   return (
     <Router>
       <Routes>
-
+        {/* Redirección por defecto al inicio de usuaria */}
         <Route path="/" element={<Navigate to="/UserInicio" />} />
-        
+        {/* Rutas de administración */}
         <Route path="/AdminUsuarias" element={<AdminUsuarias />} />
         <Route path="/AdminTrueques" element={<AdminTrueques />} />
         <Route path="/AdminPublicaciones" element={<AdminPublicaciones />} />
         <Route path="/AdminContactos" element={<AdminContactos />} />
         <Route path="/AdminPublicidad" element={<AdminPublicidad />} />
+        {/* Rutas de usuaria */}
         <Route path="/UserInicio" element={<UserInicio />} />
         <Route path="/UserHogar" element={
           <ProtectedRoute>

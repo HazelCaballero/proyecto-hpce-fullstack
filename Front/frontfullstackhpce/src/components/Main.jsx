@@ -1,5 +1,10 @@
 import React from 'react'
 
+/**
+ * Componente contenedor principal para el contenido de la página.
+ * Renderiza los hijos recibidos por props.
+ * @param {React.ReactNode} children - Elementos hijos a mostrar
+ */
 export default function Main({ children }) {
   return (
     <div>

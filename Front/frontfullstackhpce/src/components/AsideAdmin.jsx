@@ -2,6 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import "../styles/Scomponents/AsideAdmin.css"
 
+/**
+ * Componente de menú lateral para administración.
+ * Incluye enlaces de navegación a las páginas de administración.
+ */
 function AsideAdmin() {
   return (
     <aside className="aside-admin">

@@ -5,9 +5,11 @@ import Main from '../components/Main';
 import Perfil from '../components/Perfil';
 import Footer from '../components/Footer';
 
-
-export default function 
-() {
+/**
+ * Página de perfil de la usuaria.
+ * Muestra el menú lateral, encabezado, sección principal con el perfil y pie de página.
+ */
+export default function UserPerfil() {
   return (
     <div className="page-grid">
         <div >

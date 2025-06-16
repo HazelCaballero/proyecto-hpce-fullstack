@@ -17,7 +17,9 @@ from .views import (
 )
 
 
-# Definición de las rutas de la API
+# Definición de rutas de la API
+# Cada endpoint corresponde a un recurso CRUD o autenticación JWT.
+
 urlpatterns = [
     # Rutas para usuarios personalizados
     path('usuarios/', CustomUserListCreateView.as_view(), name='usuarios-listar-crear'),

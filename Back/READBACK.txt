@@ -6,24 +6,18 @@ Guía de instalación y funcionamiento del backend Django
 2. Instalación de dependencias necesarias
 Ejecuta en la terminal:
 
-pip install django djangorestframework,
- djangorestframework-simplejwt
-
+pip install django djangorestframework djangorestframework-simplejwt
 
 3. Configuración en settings.py
 - Agrega 'rest_framework' y 'api' a INSTALLED_APPS.
 - Configura el modelo de usuario personalizado:
-  
   AUTH_USER_MODEL = 'api.CustomUser'
-  
 - Configura la autenticación JWT en REST_FRAMEWORK:
-  
   REST_FRAMEWORK = {
       'DEFAULT_AUTHENTICATION_CLASSES': (
           'rest_framework_simplejwt.authentication.JWTAuthentication',
       ),
   }
-
 
 4. Modelos personalizados
 - Se creó el modelo `CustomUser` extendiendo `AbstractUser`.
@@ -34,7 +28,6 @@ Ejecuta:
 
 python manage.py makemigrations
 python manage.py migrate
-
 
 6. Serializadores
 - Se crearon serializadores para cada modelo en `serializers.py`.
@@ -52,7 +45,21 @@ python manage.py migrate
 
 10. Superusuario y pruebas
 - Crea un superusuario con:
-
   python manage.py createsuperuser
-
 - Prueba los endpoints con herramientas como Postman.
+
+
+11. Estructura de carpetas relevante
+
+- api/models.py: Modelos de datos.
+- api/serializers.py: Serializadores para la API.
+- api/views.py: Lógica de negocio y vistas.
+- api/urls.py: Rutas de la API.
+
+## Ejemplo de endpoints
+
+- Autenticación: `/token/`, `/token/refresh/`
+- Usuarios: `/usuarios/`, `/usuarios/<id>/`
+- Categorías: `/categorias/`, `/categorias/<id>/`
+- Trueques: `/trueques/`, `/trueques/<id>/`
+- Publicaciones: `/publicaciones/`, `/publicaciones/<id>/`

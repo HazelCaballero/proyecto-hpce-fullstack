@@ -4,6 +4,10 @@ import CallsCategorias from '../services/CallsCategorias'
 import Swal from 'sweetalert2'
 import '../styles/Scomponents/ATrueques.css'
 
+/**
+ * Componente de administración de trueques.
+ * Permite ver, crear, editar y eliminar trueques y categorías.
+ */
 export default function Trueques() {
   const [trueques, setTrueques] = useState([])
   const [loading, setLoading] = useState(true)

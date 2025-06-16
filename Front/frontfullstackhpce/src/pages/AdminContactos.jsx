@@ -5,8 +5,11 @@ import Main from '../components/Main';
 import AContactos from '../components/AContactos';
 import Footer from '../components/Footer';
 
-export default function 
-() {
+/**
+ * Página de administración de contactos.
+ * Muestra el panel de gestión de mensajes de contacto para el administrador.
+ */
+export default function AdminContactos() {
   return (
     <div className="page-grid">
         <div >

@@ -3,6 +3,10 @@ import CallsUsuarias from '../services/CallsUsuarias';
 import Swal from 'sweetalert2';
 import '../styles/Scomponents/AUsuarias.css';
 
+/**
+ * Componente de administración de usuarias.
+ * Permite ver, editar, eliminar y mostrar detalles de usuarias.
+ */
 export default function Usuarias() {
   const [usuarias, setUsuarias] = useState([]);
   const [loading, setLoading] = useState(true);

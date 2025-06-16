@@ -1,7 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import '../styles/Scomponents/AsideUsuarias.css' // Importa el CSS
+import '../styles/Scomponents/AsideUsuarias.css' 
 
+/**
+ * Componente de menú lateral para usuarias.
+ * Incluye enlaces de navegación a las páginas principales del usuario.
+ */
 export default function AsideUsuarias() {
   return (
     <div className="aside-usuarias">

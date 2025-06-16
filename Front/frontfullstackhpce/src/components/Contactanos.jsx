@@ -1,6 +1,11 @@
 import React from 'react'
 import FormularioContacto from './FormularioContacto'
 import '../styles/Scomponents/Contactanos.css' 
+
+/**
+ * Componente de página de contacto.
+ * Muestra el formulario de contacto, información de la fundadora y horario de atención.
+ */
 export default function Contactanos() {
   return (
     <div className="contactanos-container">

@@ -1,6 +1,10 @@
 import React from 'react'
 import '../styles/Scomponents/Hogar.css'
 
+/**
+ * Componente de página de inicio (hogar).
+ * Muestra información sobre la plataforma, misión, visión y valores.
+ */
 export default function Hogar() {
   return (
     <div className="hogar-container">

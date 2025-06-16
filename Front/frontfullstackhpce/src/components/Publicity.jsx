@@ -7,6 +7,10 @@ import CallsPublicidades from '../services/CallsPublicidades';
 import CallsServicios from '../services/CallsServicios';
 import Swal from 'sweetalert2';
 
+/**
+ * Componente para crear y gestionar anuncios/publicidades.
+ * Permite crear, editar, activar/desactivar y ver detalles de anuncios.
+ */
 function UsuarioNombre({ usuarioId }) {
   const [nombre, setNombre] = useState('Cargando...');
   useEffect(() => {

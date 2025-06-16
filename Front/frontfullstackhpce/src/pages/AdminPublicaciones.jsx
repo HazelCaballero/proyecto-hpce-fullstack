@@ -6,6 +6,10 @@ import APublicaciones from '../components/APublicaciones';
 import Footer from '../components/Footer';
 import '../styles/Spages/AdminPublicaciones.css'
 
+/**
+ * Página de administración de publicaciones.
+ * Muestra el panel de gestión de publicaciones para el administrador.
+ */
 export default function AdminPublicaciones() {
   return (
     <div className="page-grid">

@@ -1,7 +1,10 @@
-// URL base de la API donde se hacen las peticiones
+// Servicio para operaciones CRUD de publicaciones
 const BASE_URL = "http://127.0.0.1:8000/api/";
 
-
+/**
+ * Obtiene la lista de publicaciones (requiere autenticación JWT).
+ * @returns {Promise<Array>} - Lista de publicaciones
+ */
 async function GetPublicaciones() {
   try {
  
@@ -25,6 +28,11 @@ async function GetPublicaciones() {
 }
 
 
+/**
+ * Crea una nueva publicación.
+ * @param {Object} objeto - Datos de la publicación
+ * @returns {Promise<Object>} - Publicación creada
+ */
 async function PostPublicaciones(objeto) {
   try {
    

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react'
 import CallsPublicidades from '../services/CallsPublicidades'
 import CallsServicios from '../services/CallsServicios'
@@ -7,7 +6,10 @@ import CallsInterPublicacion from '../services/CallsInterPublicacion'
 import Swal from 'sweetalert2'
 import '../styles/Scomponents/Muro.css'
 
-
+/**
+ * Componente de muro de publicaciones y anuncios.
+ * Permite ver, crear, comentar y gestionar publicaciones, anuncios y servicios.
+ */
 export default function Muro() {
   const [anuncios, setAnuncios] = useState([])
   const [servicios, setServicios] = useState([])

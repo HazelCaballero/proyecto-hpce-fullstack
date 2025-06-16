@@ -1,7 +1,10 @@
-// URL base de la API donde se hacen las peticiones
+// Servicio para operaciones CRUD de superusuarios
 const BASE_URL = "http://127.0.0.1:8000/api/";
 
-
+/**
+ * Obtiene la información del superusuario (requiere autenticación JWT).
+ * @returns {Promise<Object>} - Datos del superusuario
+ */
 async function GetSuperUser() {
   try {
  
@@ -25,6 +28,11 @@ async function GetSuperUser() {
 }
 
 
+/**
+ * Crea un nuevo superusuario.
+ * @param {Object} objeto - Datos del superusuario
+ * @returns {Promise<Object>} - Superusuario creado
+ */
 async function PostSuperUser(objeto) {
   try {
    

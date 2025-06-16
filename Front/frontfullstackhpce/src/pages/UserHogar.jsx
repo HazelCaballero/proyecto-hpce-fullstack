@@ -5,6 +5,10 @@ import Main from '../components/Main';
 import Hogar from '../components/Hogar';
 import Footer from '../components/Footer';
 
+/**
+ * Página de inicio (hogar) para usuarias.
+ * Muestra información sobre la plataforma, misión, visión y valores.
+ */
 export default function UserHogar() {
   return (
     <div className="page-grid">

@@ -7,6 +7,10 @@ import FormularioRegistro from '../components/formularioRegistro';
 import FormularioInicioSesion from '../components/FormularioInicioSesion';
 import '../styles/Spages/UserInicio.css';
 
+/**
+ * Página de inicio para usuarias.
+ * Muestra el menú lateral, encabezado, formularios de registro e inicio de sesión y pie de página.
+ */
 export default function UserInicio() {
   return (
     <div className="page-grid">

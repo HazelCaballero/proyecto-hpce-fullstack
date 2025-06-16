@@ -1,6 +1,11 @@
+// Servicio para operaciones CRUD de contactos
 const BASE_URL = "http://127.0.0.1:8000/api/";
 
 
+/**
+ * Obtiene la lista de contactos (requiere autenticación JWT).
+ * @returns {Promise<Array>} - Lista de contactos
+ */
 async function GetContactos() {
   try {
  
@@ -24,6 +29,11 @@ async function GetContactos() {
 }
 
 
+/**
+ * Crea un nuevo contacto.
+ * @param {Object} objeto - Datos del contacto
+ * @returns {Promise<Object>} - Contacto creado
+ */
 async function PostContactos(objeto) {
   try {
    

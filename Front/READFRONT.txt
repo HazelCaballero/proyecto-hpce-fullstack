@@ -1,11 +1,44 @@
-Obtener el token de acceso (para llamadas autenticadas)
-const accessToken = localStorage.getItem('access')
+# Frontend HPCE Fullstack
 
-Obtener el token refresh (para renovar el accessToken si expira)
-const refreshToken = localStorage.getItem('refresh')
+Este frontend está construido con React y Vite. Es la interfaz de la plataforma de trueques y servicios.
 
-Obtener el nombre de usuaria
-const username = localStorage.getItem('usuario')
+## Instalación y ejecución
 
-Saber si es superusuario
-const isSuperuser = localStorage.getItem('is_superuser') === 'true' // recordar convertir a boolean
+1. Instala las dependencias:
+   ```bash
+   npm install
+   ```
+2. Ejecuta la app:
+   ```bash
+   npm run dev
+   ```
+
+## Estructura principal
+- `src/components/`: Componentes reutilizables (menús, headers, formularios, etc).
+- `src/pages/`: Páginas principales de usuarias y administración.
+- `src/routes/`: Definición de rutas y rutas protegidas.
+- `src/services/`: Servicios para consumir la API del backend.
+- `src/utils/`: Utilidades varias (por ejemplo, decodificación de JWT).
+- `src/styles/`: Archivos CSS.
+
+## Autenticación JWT
+- El login se realiza contra el endpoint `/token/` del backend.
+- El token JWT se almacena en `localStorage` (`access` y `refresh`).
+- Para acceder a rutas protegidas, el token debe estar presente.
+
+### Ejemplo de uso de tokens en el frontend
+```js
+const accessToken = localStorage.getItem('access');
+const refreshToken = localStorage.getItem('refresh');
+const username = localStorage.getItem('usuario');
+const isSuperuser = localStorage.getItem('is_superuser') === 'true';
+```
+
+### Ejemplo de llamada autenticada
+```js
+fetch('http://localhost:8000/api/usuarios/', {
+  headers: {
+    'Authorization': `Bearer ${accessToken}`
+  }
+})
+```

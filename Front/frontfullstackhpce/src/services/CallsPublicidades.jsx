@@ -1,7 +1,11 @@
-// URL base de la API donde se hacen las peticiones
+// Servicio para operaciones CRUD de publicidades
 const BASE_URL = "http://127.0.0.1:8000/api/";
 
 
+/**
+ * Obtiene la lista de publicidades (requiere autenticación JWT).
+ * @returns {Promise<Array>} - Lista de publicidades
+ */
 async function GetPublicidad() {
   try {
  
@@ -25,6 +29,11 @@ async function GetPublicidad() {
 }
 
 
+/**
+ * Crea una nueva publicidad.
+ * @param {Object} objeto - Datos de la publicidad
+ * @returns {Promise<Object>} - Publicidad creada
+ */
 async function PostPublicidad(objeto) {
   try {
     const token = localStorage.getItem('access');

@@ -5,6 +5,10 @@ import CallsInterTrueques from '../services/CallsInterTrueques'
 import Swal from 'sweetalert2'
 import '../styles/Scomponents/Mercado.css'
 
+/**
+ * Componente de mercado de trueques.
+ * Permite ver, buscar, crear, editar y comentar trueques.
+ */
 export default function Mercado() {
   const [trueques, setTrueques] = useState([])
   const [categorias, setCategorias] = useState([])

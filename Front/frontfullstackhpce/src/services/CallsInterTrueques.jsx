@@ -1,7 +1,10 @@
-// URL base de la API donde se hacen las peticiones
+// Servicio para operaciones CRUD de interacciones en trueques
 const BASE_URL = "http://127.0.0.1:8000/api/";
 
-
+/**
+ * Obtiene la lista de interacciones en trueques (requiere autenticación JWT).
+ * @returns {Promise<Array>} - Lista de interacciones
+ */
 async function GetInterTrueques() {
   try {
  
@@ -25,6 +28,11 @@ async function GetInterTrueques() {
 }
 
 
+/**
+ * Crea una nueva interacción en trueque.
+ * @param {Object} objeto - Datos de la interacción
+ * @returns {Promise<Object>} - Interacción creada
+ */
 async function PostInterTrueques(objeto) {
   try {
    

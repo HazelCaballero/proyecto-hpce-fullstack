@@ -6,6 +6,10 @@ import CallsUsuarias from '../services/CallsUsuarias'
 import CallsServicios from '../services/CallsServicios'
 import Swal from 'sweetalert2';
 
+/**
+ * Componente de administración de contactos.
+ * Permite ver, eliminar y gestionar mensajes de contacto, así como crear anuncios y ver detalles de usuarias y servicios.
+ */
 export default function Contactos() {
   const [mensajes, setMensajes] = useState([]);
   const [publicidades, setPublicidades] = useState([]);

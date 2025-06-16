@@ -4,6 +4,10 @@ import Swal from 'sweetalert2';
 import '../styles/Scomponents/Perfil.css';
 import CallsUsuarias from '../services/CallsUsuarias';
 
+/**
+ * Componente de perfil de la usuaria.
+ * Muestra la información del perfil de la usuaria autenticada.
+ */
 export default function Perfil() {
   const [usuaria, setUsuaria] = useState(null);
   const [error, setError] = useState('');

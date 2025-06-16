@@ -5,7 +5,10 @@ import Main from '../components/Main';
 import Contactanos from '../components/Contactanos';
 import Footer from '../components/Footer';
 
-
+/**
+ * Página de contacto para usuarias.
+ * Muestra el formulario de contacto y datos de la fundadora.
+ */
 export default function UserContactanos() {
   return (
     <div className="page-grid">
