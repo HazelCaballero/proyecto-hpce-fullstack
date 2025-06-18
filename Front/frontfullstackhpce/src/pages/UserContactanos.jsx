@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Main from '../components/Main';
 import Contactanos from '../components/Contactanos';
 import Footer from '../components/Footer';
+import '../styles/Spages/UserContactanos.css';
 
 /**
  * Página de contacto para usuarias.

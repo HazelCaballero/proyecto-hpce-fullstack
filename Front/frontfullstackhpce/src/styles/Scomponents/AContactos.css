@@ -1,55 +1,17 @@
+/* Estilos para AContactos.jsx */
+
 .container-contactos {
-  max-width: 600px;
-  margin: 30px auto;
   padding: 24px;
-  background: #f9f9f9;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-.container-contactos h2, 
-.container-contactos h3 {
-  color: #2c3e50;
-  margin-bottom: 10px;
+.resumen {
+  margin-bottom: 16px;
 }
 
-.container-contactos ul {
-  list-style: none;
-  padding: 0;
-  margin-bottom: 20px;
+ul {
+  margin-bottom: 24px;
 }
 
-.container-contactos li {
-  background: #fff;
-  margin-bottom: 8px;
-  padding: 10px 14px;
-  border-radius: 6px;
-  border: 1px solid #e0e0e0;
-}
-
-.form-anuncio {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.form-anuncio input[type="text"] {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.form-anuncio button {
-  padding: 10px;
-  background: #1976d2;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background 0.2s;
-}
-
-.form-anuncio button:hover {
-  background: #125ea8;
+.modal {
+  /* Puedes personalizar el modal aquí */
 }

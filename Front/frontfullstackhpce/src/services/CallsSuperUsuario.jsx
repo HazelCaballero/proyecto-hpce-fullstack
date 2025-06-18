@@ -1,5 +1,6 @@
-// Servicio para operaciones CRUD de superusuarios
-const BASE_URL = "http://127.0.0.1:8000/api/";
+import { buildHeaders, handleFetchError } from './utils';
+
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 /**
  * Obtiene la información del superusuario (requiere autenticación JWT).
@@ -7,22 +8,13 @@ const BASE_URL = "http://127.0.0.1:8000/api/";
  */
 async function GetSuperUser() {
   try {
- 
-    const token = localStorage.getItem('access');
     const response = await fetch(`${BASE_URL}ver-superusuario/`, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(token ? { 'Authorization': 'Bearer ' + token } : {})
-      }
+      headers: buildHeaders(),
     });
-  
-    if (!response.ok) throw new Error('Error fetching employes');
-  
+    if (!response.ok) await handleFetchError(response, 'superuser');
     return await response.json();
   } catch (error) {
-
-    console.error('Error fetching employes:', error);
     throw error;
   }
 }
@@ -35,23 +27,14 @@ async function GetSuperUser() {
  */
 async function PostSuperUser(objeto) {
   try {
-   
-    const token = localStorage.getItem('access');
     const response = await fetch(`${BASE_URL}crear-superusuario/`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(token ? { 'Authorization': 'Bearer ' + token } : {})
-      },
+      headers: buildHeaders(),
       body: JSON.stringify(objeto)
     });
-    
-    if (!response.ok) throw new Error('Error posting employe');
- 
+    if (!response.ok) await handleFetchError(response, 'superuser');
     return await response.json();
   } catch (error) {
-   
-    console.error('Error posting employe:', error);
     throw error;
   }
 }
@@ -59,23 +42,14 @@ async function PostSuperUser(objeto) {
 
 async function UpdateSuperUser(id, objeto) {
   try {
-   
-    const token = localStorage.getItem('access');
     const response = await fetch(`${BASE_URL}actualizar-superusuario/${id}/`, {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(token ? { 'Authorization': 'Bearer ' + token } : {})
-      },
+      headers: buildHeaders(),
       body: JSON.stringify(objeto)
     });
-   
-    if (!response.ok) throw new Error(`Error updating employe with id ${id}`);
-   
+    if (!response.ok) await handleFetchError(response, 'superuser');
     return await response.json();
   } catch (error) {
-   
-    console.error('Error updating employe:', error);
     throw error;
   }
 }
@@ -83,18 +57,13 @@ async function UpdateSuperUser(id, objeto) {
 
 async function DeleteSuperUser(id) {
   try {
- 
     const response = await fetch(`${BASE_URL}eliminar-superusuario/${id}/`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' }
     });
- 
-    if (!response.ok) throw new Error(`Error deleting employe with id ${id}`);
- 
+    if (!response.ok) await handleFetchError(response, 'superuser');
     return { message: `Employe with id ${id} deleted successfully` };
   } catch (error) {
-
-    console.error('Error deleting employe:', error);
     throw error;
   }
 }

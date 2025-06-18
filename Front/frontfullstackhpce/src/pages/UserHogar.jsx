@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Main from '../components/Main';
 import Hogar from '../components/Hogar';
 import Footer from '../components/Footer';
+import '../styles/Spages/UserHogar.css';
 
 /**
  * Página de inicio (hogar) para usuarias.

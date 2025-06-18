@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Main from '../components/Main';
 import Perfil from '../components/Perfil';
 import Footer from '../components/Footer';
+import '../styles/Spages/UserPerfil.css';
 
 /**
  * Página de perfil de la usuaria.

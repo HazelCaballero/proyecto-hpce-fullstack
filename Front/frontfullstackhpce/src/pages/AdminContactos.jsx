@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Main from '../components/Main';
 import AContactos from '../components/AContactos';
 import Footer from '../components/Footer';
+import '../styles/Spages/AdminContactos.css';
 
 /**
  * Página de administración de contactos.

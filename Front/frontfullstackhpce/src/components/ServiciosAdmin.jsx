@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import CallsServicios from '../services/CallsServicios';
 import Swal from 'sweetalert2';
+import '../styles/Scomponents/ServiciosAdmin.css';
 
 /**
  * Componente de administración de servicios.

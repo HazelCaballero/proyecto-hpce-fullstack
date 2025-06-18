@@ -1,5 +1,6 @@
-// Servicio para operaciones CRUD de trueques
-const BASE_URL = "http://127.0.0.1:8000/api/";
+import { buildHeaders, handleFetchError } from './utils';
+
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 
 /**
@@ -8,22 +9,13 @@ const BASE_URL = "http://127.0.0.1:8000/api/";
  */
 async function GetTrueques() {
   try {
-    
-    const token = localStorage.getItem('access');
     const response = await fetch(`${BASE_URL}trueques/`, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(token ? { 'Authorization': 'Bearer ' + token } : {})
-      }
+      headers: buildHeaders(),
     });
-   
-    if (!response.ok) throw new Error('Error fetching trueques');
-   
+    if (!response.ok) await handleFetchError(response, 'trueques');
     return await response.json();
   } catch (error) {
-  
-    console.error('Error fetching trueques:', error);
     throw error;
   }
 }
@@ -36,26 +28,14 @@ async function GetTrueques() {
  */
 async function PostTrueques(objeto) {
   try {
-    const token = localStorage.getItem('access');
     const response = await fetch(`${BASE_URL}trueques/`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(token ? { 'Authorization': 'Bearer ' + token } : {})
-      },
+      headers: buildHeaders(),
       body: JSON.stringify(objeto)
     });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('Detalle del error backend:', errorText); // <-- AGREGA ESTA LÍNEA
-      throw new Error('Error posting trueque');
-    }
-
+    if (!response.ok) await handleFetchError(response, 'trueques');
     return await response.json();
   } catch (error) {
-   
-    console.error('Error posting trueque:', error);
     throw error;
   }
 }
@@ -69,23 +49,14 @@ async function PostTrueques(objeto) {
  */
 async function UpdateTrueques(id, objeto) {
   try {
- 
-    const token = localStorage.getItem('access');
     const response = await fetch(`${BASE_URL}trueques/${id}/`, {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(token ? { 'Authorization': 'Bearer ' + token } : {})
-      },
+      headers: buildHeaders(),
       body: JSON.stringify(objeto)
     });
-    
-    if (!response.ok) throw new Error(`Error updating trueque with id ${id}`);
-    
+    if (!response.ok) await handleFetchError(response, 'trueques');
     return await response.json();
   } catch (error) {
-   
-    console.error('Error updating trueque:', error);
     throw error;
   }
 }
@@ -98,21 +69,12 @@ async function UpdateTrueques(id, objeto) {
  */
 async function DeleteTrueque(id) {
   try {
-    
-    const token = localStorage.getItem('access')
     const response = await fetch(`${BASE_URL}trueques/${id}/`, {
       method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
+      headers: buildHeaders(),
     })
-    if (!response.ok) {
-      throw new Error(`Error deleting trueque with id ${id}`)
-    }
+    if (!response.ok) await handleFetchError(response, 'trueques');
   } catch (error) {
-    
-    console.error('Error deleting trueque:', error);
     throw error;
   }
 }

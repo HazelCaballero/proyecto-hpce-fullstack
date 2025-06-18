@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/Scomponents/ServiciosCategoriasAdmin.css';
 import ServiciosAdmin from './ServiciosAdmin';
 import CategoriasAdmin from './CategoriasAdmin';
 

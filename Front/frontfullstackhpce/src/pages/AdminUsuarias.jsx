@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Main from '../components/Main';
 import AUsuarias from '../components/AUsuarias';
 import Footer from '../components/Footer';
+import '../styles/Spages/AdminUsuarias.css';
 
 /**
  * Página de administración de usuarias.

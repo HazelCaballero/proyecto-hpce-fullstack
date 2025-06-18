@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import "../styles/Scomponents/AsideAdmin.css"
+import '../styles/Scomponents/AsideAdmin.css';
 
 /**
  * Componente de menú lateral para administración.

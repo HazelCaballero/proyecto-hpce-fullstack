@@ -1,4 +1,5 @@
 import React from 'react'
+import '../styles/Scomponents/Main.css';
 
 /**
  * Componente contenedor principal para el contenido de la página.

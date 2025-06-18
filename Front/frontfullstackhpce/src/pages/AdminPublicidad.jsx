@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../styles/Spages/AdminPublicidad.css';
 import AsideAdmin from '../components/AsideAdmin';
 import Header from '../components/Header';
 import Main from '../components/Main';

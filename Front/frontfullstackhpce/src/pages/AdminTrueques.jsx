@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Main from '../components/Main';
 import ATrueques from '../components/ATrueques';
 import Footer from '../components/Footer';
+import '../styles/Spages/AdminTrueques.css';
 
 /**
  * Página de administración de trueques.

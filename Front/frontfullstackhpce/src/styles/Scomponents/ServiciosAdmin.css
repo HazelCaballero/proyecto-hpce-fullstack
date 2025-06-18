@@ -1,0 +1,14 @@
+/* Estilos para ServiciosAdmin.jsx */
+
+.servicios-mb12 {
+  margin-bottom: 12px;
+}
+.servicios-btn-cancel {
+  margin-left: 8px;
+}
+.servicios-list-item {
+  margin-bottom: 8px;
+}
+.servicios-btn-edit {
+  margin-right: 8px;
+}

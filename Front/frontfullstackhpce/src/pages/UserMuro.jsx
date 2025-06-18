@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Main from '../components/Main';
 import Muro from '../components/Muro';
 import Footer from '../components/Footer';
+import '../styles/Spages/UserMuro.css';
 
 /**
  * Página de muro para usuarias.

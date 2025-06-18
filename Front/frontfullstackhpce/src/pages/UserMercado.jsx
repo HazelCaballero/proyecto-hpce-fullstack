@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Main from '../components/Main';
 import Mercado from '../components/Mercado';
 import Footer from '../components/Footer';
+import '../styles/Spages/UserMercado.css';
 
 /**
  * Página de mercado para usuarias.

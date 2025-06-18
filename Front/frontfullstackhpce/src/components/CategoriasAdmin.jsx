@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import CallsCategorias from '../services/CallsCategorias';
 import Swal from 'sweetalert2';
+import '../styles/Scomponents/CategoriasAdmin.css';
 
 /**
  * Componente de administración de categorías.
@@ -83,7 +84,7 @@ export default function CategoriasAdmin() {
   return (
     <div>
       <h3>Categorías</h3>
-      <form onSubmit={handleCatSubmit} style={{marginBottom:12}}>
+      <form onSubmit={handleCatSubmit} className="categorias-form">
         <input name="nombre" value={catForm.nombre} onChange={handleCatChange} placeholder="Nombre" required /> <br />
         <button type="submit">{editCatId ? 'Actualizar' : 'Crear'} Categoría</button>
         {editCatId && <button type="button" onClick={()=>{setEditCatId(null);setCatForm({nombre:''})}}>Cancelar</button>}
@@ -92,8 +93,8 @@ export default function CategoriasAdmin() {
         {categorias.map(c => (
           <li key={c.id}>
             {c.nombre}
-            <button onClick={()=>handleCatEdit(c)} style={{marginLeft:8}}>Editar</button>
-            <button onClick={()=>handleCatDelete(c.id)} style={{marginLeft:4}}>Eliminar</button>
+            <button onClick={()=>handleCatEdit(c)} className="categorias-btn-edit">Editar</button>
+            <button onClick={()=>handleCatDelete(c.id)} className="categorias-btn-delete">Eliminar</button>
           </li>
         ))}
       </ul>

@@ -1,0 +1,39 @@
+/* Estilos para Publicity.jsx */
+
+.publicity-list-item {
+  margin-bottom: 16px;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  padding: 10px;
+}
+.publicity-label {
+  margin-left: 6px;
+}
+.publicity-actions {
+  margin-top: 8px;
+}
+.publicity-btn {
+  margin-right: 8px;
+}
+.publicity-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.publicity-modal-content {
+  background: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  min-width: 300px;
+  max-width: 400px;
+}
+.publicity-modal-close {
+  margin-top: 8px;
+}

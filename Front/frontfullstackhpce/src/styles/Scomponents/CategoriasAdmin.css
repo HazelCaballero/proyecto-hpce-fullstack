@@ -1,0 +1,11 @@
+/* Estilos para CategoriasAdmin.jsx */
+
+.categorias-form {
+  margin-bottom: 12px;
+}
+.categorias-btn-edit {
+  margin-left: 8px;
+}
+.categorias-btn-delete {
+  margin-left: 4px;
+}
