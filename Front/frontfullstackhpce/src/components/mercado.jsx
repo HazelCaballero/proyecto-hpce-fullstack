@@ -336,6 +336,7 @@ export default function Mercado() {
               onChange={handleChange}
               required
               aria-label="Título del trueque"
+              className="mercado-input"
             />
           </div>
           <div>
@@ -346,6 +347,7 @@ export default function Mercado() {
               onChange={handleChange}
               required
               aria-label="Descripción del trueque"
+              className="mercado-textarea"
             />
           </div>
           <div>
@@ -355,6 +357,7 @@ export default function Mercado() {
               onChange={handleCategoriaChange}
               required
               aria-label="Categoría"
+              className="mercado-select"
             >
               <option value="">Selecciona una categoría</option>
               {categorias.map(cat => (
@@ -371,6 +374,7 @@ export default function Mercado() {
               onChange={handleChange}
               required
               aria-label="Ubicación"
+              className="mercado-input"
             />
           </div>
           <div>
@@ -381,6 +385,7 @@ export default function Mercado() {
               value={nuevoTrueque.imagen_url}
               onChange={handleChange}
               aria-label="URL de imagen"
+              className="mercado-input"
             />
           </div>
           <div>
@@ -388,7 +393,7 @@ export default function Mercado() {
               {editandoId ? 'Guardar cambios' : 'Publicar Trueque'}
             </button>
             {editandoId && (
-              <button onClick={handleCancelar} style={{ marginLeft: 8 }}>
+              <button onClick={handleCancelar} className="mercado-btn-cancel">
                 Cancelar
               </button>
             )}
@@ -402,11 +407,10 @@ export default function Mercado() {
           placeholder="Buscar..."
           value={busqueda}
           onChange={e => setBusqueda(e.target.value)}
-          className="mercado-buscador"
-          style={{ marginBottom: 8 }}
+          className="mercado-buscador mercado-mb8"
           aria-label="Buscar trueques"
         />
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, margin: '8px 0' }}>
+        <div className="mercado-flex">
           <label><input type="checkbox" checked={filtros.usuaria} onChange={e => setFiltros(f => ({ ...f, usuaria: e.target.checked }))} /> Usuaria</label>
           <label><input type="checkbox" checked={filtros.titulo} onChange={e => setFiltros(f => ({ ...f, titulo: e.target.checked }))} /> Título</label>
           <label><input type="checkbox" checked={filtros.contenido} onChange={e => setFiltros(f => ({ ...f, contenido: e.target.checked }))} /> Contenido</label>
@@ -435,32 +439,33 @@ export default function Mercado() {
               <p>{t.trueque}</p>
               <p><b>Categoría:</b> {typeof t.categoria === 'object' ? t.categoria.nombre : t.categoria}</p>
               <p><b>Ubicación:</b> {t.ubicacion}</p>
-              {t.imagen_url && <img src={t.imagen_url} alt="trueque" style={{ maxWidth: '200px' }} />}
+              {t.imagen_url && <img src={t.imagen_url} alt="trueque" className="mercado-img-200" />}
               <p><b>Estado:</b> {t.estado}</p>
               <p><b>Comentarios:</b></p>
 
               {Number(t.usuario) === usuario_id && (
-                <div style={{ marginTop: 10 }}>
+                <div className="mercado-mt10">
                   <label>
                     Cambiar estado:{' '}
                     <select
                       value={t.estado}
                       onChange={e => handleEstadoChange(t.id, e.target.value, t)}
                       aria-label="Cambiar estado"
+                      className="mercado-select"
                     >
                       <option value="pendiente">Pendiente</option>
                       <option value="aceptado">Aceptado</option>
                       <option value="cancelado">Cancelado</option>
                     </select>
                   </label>
-                  <div className="mercado-actions" style={{ marginTop: 10 }}>
+                  <div className="mercado-actions">
                     <button onClick={() => handleEditar(t)} aria-label="Editar trueque">Editar</button>
                     <button onClick={() => handleEliminar(t.id)} aria-label="Eliminar trueque">Eliminar</button>
                   </div>
                 </div>
               )}
 
-              <div style={{ marginTop: 10 }}>
+              <div className="mercado-mt10">
                 <div>
                   {(interacciones[t.id] || []).length === 0
                     ? <div>No hay comentarios.</div>
@@ -520,10 +525,12 @@ export default function Mercado() {
                     onChange={e => handleComentarioChange(t.id, e.target.value)}
                     style={{ width: '100%', minHeight: 40 }}
                     aria-label="Escribe un comentario"
+                    className="mercado-textarea"
                   />
                   <button
                     onClick={() => handleEnviarInteraccion(t.id)}
                     disabled={!(nuevoComentario[t.id] && nuevoComentario[t.id].trim())}
+                    className="mercado-boton-enviar"
                   >
                     Enviar comentario
                   </button>

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/Scomponents/MensajeModal.css';
+import '../styles/Scomponents/MensajeModal.css';
 
 // Modal para mostrar detalles de un mensaje
 export default function MensajeModal({ mensaje, onClose }) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/Scomponents/PublicacionModal.css';
+import '../styles/Scomponents/PublicacionModal.css';
 
 // Modal para mostrar detalles de una publicación
 export default function PublicacionModal({ publicacion, onClose }) {

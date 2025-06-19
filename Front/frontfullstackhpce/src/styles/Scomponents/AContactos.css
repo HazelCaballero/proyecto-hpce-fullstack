@@ -1,17 +1,73 @@
 /* Estilos para AContactos.jsx */
 
-.container-contactos {
-  padding: 24px;
+.acontactos-container {
+  background: #fff3e0; /* naranja claro */
+  border-left: 4px solid #f57c00;
+  padding: 28px 24px;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(245,124,0,0.10);
+  margin-bottom: 32px;
 }
-
-.resumen {
-  margin-bottom: 16px;
+.acontactos-resumen {
+  background: #ffe0b2;
+  border: 2px solid #f57c00;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 28px;
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  justify-content: flex-start;
 }
-
-ul {
-  margin-bottom: 24px;
+.acontactos-resumen h2 {
+  color: #f57c00;
+  margin: 0 12px 0 0;
+  font-size: 1.2rem;
 }
-
-.modal {
-  /* Puedes personalizar el modal aquí */
+.acontactos-listas {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.acontactos-bloque {
+  background: #fff8e1;
+  border: 2px solid #fbc02d;
+  border-radius: 12px;
+  padding: 18px 14px;
+  min-width: 320px;
+  flex: 1 1 350px;
+  box-shadow: 0 2px 8px rgba(251,192,45,0.10);
+}
+.acontactos-bloque h3 {
+  color: #f57c00;
+  margin-bottom: 12px;
+}
+.acontactos-bloque ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.acontactos-bloque li {
+  background: #fffde7;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  border: 1px solid #ffe082;
+  box-shadow: 0 1px 4px rgba(251,192,45,0.06);
+}
+.acontactos-btn, .contactos-button {
+  background: #f57c00;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 16px;
+  margin: 4px 0 4px 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.acontactos-btn:hover, .contactos-button:hover {
+  background: #e65100;
+}
+.contactos-label {
+  margin-right: 8px;
 }

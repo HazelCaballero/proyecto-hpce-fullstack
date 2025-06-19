@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/Scomponents/PublicacionesLista.css';
+import '../styles/Scomponents/PublicacionesLista.css';
 import UsuarioNombre from './UsuarioNombre';
 
 // Lista de publicaciones con detalles

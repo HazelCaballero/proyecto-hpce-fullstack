@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import CallsUsuarias from '../services/CallsUsuarias';
 import Swal from 'sweetalert2';
 import '../styles/Scomponents/AUsuarias.css';
-import UsuariasLista from './subcomponents/UsuariasLista';
-import UsuariaModal from './subcomponents/UsuariaModal';
+import UsuariasLista from './UsuariasLista';
+import UsuariaModal from './UsuariaModal';
 
 /**
  * Componente de administración de usuarias.
@@ -74,7 +74,7 @@ export default function Usuarias() {
           </select>` :
           ''
         ) +
-        `<div style='margin-top:8px;'><b>Estado:</b> ${usuaria.is_active ? 'Activa' : 'Inactiva'}</div>`,
+        `<div class='ausuarias-margin-top-8'><b>Estado:</b> ${usuaria.is_active ? 'Activa' : 'Inactiva'}</div>`,
       focusConfirm: false,
       showCancelButton: true,
       confirmButtonText: 'Guardar',
@@ -110,21 +110,13 @@ export default function Usuarias() {
   const registradas = usuarias.length;
 
   return (
-    <div className="usuarias-container">
-      <h3 className="usuarias-list-title">Lista de usuarias</h3>
-      {loading && <div className="usuarias-loading">Cargando...</div>}
-      {error && <div className="usuarias-error">{error}</div>}
+    <div className="ausuarias-admin-container">
+      <h2 className="ausuarias-titulo">Administración de Usuarias</h2>
+      {loading && <div className="ausuarias-loading">Cargando usuarias...</div>}
+      {error && <div className="ausuarias-error">{error}</div>}
       {!loading && !error && (
         <UsuariasLista usuarias={usuarias} onSelect={setModalUsuaria} onEdit={handleEditar} />
       )}
-
-      <div className="usuarias-stats">
-        <h2>N de usuarias activas</h2>
-        <p className="usuarias-num">{activas}</p>
-        <h2>N de usuarias registradas</h2>
-        <p className="usuarias-num">{registradas}</p>
-      </div>
-
       {modalUsuaria && (
         <UsuariaModal usuaria={modalUsuaria} onClose={() => setModalUsuaria(null)} />
       )}

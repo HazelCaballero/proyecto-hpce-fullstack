@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/Scomponents/DetalleUsuaria.css';
+import '../styles/Scomponents/DetalleUsuaria.css';
 
 // Vista de detalle de una usuaria
 export default function DetalleUsuaria({ usuaria, onClose }) {

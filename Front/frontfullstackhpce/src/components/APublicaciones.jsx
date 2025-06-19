@@ -3,9 +3,9 @@ import '../styles/Scomponents/APublicaciones.css';
 import CallsPublicaciones from '../services/CallsPublicaciones';
 import CallsUsuarias from '../services/CallsUsuarias';
 import Swal from 'sweetalert2';
-import PublicacionesLista from './subcomponents/PublicacionesLista';
-import PublicacionModal from './subcomponents/PublicacionModal';
-import UsuarioNombre from './subcomponents/UsuarioNombre';
+import PublicacionesLista from './PublicacionesLista';
+import PublicacionModal from './PublicacionModal';
+import UsuarioNombre from './UsuarioNombre';
 
 /**
  * Componente de administración de publicaciones.
@@ -93,7 +93,7 @@ export default function APublicaciones() {
   const isSuperOrMod = isSuperUser || rol === 'superusuario' || rol === 'moderador';
 
   return (
-    <div className="publicaciones-container">
+    <div className="apublicaciones-container">
       <PublicacionesLista
         publicaciones={publicaciones}
         onSelect={setModalPub}

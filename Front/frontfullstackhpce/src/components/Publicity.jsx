@@ -7,6 +7,9 @@ import CallsPublicidades from '../services/CallsPublicidades';
 import CallsServicios from '../services/CallsServicios';
 import Swal from 'sweetalert2';
 import '../styles/Scomponents/Publicity.css';
+import ServiciosAdmin from './ServiciosAdmin';
+import ListaServicios from './ListaServicios';
+import ServicioForm from './ServicioForm';
 
 /**
  * Componente para crear y gestionar anuncios/publicidades.
@@ -216,132 +219,117 @@ export default function Publicity({ onCreated }) {
   };
 
   return (
-    <div className="publicity-containers-row">
-      <div className="adminpub-section">
-        <h2>Publicación de anuncio</h2>
-        <form className="form-anuncio-form" onSubmit={e => { e.preventDefault(); handleCrearAnuncio(); }}>
-          <div className="form-anuncio-group">
-            <label htmlFor="servicioId">Servicio</label>
-            <select
-              id="servicioId"
-              name="servicioId"
-              value={form.servicioId}
-              onChange={e => {
-                const selectedServicio = servicios.find(s => s.id === Number(e.target.value));
-                // Fecha actual en formato yyyy-mm-dd
-                const today = new Date();
-                const yyyy = today.getFullYear();
-                const mm = String(today.getMonth() + 1).padStart(2, '0');
-                const dd = String(today.getDate()).padStart(2, '0');
-                const fechaActual = `${yyyy}-${mm}-${dd}`;
-                setForm({
-                  ...form,
-                  servicioId: e.target.value,
-                  producto: selectedServicio ? selectedServicio.producto : '',
-                  contenido: selectedServicio ? selectedServicio.contenido : '',
-                  fecha_inicio: fechaActual
-                });
-              }}
-              required
-            >
-              <option value="">Selecciona un servicio</option>
-              {servicios.map(servicio => (
-                <option key={servicio.id} value={servicio.id}>
-                  {servicio.producto || `Servicio ${servicio.id}`}
-                </option>
-              ))}
-            </select>
+    <>
+      <div className="publicity-admin-container">
+        <h2 className="publicity-titulo">Gestión de Publicidad</h2>
+        <div className="publicity-bloques-grid">
+          <div className="publicity-bloque publicity-bloque-formulario">
+            <form onSubmit={e => { e.preventDefault(); handleCrearAnuncio(); }}>
+              <div className="form-anuncio-group">
+                <label htmlFor="servicioId">Servicio</label>
+                <select
+                  id="servicioId"
+                  name="servicioId"
+                  value={form.servicioId}
+                  onChange={e => {
+                    const selectedServicio = servicios.find(s => s.id === Number(e.target.value));
+                    // Fecha actual en formato yyyy-mm-dd
+                    const today = new Date();
+                    const yyyy = today.getFullYear();
+                    const mm = String(today.getMonth() + 1).padStart(2, '0');
+                    const dd = String(today.getDate()).padStart(2, '0');
+                    const fechaActual = `${yyyy}-${mm}-${dd}`;
+                    setForm({
+                      ...form,
+                      servicioId: e.target.value,
+                      producto: selectedServicio ? selectedServicio.producto : '',
+                      contenido: selectedServicio ? selectedServicio.contenido : '',
+                      fecha_inicio: fechaActual
+                    });
+                  }}
+                  required
+                >
+                  <option value="">Selecciona un servicio</option>
+                  {servicios.map(servicio => (
+                    <option key={servicio.id} value={servicio.id}>
+                      {servicio.producto || `Servicio ${servicio.id}`}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              {/* Mostrar datos de solo lectura */}
+              <div className="form-anuncio-group">
+                <label>Producto</label>
+                <input type="text" value={form.producto || ''} readOnly />
+              </div>
+              <div className="form-anuncio-group">
+                <label>Contenido del anuncio</label>
+                <input
+                  type="text"
+                  name="contenido"
+                  value={form.contenido || ''}
+                  readOnly
+                />
+              </div>
+              <div className="form-anuncio-group">
+                <label>Fecha inicio</label>
+                <input
+                  type="date"
+                  name="fecha_inicio"
+                  value={form.fecha_inicio || ''}
+                  readOnly
+                />
+              </div>
+              <button type="submit" className="form-anuncio-btn">
+                Activar anuncio
+              </button>
+            </form>
           </div>
-          {/* Mostrar datos de solo lectura */}
-          <div className="form-anuncio-group">
-            <label>Producto</label>
-            <input type="text" value={form.producto || ''} readOnly />
-          </div>
-          <div className="form-anuncio-group">
-            <label>Contenido del anuncio</label>
-            <input
-              type="text"
-              name="contenido"
-              value={form.contenido || ''}
-              readOnly
-            />
-          </div>
-          <div className="form-anuncio-group">
-            <label>Fecha inicio</label>
-            <input
-              type="date"
-              name="fecha_inicio"
-              value={form.fecha_inicio || ''}
-              readOnly
-            />
-          </div>
-          <button type="submit" className="form-anuncio-btn">
-            Activar anuncio
-          </button>
-        </form>
+        </div>
       </div>
-      <div className="adminpub-section">
-        <h2>Lista de anuncios</h2>
-        <ul>
-          {publicidades.length === 0 ? (
-            <li>No hay anuncios</li>
-          ) : (
-            publicidades.map((ad, idx) => (
-              <li key={ad.id || idx} className="publicity-list-item">
-                <div><b>Precio:</b> {ad.precio_publicidad}</div>
-                <div>
-                  <b>Estado:</b>
-                  <label className="publicity-label">
-                    <input
-                      type="checkbox"
-                      checked={ad.estado === 'activada'}
-                      onChange={async (e) => {
-                        const nuevoEstado = e.target.checked ? 'activada' : 'desactivada';
-                        try {
-                          await CallsPublicidades.UpdatePublicidad(ad.id, { ...ad, estado: nuevoEstado });
-                          setPublicidades(publicidades =>
-                            publicidades.map(p =>
-                              p.id === ad.id ? { ...p, estado: nuevoEstado } : p
-                            )
-                          );
-                        } catch (err) {
-                          Swal.fire('Error', 'Error al actualizar el estado', 'error');
-                        }
-                      }}
-                    />
-                    {' '}{ad.estado}
-                  </label>
-                </div>
-                <div>
-                  <b>Usuario:</b> <UsuarioNombre usuarioId={ad.usuario} />
-                </div>
-                <div>
-                  <b>Servicio ID:</b> {ad.servicio}
-                </div>
-                <div className="publicity-actions">
-                  <button onClick={() => setModalAnuncio(ad)} className="publicity-btn">Ver</button>
-                  <button onClick={async () => {
-                    if (!window.confirm('¿Seguro que deseas eliminar este anuncio?')) return;
-                    try {
-                      await CallsPublicidades.DeletePublicidad(ad.id);
-                      setPublicidades(publicidades => publicidades.filter(p => p.id !== ad.id));
-                    } catch (err) {
-                      Swal.fire('Error', 'Error al eliminar el anuncio', 'error');
-                    }
-                  }}>Eliminar</button>
-                </div>
-              </li>
-            ))
-          )}
-        </ul>
+      {/* Listas de anuncios y servicios como contenedores individuales al mismo nivel */}
+      <div className="listas-publicidad-servicios">
+        <div className="publicity-bloque publicity-bloque-lista">
+          <h3>Lista de Anuncios</h3>
+          <ul>
+            {publicidades.length === 0 ? (
+              <li>No hay anuncios</li>
+            ) : (
+              publicidades.map((ad, idx) => (
+                <li key={ad.id || idx} className="publicity-list-item">
+                  <div><b>Producto:</b> {ad.producto || '-'}</div>
+                  <div><b>Estado:</b> {ad.estado}</div>
+                  <div><b>Precio del producto:</b> {ad.precio_servicio || '-'}</div>
+                  <div><b>Usuario:</b> <UsuarioNombre usuarioId={ad.usuario} /></div>
+                  <div><b>Servicio ID:</b> {ad.servicio}</div>
+                  <div className="publicity-actions">
+                    <button onClick={() => setModalAnuncio(ad)} className="publicity-btn">Ver</button>
+                    <button onClick={async () => {
+                      if (!window.confirm('¿Seguro que deseas eliminar este anuncio?')) return;
+                      try {
+                        await CallsPublicidades.DeletePublicidad(ad.id);
+                        setPublicidades(publicidades => publicidades.filter(p => p.id !== ad.id));
+                      } catch (err) {
+                        Swal.fire('Error', 'Error al eliminar el anuncio', 'error');
+                      }
+                    }}>Eliminar</button>
+                  </div>
+                </li>
+              ))
+            )}
+          </ul>
+        </div>
+        <div className="servicios-bloque servicios-bloque-lista">
+          <h3>Lista de Servicios</h3>
+          <ListaServicios servicios={servicios} onEdit={() => {}} onDelete={() => {}} />
+        </div>
       </div>
-    
       {modalAnuncio && (
         <div className="publicity-modal">
           <div className="publicity-modal-content">
             <h2>Detalle del anuncio</h2>
             <p><b>ID:</b> {modalAnuncio.id}</p>
-            <p><b>Precio:</b> {modalAnuncio.precio_publicidad}</p>
+            <p><b>Precio del producto:</b> {modalAnuncio.precio_servicio || '-'}</p>
             <p><b>Estado:</b> {modalAnuncio.estado}</p>
             <p><b>Usuario:</b> <UsuarioNombre usuarioId={modalAnuncio.usuario} /></p>
             <p><b>Servicio ID:</b> {modalAnuncio.servicio}</p>
@@ -355,6 +343,6 @@ export default function Publicity({ onCreated }) {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

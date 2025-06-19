@@ -65,9 +65,19 @@
   margin-bottom: 4px;
 }
 
+.muro-publicacion-autor {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 4px;
+}
+
 .muro-publicacion-img {
   max-width: 100%;
   max-height: 200px;
+  margin-top: 8px;
+}
+
+.muro-publicacion-propia-btns {
   margin-top: 8px;
 }
 
@@ -75,7 +85,7 @@
   margin-right: 8px;
 }
 
-.muro-btn-delete {
+.muro-btn-eliminar {
   color: red;
 }
 
@@ -83,7 +93,15 @@
   margin-top: 8px;
 }
 
-.muro-publicacion-coment-btn {
+.muro-publicacion-comentarios {
+  margin-top: 10px;
+}
+
+.muro-comentario-item {
+  margin-bottom: 4px;
+}
+
+.muro-btn-eliminar-comentario {
   margin-left: 8px;
   color: red;
   background: none;
@@ -91,28 +109,24 @@
   cursor: pointer;
 }
 
-.muro-coment-meta {
-  margin-bottom: 4px;
+.muro-comentario-nuevo {
+  margin-top: 8px;
 }
 
-.muro-coment-green {
+.muro-megusta-block {
+  margin: 10px 0;
+}
+
+.muro-checkbox-megusta {
+  margin-right: 4px;
+}
+
+.muro-megusta-count {
   margin-left: 12px;
   color: green;
 }
 
-.muro-coment-box {
+.muro-comentario-textarea {
   width: 100%;
   min-height: 40px;
-}
-
-.muro-coment-mt10 {
-  margin: 10px 0;
-}
-
-.muro-mt10 {
-  margin-top: 10px;
-}
-
-.muro-mt8 {
-  margin-top: 8px;
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/Scomponents/UsuariaModal.css';
+import '../styles/Scomponents/UsuariaModal.css';
 
 // Modal para mostrar detalles de una usuaria
 export default function UsuariaModal({ usuaria, onClose }) {

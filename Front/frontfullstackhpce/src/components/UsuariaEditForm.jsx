@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/Scomponents/UsuariaEditForm.css';
+import '../styles/Scomponents/UsuariaEditForm.css';
 
 // Formulario para editar usuaria
 export default function UsuariaEditForm({ form, onChange, onSubmit }) {

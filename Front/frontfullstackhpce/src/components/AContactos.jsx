@@ -5,9 +5,9 @@ import CallsPublicidades from '../services/CallsPublicidades'
 import CallsUsuarias from '../services/CallsUsuarias'
 import CallsServicios from '../services/CallsServicios'
 import Swal from 'sweetalert2';
-import MensajeModal from './subcomponents/MensajeModal';
-import DetalleUsuaria from './subcomponents/DetalleUsuaria';
-import DetalleServicio from './subcomponents/DetalleServicio';
+import MensajeModal from './MensajeModal';
+import DetalleUsuaria from './DetalleUsuaria';
+import DetalleServicio from './DetalleServicio';
 
 /**
  * Componente de administración de contactos.
@@ -98,85 +98,84 @@ export default function Contactos() {
   }, [modalMsg]);
 
   return (
-    <div className="container-contactos">
-
-      <div className='resumen'>
+    <div className="acontactos-container">
+      <div className='acontactos-resumen'>
         <h2>Mensajes por revisar</h2>
         <p>{mensajes.filter(m => !m.leido).length}</p>
         <h2>Mensajes revisados</h2>
         <p>{mensajes.filter(m => m.leido).length}</p>
       </div>
-
-      <ul>
-        <h3>Mensajes por revisar</h3>
-        {mensajes.filter(m => !m.leido).length === 0 ? (
-          <li>No hay mensajes por revisar</li>
-        ) : (
-          mensajes.filter(m => !m.leido).map((msg, idx) => (
-            <li key={msg.id || idx}>
-              mensaje: {msg.contenido || msg.mensaje || '-'}<br />
-              usuaria: {msg.usuario_nombre || msg.usuaria || msg.usuario || '-'}<br />
-              Promocionarse: {(msg.promocionarse === true || msg.promocionarse === 'si' || msg.promocionarse === 'sí') ? 'sí' : 'no'}<br />
-              <label style={{marginRight:8}}>
-                <input
-                  type="checkbox"
-                  checked={!!msg.leido}
-                  onChange={async (e) => {
-                    const nuevoLeido = e.target.checked;
-                    try {
-                      await CallsContactos.UpdateContactos(msg.id, { ...msg, leido: nuevoLeido });
-                      setMensajes(mensajes => mensajes.map(m => m.id === msg.id ? { ...m, leido: nuevoLeido } : m));
-                    } catch (err) {
-                      Swal.fire('Error', 'Error al actualizar el estado de leído', 'error');
-                    }
-                  }}
-                />
-                {' '}Leído
-              </label>
-              <button style={{marginRight:8}} onClick={() => setModalMsg(msg)}>Ver</button>
-              <button onClick={() => handleEliminarMensaje(msg.id)} disabled={eliminando}>Eliminar</button>
-            </li>
-          ))
-        )}
-      </ul>
-
-      <ul>
-        <h3>Mensajes revisados</h3>
-        {mensajes.filter(m => m.leido).length === 0 ? (
-          <li>No hay mensajes revisados</li>
-        ) : (
-          mensajes.filter(m => m.leido).map((msg, idx) => (
-            <li key={msg.id || idx}>
-              mensaje: {msg.contenido || msg.mensaje || '-'}<br />
-              usuaria: {msg.usuario_nombre || msg.usuaria || msg.usuario || '-'}<br />
-              Promocionarse: {(msg.promocionarse === true || msg.promocionarse === 'si' || msg.promocionarse === 'sí') ? 'sí' : 'no'}<br />
-              <label style={{marginRight:8}}>
-                <input
-                  type="checkbox"
-                  checked={!!msg.leido}
-                  onChange={async (e) => {
-                    const nuevoLeido = e.target.checked;
-                    try {
-                      await CallsContactos.UpdateContactos(msg.id, { ...msg, leido: nuevoLeido });
-                      setMensajes(mensajes => mensajes.map(m => m.id === msg.id ? { ...m, leido: nuevoLeido } : m));
-                    } catch (err) {
-                      Swal.fire('Error', 'Error al actualizar el estado de leído', 'error');
-                    }
-                  }}
-                />
-                {' '}Leído
-              </label>
-              <button style={{marginRight:8}} onClick={() => setModalMsg(msg)}>Ver</button>
-              <button onClick={() => handleEliminarMensaje(msg.id)} disabled={eliminando}>Eliminar</button>
-            </li>
-          ))
-        )}
-      </ul>
-
-      {/* Modal de mensaje */}
+      <div className="acontactos-listas">
+        <div className="acontactos-bloque acontactos-bloque-norevisados">
+          <h3>Mensajes por revisar</h3>
+          <ul>
+            {mensajes.filter(m => !m.leido).length === 0 ? (
+              <li>No hay mensajes por revisar</li>
+            ) : (
+              mensajes.filter(m => !m.leido).map((msg, idx) => (
+                <li key={msg.id || idx}>
+                  mensaje: {msg.contenido || msg.mensaje || '-'}<br />
+                  usuaria: {msg.usuario_nombre || msg.usuaria || msg.usuario || '-'}<br />
+                  Promocionarse: {(msg.promocionarse === true || msg.promocionarse === 'si' || msg.promocionarse === 'sí') ? 'sí' : 'no'}<br />
+                  <label className="contactos-label">
+                    <input
+                      type="checkbox"
+                      checked={!!msg.leido}
+                      onChange={async (e) => {
+                        const nuevoLeido = e.target.checked;
+                        try {
+                          await CallsContactos.UpdateContactos(msg.id, { ...msg, leido: nuevoLeido });
+                          setMensajes(mensajes => mensajes.map(m => m.id === msg.id ? { ...m, leido: nuevoLeido } : m));
+                        } catch (err) {
+                          Swal.fire('Error', 'Error al actualizar el estado de leído', 'error');
+                        }
+                      }}
+                    />
+                    {' '}Leído
+                  </label>
+                  <button className="contactos-button" onClick={() => setModalMsg(msg)}>Ver</button>
+                  <button onClick={() => handleEliminarMensaje(msg.id)} disabled={eliminando}>Eliminar</button>
+                </li>
+              ))
+            )}
+          </ul>
+        </div>
+        <div className="acontactos-bloque acontactos-bloque-revisados">
+          <h3>Mensajes revisados</h3>
+          <ul>
+            {mensajes.filter(m => m.leido).length === 0 ? (
+              <li>No hay mensajes revisados</li>
+            ) : (
+              mensajes.filter(m => m.leido).map((msg, idx) => (
+                <li key={msg.id || idx}>
+                  mensaje: {msg.contenido || msg.mensaje || '-'}<br />
+                  usuaria: {msg.usuario_nombre || msg.usuaria || msg.usuario || '-'}<br />
+                  Promocionarse: {(msg.promocionarse === true || msg.promocionarse === 'si' || msg.promocionarse === 'sí') ? 'sí' : 'no'}<br />
+                  <label className="contactos-label">
+                    <input
+                      type="checkbox"
+                      checked={!!msg.leido}
+                      onChange={async (e) => {
+                        const nuevoLeido = e.target.checked;
+                        try {
+                          await CallsContactos.UpdateContactos(msg.id, { ...msg, leido: nuevoLeido });
+                          setMensajes(mensajes => mensajes.map(m => m.id === msg.id ? { ...m, leido: nuevoLeido } : m));
+                        } catch (err) {
+                          Swal.fire('Error', 'Error al actualizar el estado de leído', 'error');
+                        }
+                      }}
+                    />
+                    {' '}Leído
+                  </label>
+                  <button className="contactos-button" onClick={() => setModalMsg(msg)}>Ver</button>
+                  <button onClick={() => handleEliminarMensaje(msg.id)} disabled={eliminando}>Eliminar</button>
+                </li>
+              ))
+            )}
+          </ul>
+        </div>
+      </div>
       <MensajeModal mensaje={modalMsg} onClose={() => setModalMsg(null)} />
-
-      {/* Detalle de usuaria y servicio (solo si hay modalMsg y precio_publicidad) */}
       {modalMsg && modalMsg.precio_publicidad && (
         <>
           <DetalleUsuaria usuaria={usuarioDetalle ? {nombre: usuarioDetalle} : null} onClose={() => setModalMsg(null)} />

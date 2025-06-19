@@ -89,7 +89,7 @@ export default function FormularioContacto() {
             checked={interEnPromocionarse}
             onChange={e => setInterEnPromocionarse(e.target.checked)}
           />
-          <label htmlFor="interEnPromocionarse" style={{ marginLeft: 8 }}>
+          <label htmlFor="interEnPromocionarse" className="formulario-contacto-label">
             Interesada en promocionarse
           </label>
         </div>

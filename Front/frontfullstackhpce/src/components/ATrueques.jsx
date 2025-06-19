@@ -203,8 +203,8 @@ export default function Trueques() {
         <strong>{t.titulo}</strong> - {t.estado}
         <br />
         <button onClick={() => onVer(t)}>Ver más</button>
-        <button onClick={() => onEditar(t)} style={{ marginLeft: '8px' }}>Editar</button>
-        <button onClick={() => onEliminar(t.id)} style={{ marginLeft: '8px' }}>Eliminar</button>
+        <button onClick={() => onEditar(t)} className="trueques-editar">Editar</button>
+        <button onClick={() => onEliminar(t.id)} className="trueques-eliminar">Eliminar</button>
       </li>
     );
   });
@@ -232,7 +232,7 @@ export default function Trueques() {
      
       <div style={{marginTop: 32}}>
         <h3>Categorías</h3>
-        <form onSubmit={handleCatSubmit} style={{marginBottom:12}}>
+        <form onSubmit={handleCatSubmit} className="trueques-categorias-form">
           <input name="nombre" value={catForm.nombre} onChange={handleCatChange} placeholder="Nombre" required /> <br />
           <button type="submit">{editCatId ? 'Actualizar' : 'Crear'} Categoría</button>
           {editCatId && <button type="button" onClick={()=>{setEditCatId(null);setCatForm({nombre:''})}}>Cancelar</button>}
@@ -241,8 +241,8 @@ export default function Trueques() {
           {categorias.map(c => (
             <li key={c.id}>
               {c.nombre}
-              <button onClick={()=>handleCatEdit(c)} style={{marginLeft:8}}>Editar</button>
-              <button onClick={()=>handleCatDelete(c.id)} style={{marginLeft:4}}>Eliminar</button>
+              <button onClick={()=>handleCatEdit(c)} className="trueques-editar">Editar</button>
+              <button onClick={()=>handleCatDelete(c.id)} className="trueques-eliminar">Eliminar</button>
             </li>
           ))}
         </ul>
@@ -255,9 +255,9 @@ export default function Trueques() {
         <p className="trueques-num">{registrados}</p>
       </div>
 
-      <div style={{marginTop: 16}}>
+      <div className="trueques-paginacion">
         <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}>Anterior</button>
-        <span style={{margin: '0 8px'}}>Página {page} de {Math.ceil(trueques.length / PAGE_SIZE)}</span>
+        <span className="trueques-pagina">Página {page} de {Math.ceil(trueques.length / PAGE_SIZE)}</span>
         <button onClick={() => setPage(p => p + 1)} disabled={page * PAGE_SIZE >= trueques.length}>Siguiente</button>
       </div>
     </div>

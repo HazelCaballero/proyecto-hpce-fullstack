@@ -212,14 +212,14 @@ export default function Muro() {
             placeholder="Título"
             value={formPub.titulo}
             onChange={handleChangePub}
-            style={{ marginBottom: 8, width: '100%' }}
+            className="muro-input-full"
           />
           <textarea
             name="publicacion"
             placeholder="¿Qué quieres compartir?"
             value={formPub.publicacion}
             onChange={handleChangePub}
-            style={{ marginBottom: 8, width: '100%' }}
+            className="muro-input-full"
           />
           <input
             type="text"
@@ -227,7 +227,7 @@ export default function Muro() {
             placeholder="URL de imagen (opcional)"
             value={formPub.imagen_url}
             onChange={handleChangePub}
-            style={{ marginBottom: 8, width: '100%' }}
+            className="muro-input-full"
           />
           <button onClick={handleCrearPublicacion}>Publicar</button>
         </div>
@@ -241,31 +241,30 @@ export default function Muro() {
               const esPropia = Number(pub.usuario) === usuarioActual;
               const usuarioNombre = usuarios[pub.usuario]?.username || usuarios[pub.usuario]?.email || pub.usuario;
               return (
-                <div key={pub.id} className="muro-publicacion-item" style={{border:'1px solid #eee',borderRadius:6,padding:10,marginBottom:8}}>
-                  <div style={{fontSize:13, color:'#888', marginBottom:4}}>
+                <div key={pub.id} className="muro-publicacion-item">
+                  <div className="muro-publicacion-autor">
                     Publicado por: <b>{usuarioNombre}</b>
                   </div>
                   <b>{pub.titulo}</b>
                   <div>{pub.publicacion}</div>
-                  {pub.imagen_url && <img src={pub.imagen_url} alt="imagen" style={{maxWidth:'100%',maxHeight:200,marginTop:8}} />}
+                  {pub.imagen_url && <img src={pub.imagen_url} alt="imagen" className="muro-publicacion-img" />}
                   {esPropia && (
-                    <div style={{marginTop:8}}>
-                      <button onClick={() => handleEditarPublicacion(pub)} style={{marginRight:8}}>Editar</button>
-                      <button onClick={() => handleEliminarPublicacion(pub)} style={{color:'red'}}>Eliminar</button>
+                    <div className="muro-publicacion-propia-btns">
+                      <button onClick={() => handleEditarPublicacion(pub)} className="muro-btn-editar">Editar</button>
+                      <button onClick={() => handleEliminarPublicacion(pub)} className="muro-btn-eliminar">Eliminar</button>
                     </div>
                   )}
-                 
-                  <div style={{ marginTop: 10 }}>
+                  <div className="muro-publicacion-comentarios">
                     <p><b>Comentarios:</b></p>
                     {(interaccionesPub[pub.id] || []).length === 0
                       ? <div>No hay comentarios.</div>
                       : interaccionesPub[pub.id].map(inter => (
-                          <div key={inter.id} style={{ marginBottom: 4 }}>
+                          <div key={inter.id} className="muro-comentario-item">
                             <b>{usuarios[inter.usuario]?.nombre || usuarios[inter.usuario]?.username || usuarios[inter.usuario]?.email || inter.usuario_nombre || inter.usuario}</b>: {inter.comentario}
                             {Number(inter.usuario) === usuario_id && (
                               <button
                                 onClick={() => handleEliminarInteraccionPub(pub.id, inter.id)}
-                                style={{ marginLeft: 8, color: 'red', background: 'none', border: 'none', cursor: 'pointer' }}
+                                className="muro-btn-eliminar-comentario"
                                 title="Eliminar comentario"
                                 aria-label="Eliminar comentario"
                               >
@@ -275,10 +274,9 @@ export default function Muro() {
                           </div>
                         ))
                     }
-                    <div style={{ marginTop: 8 }}>
-                     
+                    <div className="muro-comentario-nuevo">
                       {usuario_id && Number(pub.usuario) !== usuario_id && (
-                        <div style={{ margin: '10px 0' }}>
+                        <div className="muro-megusta-block">
                           <label>
                             <input
                               type="checkbox"
@@ -305,12 +303,12 @@ export default function Muro() {
                                   precargarInteraccionesPublicacion();
                                 }
                               }}
-                              style={{ marginRight: 4 }}
+                              className="muro-checkbox-megusta"
                               aria-label="Marcar como me gusta"
                             />
                             Me gusta esta publicación
                           </label>
-                          <span style={{ marginLeft: 12, color: 'green' }}>
+                          <span className="muro-megusta-count">
                             {(interaccionesPub[pub.id] || []).filter(
                               inter => inter.comentario === "Me gusta esta publicación"
                             ).length || 0} me gusta
@@ -321,7 +319,7 @@ export default function Muro() {
                         placeholder="Escribe un comentario..."
                         value={nuevoComentarioPub[pub.id] || ''}
                         onChange={e => handleComentarioChangePub(pub.id, e.target.value)}
-                        style={{ width: '100%', minHeight: 40 }}
+                        className="muro-comentario-textarea"
                         aria-label="Escribe un comentario"
                       />
                       <button
@@ -349,7 +347,7 @@ export default function Muro() {
               <div className="muro-anuncio" key={anuncio.id}>
                 <b>{servicio ? servicio.producto : 'Producto'}</b>
                 <div>{servicio ? servicio.contenido : 'Sin contenido'}</div>
-                <div><b>Precio:</b> {anuncio.precio_publicidad}</div>
+                <div><b>Precio:</b> {servicio ? servicio.precio_producto : '-'}</div>
               </div>
             )
           })

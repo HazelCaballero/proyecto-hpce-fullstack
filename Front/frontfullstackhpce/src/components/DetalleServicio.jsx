@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/Scomponents/DetalleServicio.css';
+import '../styles/Scomponents/DetalleServicio.css';
 
 // Vista de detalle de un servicio
 export default function DetalleServicio({ servicio, onClose }) {
