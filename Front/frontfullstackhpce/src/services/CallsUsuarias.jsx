@@ -35,7 +35,18 @@ async function PostUsuarias(objeto) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(objeto)
     });
-    if (!response.ok) throw new Error('Error posting user');
+    if (!response.ok) {
+      // Intentar extraer el mensaje de error del backend
+      let errorData;
+      try {
+        errorData = await response.json();
+      } catch (e) {
+        errorData = await response.text();
+      }
+      const error = new Error('Error posting user');
+      error.response = { data: errorData };
+      throw error;
+    }
     return await response.json();
   } catch (error) {
     console.error('Error posting user:', error);

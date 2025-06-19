@@ -8,7 +8,7 @@ import '../styles/Scomponents/Main.css';
  */
 export default function Main({ children }) {
   return (
-    <div>
+    <div className='main-container'>
       {children}
     </div>
   )

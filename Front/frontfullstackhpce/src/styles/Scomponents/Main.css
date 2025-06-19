@@ -1,1 +1,7 @@
 /* Estilos para Main.jsx */
+
+.main-container {
+  display: flex;
+  height: 83%;
+  background-color: #d7bde2; 
+}

@@ -16,7 +16,6 @@ function AsideAdmin() {
           alt="LogoConexCreat"
         />
       </div>
-      <nav>
         <ul className="aside-admin__nav-list">
           <li className="aside-admin__nav-item">
             <Link to="/AdminUsuarias">Usuarias</Link>
@@ -34,7 +33,6 @@ function AsideAdmin() {
             <Link to="/AdminPublicidad">Publicidad</Link>
           </li>
         </ul>
-      </nav>
     </aside>
   )
 }

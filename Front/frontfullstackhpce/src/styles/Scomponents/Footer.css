@@ -1,10 +1,10 @@
 .footer-container {
-  background: #222;
-  color: #fff;
+  background: #154360;
+  color:#e4dcf9;
   padding: 4px 8px 4px 8px;
   text-align: center;
   position: relative;
-  bottom: 0;
+  bottom: 2vh;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -14,7 +14,7 @@
 }
 
 .contact-btn {
-  background: #4CAF50;
+  background: #1b084d;
   color: white;
   border: none;
   padding: 2px 8px;
@@ -26,7 +26,7 @@
 }
 
 .contact-btn:hover {
-  background: #388e3c;
+  background: #795f9f;
 }
 
 .footer-info ul {
@@ -39,6 +39,32 @@
 }
 
 .footer-info li {
+  background: #1b084d;
+  color: white;
+  border: none;
+  padding: 2px;
+  font-size: 1.1rem;
+  border-radius: 5px;
   margin-bottom: 0;
-  font-size: 1rem;
+  transition: background 0.3s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
 }
+
+.footer-link {
+  color: #e4dcf9;
+  text-decoration: none;
+  transition: color 0.3s;
+  cursor: pointer;
+}
+
+.insta-icon{
+  width: 24px;
+  height: 24px;
+  transition: fill 0.3s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;}

@@ -10,10 +10,13 @@
 
 .page-grid > :first-child {
   grid-area: aside;
+  background: #d7bde2;
 }
 
 .page-grid > :nth-child(2) {
   grid-area: main;
+  background: #d7bde2;
+
 }
 
 .page-grid > :last-child {

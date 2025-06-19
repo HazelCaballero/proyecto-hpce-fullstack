@@ -19,7 +19,7 @@ export default function Footer() {
       </button>
       <div className="footer-info">
         <ul>
-          <li><strong>Teléfono:</strong> 83031497</li>
+          <li><strong>Teléfono:</strong > 83031497</li>
           <li><strong>Correo:</strong> hazelcaballeroelizondo@gmail.com</li>
           <li>
             <strong>
@@ -29,7 +29,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="footer-link"
               >
-                Instagram
+                <img className='insta-icon' src="../public/insta-icon.png" alt="insta-icon" />
               </a>
             </strong>
           </li>

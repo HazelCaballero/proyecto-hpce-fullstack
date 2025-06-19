@@ -112,14 +112,16 @@ export default function Usuarias() {
   return (
     <div className="ausuarias-admin-container">
       <h2 className="ausuarias-titulo">Administración de Usuarias</h2>
-      {loading && <div className="ausuarias-loading">Cargando usuarias...</div>}
-      {error && <div className="ausuarias-error">{error}</div>}
-      {!loading && !error && (
-        <UsuariasLista usuarias={usuarias} onSelect={setModalUsuaria} onEdit={handleEditar} />
-      )}
-      {modalUsuaria && (
-        <UsuariaModal usuaria={modalUsuaria} onClose={() => setModalUsuaria(null)} />
-      )}
+      <div className='ausuarias-estadisticas'>
+        {loading && <div className="ausuarias-loading">Cargando usuarias...</div>}
+        {error && <div className="ausuarias-error">{error}</div>}
+        {!loading && !error && (
+          <UsuariasLista usuarias={usuarias} onSelect={setModalUsuaria} onEdit={handleEditar} />
+        )}
+        {modalUsuaria && (
+          <UsuariaModal usuaria={modalUsuaria} onClose={() => setModalUsuaria(null)} />
+        )}
+      </div>
     </div>
   );
 }
