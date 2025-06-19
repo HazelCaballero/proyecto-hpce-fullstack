@@ -20,8 +20,8 @@ export default function UsuariasLista({ usuarias, onSelect, onEdit }) {
                 <td>{u.id}</td>
                 <td>{u.username}</td>
                 <td>
-                  <button className='usua-lis-btn' type="button" onClick={() => onSelect(u)}>Ver</button>
-                  <button className='usua-lis-btn' type="button" onClick={() => onEdit(u)}>Editar</button>
+                  <button className='usua-lis-btn' type="button" onClick={() => onSelect(u)}> <img className='user-list-icon' src="../public/see-removebg-preview.png" alt="see-icon" /> </button>
+                  <button className='usua-lis-btn' type="button" onClick={() => onEdit(u)}> <img className='user-list-icon' src="../public/edit-removebg-preview.png" alt="edit-icon" /> </button>
                 </td>
               </tr>
             ))}
