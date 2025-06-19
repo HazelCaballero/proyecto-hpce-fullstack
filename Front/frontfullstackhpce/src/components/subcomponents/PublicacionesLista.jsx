@@ -3,7 +3,7 @@ import '../../styles/Scomponents/PublicacionesLista.css';
 import UsuarioNombre from './UsuarioNombre';
 
 // Lista de publicaciones con detalles
-export default function PublicacionesLista({ publicaciones, onSelect }) {
+export default function PublicacionesLista({ publicaciones, onSelect, onEdit, onDelete, isSuperOrMod }) {
   return (
     <table className="publicaciones-table">
       <thead>
@@ -24,6 +24,8 @@ export default function PublicacionesLista({ publicaciones, onSelect }) {
             <td>{p.publicacion}</td>
             <td>
               <button type="button" onClick={() => onSelect(p)}>Ver</button>
+              {isSuperOrMod && <button type="button" onClick={() => onEdit(p)} style={{marginLeft:8}}>Editar</button>}
+              {isSuperOrMod && <button type="button" onClick={() => onDelete(p)} style={{marginLeft:8}}>Eliminar</button>}
             </td>
           </tr>
         ))}

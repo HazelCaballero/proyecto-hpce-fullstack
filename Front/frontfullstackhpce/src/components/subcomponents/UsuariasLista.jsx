@@ -2,7 +2,7 @@ import React from 'react';
 import '../../styles/Scomponents/UsuariasLista.css';
 
 // Lista de usuarias en formato tabla
-export default function UsuariasLista({ usuarias, onSelect }) {
+export default function UsuariasLista({ usuarias, onSelect, onEdit }) {
   return (
     <table className="usuarias-table">
       <thead>
@@ -21,6 +21,7 @@ export default function UsuariasLista({ usuarias, onSelect }) {
             <td>{u.email}</td>
             <td>
               <button type="button" onClick={() => onSelect(u)}>Ver</button>
+              <button type="button" onClick={() => onEdit(u)} style={{marginLeft: '8px'}}>Editar</button>
             </td>
           </tr>
         ))}

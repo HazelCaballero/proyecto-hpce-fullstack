@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
+from datetime import timedelta
 
 
 # Modelos de la aplicación
@@ -78,8 +79,8 @@ class Trueque(models.Model):
     trueque = models.TextField()
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     usuario = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    estado = models.CharField(max_length=10, choices=ESTADO_CHOICES, default='pendiente')
-    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
+    estado = models.CharField(max_length=10, choices=ESTADO_CHOICES, default='pendiente', db_index=True)
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, db_index=True)
     ubicacion = models.CharField(max_length=80)
     imagen_url = models.TextField(null=True, blank=True)
 
@@ -125,21 +126,29 @@ class InteraccionPublicacion(models.Model):
 class Servicio(models.Model):
     """
     Modelo para representar los servicios ofrecidos por los usuarios.
-    Incluye información sobre el producto, contenido, fechas de disponibilidad, precio y usuario oferente.
+    Incluye información sobre el producto, contenido, precio del producto, monto pagado, días de anuncio (calculado), precio de la publicidad y usuario oferente.
     """
     producto = models.CharField(max_length=100)
     contenido = models.TextField()
-    fecha_inicio = models.DateTimeField()
-    fecha_fin = models.DateTimeField()
-    precio_servicio = models.DecimalField(max_digits=10, decimal_places=2)
+    precio_producto = models.DecimalField(max_digits=10, decimal_places=2)
+    monto_pagado = models.DecimalField(max_digits=10, decimal_places=2)
+    dias_anuncio = models.PositiveIntegerField(editable=False)
+    precio_publicidad = models.DecimalField(max_digits=10, decimal_places=2, default=250, editable=False)
     usuario = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
-    # Validaciones para el producto y el precio
+    def save(self, *args, **kwargs):
+        self.precio_publicidad = 250
+        self.dias_anuncio = int(self.monto_pagado // self.precio_publicidad) if self.precio_publicidad > 0 else 0
+        super().save(*args, **kwargs)
+
+    # Validaciones para el producto y los precios
     def clean(self):
         if len(self.producto) < 2:
             raise Exception("El producto debe tener al menos 2 caracteres.")
-        if self.precio_servicio < 0:
-            raise Exception("El precio no puede ser negativo.")
+        if self.precio_producto < 0:
+            raise Exception("El precio del producto no puede ser negativo.")
+        if self.monto_pagado < 0:
+            raise Exception("El monto pagado no puede ser negativo.")
 
 # Modelo para interacciones en trueques (comentarios y me interesa)
 class InteraccionTrueque(models.Model):
@@ -156,16 +165,27 @@ class InteraccionTrueque(models.Model):
 class Publicidades(models.Model):
     """
     Modelo para gestionar la publicidad de servicios ofrecidos por los usuarios.
-    Incluye campos para el precio, estado, usuario propietario y servicio asociado.
+    Incluye campos para el precio, estado, usuario propietario, servicio asociado y fechas de publicación.
     """
     ESTADO_CHOICES = [
         ('activada', 'Activada'),
         ('desactivada', 'Desactivada'),
     ]
-    precio_publicidad = models.DecimalField(max_digits=6, decimal_places=2)
+    precio_publicidad = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     usuario = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     estado = models.CharField(max_length=50, choices=ESTADO_CHOICES, default='desactivada')
     servicio = models.ForeignKey(Servicio, on_delete=models.CASCADE)
+    fecha_inicio = models.DateTimeField(editable=False)
+    fecha_fin = models.DateTimeField(null=True, blank=True, editable=False)
+
+    def save(self, *args, **kwargs):
+        # Asignar fecha de inicio automáticamente si no existe
+        if not self.fecha_inicio:
+            self.fecha_inicio = timezone.now()
+        # Calcular fecha de fin automáticamente
+        if self.servicio and self.servicio.dias_anuncio:
+            self.fecha_fin = self.fecha_inicio + timedelta(days=self.servicio.dias_anuncio)
+        super().save(*args, **kwargs)
 
     # Validación para el precio de la publicidad
     def clean(self):

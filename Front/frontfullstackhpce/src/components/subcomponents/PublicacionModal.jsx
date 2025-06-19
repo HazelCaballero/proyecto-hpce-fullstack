@@ -2,7 +2,7 @@ import React from 'react';
 import '../../styles/Scomponents/PublicacionModal.css';
 
 // Modal para mostrar detalles de una publicación
-export default function PublicacionModal({ publicacion, onClose, onEdit }) {
+export default function PublicacionModal({ publicacion, onClose }) {
   if (!publicacion) return null;
   return (
     <div className="modal">
@@ -15,7 +15,6 @@ export default function PublicacionModal({ publicacion, onClose, onEdit }) {
         {publicacion.imagen_url && (
           <p><b>Imagen:</b> <a href={publicacion.imagen_url} target="_blank" rel="noopener noreferrer">{publicacion.imagen_url}</a></p>
         )}
-        <button onClick={onEdit}>Editar</button>
         <button onClick={onClose} className="close-btn">Cerrar</button>
       </div>
     </div>

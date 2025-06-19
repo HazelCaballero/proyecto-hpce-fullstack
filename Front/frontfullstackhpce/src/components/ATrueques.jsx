@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, memo } from 'react'
 import CallsTrueques from '../services/CallsTrueques'
 import CallsCategorias from '../services/CallsCategorias'
 import Swal from 'sweetalert2'
 import '../styles/Scomponents/ATrueques.css'
+import Spinner from './Spinner'
+
+const PAGE_SIZE = 10
 
 /**
  * Componente de administración de trueques.
@@ -16,6 +19,7 @@ export default function Trueques() {
   const [categorias, setCategorias] = useState([]);
   const [catForm, setCatForm] = useState({ nombre: '' });
   const [editCatId, setEditCatId] = useState(null);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     cargarTrueques();
@@ -70,7 +74,7 @@ export default function Trueques() {
   const handleCatDelete = async id => {
     const result = await Swal.fire({
       title: '¿Estás seguro?',
-      text: 'Esta acción eliminará la categoría de forma permanente.',
+      text: 'Esta acción eliminará la categoría permanentemente y, si tiene trueques asociados, también se eliminarán. ¿Deseas continuar?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#d33',
@@ -84,7 +88,27 @@ export default function Trueques() {
       Swal.fire('Eliminado', 'La categoría ha sido eliminada.', 'success');
       cargarCategorias();
     } catch (error) {
-      Swal.fire('Error', 'No se pudo eliminar la categoría.', 'error');
+      if (error.type === 'confirm') {
+        const confirm = await Swal.fire({
+          title: '¡Atención!',
+          text: error.detail,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Sí, eliminar todo',
+          cancelButtonText: 'Cancelar'
+        });
+        if (confirm.isConfirmed) {
+          try {
+            await CallsCategorias.DeleteCategorias(id, true);
+            Swal.fire('Eliminado', 'La categoría y sus trueques asociados han sido eliminados.', 'success');
+            cargarCategorias();
+          } catch (e) {
+            Swal.fire('Error', 'No se pudo eliminar la categoría.', 'error');
+          }
+        }
+      } else {
+        Swal.fire('Error', 'No se pudo eliminar la categoría.', 'error');
+      }
     }
   };
 
@@ -168,33 +192,40 @@ export default function Trueques() {
     }
   }
 
+  const paginatedTrueques = trueques.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
   const activos = trueques.filter(t => t.estado === 'pendiente' || t.estado === 'aceptado').length
   const registrados = trueques.length
+
+  const TruequeItem = memo(function TruequeItem({ t, onVer, onEditar, onEliminar }) {
+    return (
+      <li>
+        <strong>{t.titulo}</strong> - {t.estado}
+        <br />
+        <button onClick={() => onVer(t)}>Ver más</button>
+        <button onClick={() => onEditar(t)} style={{ marginLeft: '8px' }}>Editar</button>
+        <button onClick={() => onEliminar(t.id)} style={{ marginLeft: '8px' }}>Eliminar</button>
+      </li>
+    );
+  });
 
   return (
     <div className="trueques-container">
       <ul className="trueques-list">
         <h3>Lista de trueques</h3>
-        {loading && <li>Cargando...</li>}
+        {loading && <Spinner />}
         {error && <li>{error}</li>}
         {!loading && !error && trueques.length === 0 && <li>No hay trueques</li>}
-        {!loading && !error && trueques.map(t => (
-          <li key={t.id}>
-            <strong>{t.titulo}</strong> - {t.estado}
-            <br />
-            <button onClick={() => Swal.fire({
-              title: t.titulo,
-              html: `
-                <p><strong>Descripción:</strong> ${t.trueque}</p>
-                <p><strong>Ubicación:</strong> ${t.ubicacion}</p>
-                <p><strong>Estado:</strong> ${t.estado}</p>
-                ${t.imagen_url ? `<img src="${t.imagen_url}" style="max-width:100%;margin-top:10px;" />` : ''}
-              `,
-              confirmButtonText: 'Cerrar'
-            })}>Ver más</button>
-            <button onClick={() => handleEditar(t)} style={{ marginLeft: '8px' }}>Editar</button>
-            <button onClick={() => handleEliminar(t.id)} style={{ marginLeft: '8px' }}>Eliminar</button>
-          </li>
+        {!loading && !error && paginatedTrueques.map(t => (
+          <TruequeItem key={t.id} t={t} onVer={(t) => Swal.fire({
+            title: t.titulo,
+            html: `
+              <p><strong>Ubicación:</strong> ${t.ubicacion}</p>
+              <p><strong>Estado:</strong> ${t.estado}</p>
+              ${t.imagen_url ? `<img src="${t.imagen_url}" style="max-width:100%;margin-top:10px;" />` : ''}
+            `,
+            confirmButtonText: 'Cerrar'
+          })} onEditar={handleEditar} onEliminar={handleEliminar} />
         ))}
       </ul>
 
@@ -222,6 +253,12 @@ export default function Trueques() {
         <p className="trueques-num">{activos}</p>
         <h2>N° de trueques registrados</h2>
         <p className="trueques-num">{registrados}</p>
+      </div>
+
+      <div style={{marginTop: 16}}>
+        <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}>Anterior</button>
+        <span style={{margin: '0 8px'}}>Página {page} de {Math.ceil(trueques.length / PAGE_SIZE)}</span>
+        <button onClick={() => setPage(p => p + 1)} disabled={page * PAGE_SIZE >= trueques.length}>Siguiente</button>
       </div>
     </div>
   )

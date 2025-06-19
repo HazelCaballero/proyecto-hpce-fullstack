@@ -48,4 +48,30 @@ async function PostCategorias(objeto) {
   }
 }
 
-export default { GetCategorias, PostCategorias };
+/**
+ * Elimina una categoría por ID. Si hay trueques asociados, pregunta antes de forzar el borrado.
+ * @param {number} id - ID de la categoría
+ * @param {boolean} force - Si es true, fuerza el borrado y elimina trueques asociados
+ */
+async function DeleteCategorias(id, force = false) {
+  try {
+    const token = localStorage.getItem('access');
+    const response = await fetch(`${BASE_URL}categorias/${id}/` + (force ? '?force=true' : ''), {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token ? { 'Authorization': 'Bearer ' + token } : {})
+      }
+    });
+    if (response.status === 409) {
+      const data = await response.json();
+      throw { type: 'confirm', detail: data.detail };
+    }
+    if (!response.ok) throw new Error('Error deleting category');
+    return true;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export default { GetCategorias, PostCategorias, DeleteCategorias };

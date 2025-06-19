@@ -37,3 +37,76 @@
 .publicity-modal-close {
   margin-top: 8px;
 }
+
+.form-anuncio-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 18px;
+  max-width: 420px;
+}
+
+.form-anuncio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.form-anuncio-group label {
+  font-weight: 500;
+  color: #2c3e50;
+  margin-bottom: 2px;
+}
+
+.form-anuncio-group input,
+.form-anuncio-group select {
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.form-anuncio-btn {
+  margin-top: 8px;
+  background: #2d8cff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 0;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.form-anuncio-btn:disabled {
+  background: #b2bec3;
+  cursor: not-allowed;
+}
+.form-anuncio-btn:hover:not(:disabled) {
+  background: #1a6ed8;
+}
+
+.adminpub-section {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 24px 18px 18px 18px;
+  margin-bottom: 24px;
+  max-width: 440px;
+}
+
+.publicity-containers-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+@media (max-width: 900px) {
+  .publicity-containers-row {
+    flex-direction: column;
+    gap: 18px;
+  }
+  .adminpub-section {
+    max-width: 100%;
+  }
+}

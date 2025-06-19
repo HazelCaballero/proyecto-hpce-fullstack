@@ -58,7 +58,7 @@ class TruequeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Trueque
-        fields = '__all__'
+        fields = ['id', 'titulo', 'estado', 'categoria', 'categoria_id', 'ubicacion', 'imagen_url']
 
 # Serializador para el modelo Publicacion
 class PublicacionSerializer(serializers.ModelSerializer):
@@ -101,25 +101,30 @@ class InteraccionTruequeSerializer(serializers.ModelSerializer):
 
 # Serializador para el modelo Publicidades
 class PublicidadesSerializer(serializers.ModelSerializer):
-    """
-    Serializador para el modelo Publicidades.
-    """
+    # Incluir datos del servicio relacionado
+    producto = serializers.CharField(source='servicio.producto', read_only=True)
+    contenido = serializers.CharField(source='servicio.contenido', read_only=True)
+    precio_servicio = serializers.DecimalField(source='servicio.precio_producto', max_digits=10, decimal_places=2, read_only=True)
+    imagen_url = serializers.CharField(source='servicio.imagen_url', read_only=True, default='')
+
     class Meta:
         model = Publicidades
         fields = '__all__'
+        read_only_fields = ('fecha_inicio', 'fecha_fin', 'precio_publicidad', 'producto', 'contenido', 'precio_servicio', 'imagen_url')
 
 # Serializador para el modelo Contactos
 class ContactosSerializer(serializers.ModelSerializer):
     """
     Serializador para el modelo Contactos.
-    Incluye el nombre de usuario y la fecha de envío del contacto.
+    Incluye el nombre de usuario, email y la fecha de envío del contacto.
     """
     usuario_nombre = serializers.CharField(source='usuario.username', read_only=True)
+    usuario_email = serializers.CharField(source='usuario.email', read_only=True)
     fecha_envio = serializers.DateTimeField(format="%Y-%m-%d %H:%M", read_only=True)
 
     class Meta:
         model = Contactos
-        fields = ['id', 'correo', 'mensaje', 'promocionarse', 'usuario_nombre', 'fecha_envio', 'leido']
+        fields = ['id', 'correo', 'mensaje', 'promocionarse', 'usuario', 'usuario_nombre', 'usuario_email', 'fecha_envio', 'leido']
         
 
 

@@ -12,9 +12,10 @@ export default function ServiciosAdmin() {
   const [servForm, setServForm] = useState({
     producto: '',
     contenido: '',
-    fecha_inicio: '',
-    fecha_fin: '',
-    precio_servicio: ''
+    precio_producto: '',
+    monto_pagado: '',
+    precio_publicidad: 250,
+    dias_anuncio: ''
   });
   const [editServId, setEditServId] = useState(null);
 
@@ -28,24 +29,25 @@ export default function ServiciosAdmin() {
 
   const handleServChange = e => {
     const { name, value } = e.target;
-    setServForm({
-      ...servForm,
-      [name]: name === 'precio_servicio' ? Number(value) : value
-    });
+    let newForm = { ...servForm, [name]: value };
+    if (name === 'monto_pagado') {
+      const monto = parseFloat(value);
+      if (monto > 0) {
+        newForm.dias_anuncio = Math.floor(monto / 250);
+      } else {
+        newForm.dias_anuncio = '';
+      }
+    }
+    setServForm(newForm);
   };
 
   const handleServSubmit = async () => {
     try {
-      // Recupera el usuario_id directamente del localStorage
       const usuarioId = Number(localStorage.getItem('usuario_id'));
-      console.log('Usuario recuperado:', usuarioId);
-
       const dataToSend = {
         ...servForm,
         usuario: usuarioId
       };
-      console.log('Enviando:', dataToSend);
-
       if (editServId) {
         await CallsServicios.UpdateServicios(editServId, dataToSend);
       } else {
@@ -54,9 +56,10 @@ export default function ServiciosAdmin() {
       setServForm({
         producto: '',
         contenido: '',
-        fecha_inicio: '',
-        fecha_fin: '',
-        precio_servicio: ''
+        precio_producto: '',
+        monto_pagado: '',
+        precio_publicidad: 250,
+        dias_anuncio: ''
       });
       setEditServId(null);
       cargarDatos();
@@ -65,16 +68,16 @@ export default function ServiciosAdmin() {
     }
   };
 
-  // Edición con SweetAlert2
   const handleServEdit = async (s) => {
     const { value: formValues } = await Swal.fire({
       title: 'Editar servicio',
       html:
         `<input id="swal-input1" class="swal2-input" placeholder="Producto" value="${s.producto || ''}">` +
         `<input id="swal-input2" class="swal2-input" placeholder="Contenido" value="${s.contenido || ''}">` +
-        `<input id="swal-input3" class="swal2-input" type="date" placeholder="Fecha inicio" value="${s.fecha_inicio ? s.fecha_inicio.slice(0,10) : ''}">` +
-        `<input id="swal-input4" class="swal2-input" type="date" placeholder="Fecha fin" value="${s.fecha_fin ? s.fecha_fin.slice(0,10) : ''}">` +
-        `<input id="swal-input5" class="swal2-input" type="number" placeholder="Precio" value="${s.precio_servicio || ''}">`,
+        `<input id="swal-input3" class="swal2-input" type="number" placeholder="Precio del producto" value="${s.precio_producto || ''}">` +
+        `<input id="swal-input4" class="swal2-input" type="number" placeholder="Monto pagado por publicidad" value="${s.monto_pagado || ''}">` +
+        `<input id="swal-input5" class="swal2-input" type="number" placeholder="Días de anuncio" value="${s.dias_anuncio || ''}">` +
+        `<input id="swal-input6" class="swal2-input" type="number" placeholder="Precio de la publicidad" value="${s.precio_publicidad || ''}">`,
       focusConfirm: false,
       showCancelButton: true,
       confirmButtonText: 'Guardar',
@@ -85,13 +88,14 @@ export default function ServiciosAdmin() {
           document.getElementById('swal-input2').value,
           document.getElementById('swal-input3').value,
           document.getElementById('swal-input4').value,
-          document.getElementById('swal-input5').value
+          document.getElementById('swal-input5').value,
+          document.getElementById('swal-input6').value
         ];
       }
     });
     if (formValues) {
-      const [producto, contenido, fecha_inicio, fecha_fin, precio_servicio] = formValues;
-      if (!producto.trim() || !contenido.trim() || !fecha_inicio || !fecha_fin || !precio_servicio) {
+      const [producto, contenido, precio_producto, monto_pagado, dias_anuncio, precio_publicidad] = formValues;
+      if (!producto.trim() || !contenido.trim() || !precio_producto || !monto_pagado || !dias_anuncio || !precio_publicidad) {
         Swal.fire('Error', 'Completa todos los campos obligatorios.', 'error');
         return;
       }
@@ -100,9 +104,10 @@ export default function ServiciosAdmin() {
         const dataToSend = {
           producto,
           contenido,
-          fecha_inicio,
-          fecha_fin,
-          precio_servicio: Number(precio_servicio),
+          precio_producto: Number(precio_producto),
+          monto_pagado: Number(monto_pagado),
+          dias_anuncio: Number(dias_anuncio),
+          precio_publicidad: Number(precio_publicidad),
           usuario: usuarioId
         };
         await CallsServicios.UpdateServicios(s.id, dataToSend);
@@ -140,72 +145,104 @@ export default function ServiciosAdmin() {
     setServForm({
       producto: '',
       contenido: '',
-      fecha_inicio: '',
-      fecha_fin: '',
-      precio_servicio: ''
+      precio_producto: '',
+      monto_pagado: '',
+      precio_publicidad: 250,
+      dias_anuncio: ''
     });
   };
 
   return (
-    <div>
-      <h3>Servicios</h3>
-      <div style={{ marginBottom: 12 }}>
-        <input
-          name="producto"
-          value={servForm.producto}
-          onChange={handleServChange}
-          placeholder="Producto"
-          required
-        /> <br />
-        <input
-          name="contenido"
-          value={servForm.contenido}
-          onChange={handleServChange}
-          placeholder="Contenido"
-          required
-        /> <br />
-        <input
-          name="fecha_inicio"
-          type="date"
-          value={servForm.fecha_inicio}
-          onChange={handleServChange}
-          required
-        /> <br />
-        <input
-          name="fecha_fin"
-          type="date"
-          value={servForm.fecha_fin}
-          onChange={handleServChange}
-          required
-        /> <br />
-        <input
-          name="precio_servicio"
-          type="number"
-          value={servForm.precio_servicio}
-          onChange={handleServChange}
-          placeholder="Precio"
-          required
-        /> <br />
-        <button onClick={handleServSubmit}>
+    <div className="servicios-admin-container">
+      <form className="servicios-form" onSubmit={e => { e.preventDefault(); handleServSubmit(); }}>
+        <div className="servicios-form-group">
+          <label htmlFor="producto">Producto</label>
+          <input
+            name="producto"
+            id="producto"
+            value={servForm.producto}
+            onChange={handleServChange}
+            placeholder="Producto"
+            required
+          />
+        </div>
+        <div className="servicios-form-group">
+          <label htmlFor="contenido">Contenido</label>
+          <input
+            name="contenido"
+            id="contenido"
+            value={servForm.contenido}
+            onChange={handleServChange}
+            placeholder="Contenido"
+            required
+          />
+        </div>
+        <div className="servicios-form-group">
+          <label htmlFor="precio_producto">Precio del producto</label>
+          <input
+            name="precio_producto"
+            id="precio_producto"
+            type="number"
+            value={servForm.precio_producto}
+            onChange={handleServChange}
+            placeholder="Precio del producto"
+            required
+          />
+        </div>
+        <div className="servicios-form-group">
+          <label htmlFor="monto_pagado">Monto pagado por publicidad</label>
+          <input
+            name="monto_pagado"
+            id="monto_pagado"
+            type="number"
+            value={servForm.monto_pagado}
+            onChange={handleServChange}
+            placeholder="Monto pagado"
+            required
+          />
+        </div>
+        <div className="servicios-form-group">
+          <label htmlFor="precio_publicidad">Precio de la publicidad (fijo)</label>
+          <input
+            name="precio_publicidad"
+            id="precio_publicidad"
+            type="number"
+            value={servForm.precio_publicidad}
+            readOnly
+            placeholder="Precio de la publicidad"
+          />
+        </div>
+        <div className="servicios-form-group">
+          <label htmlFor="dias_anuncio">Días de anuncio (calculado)</label>
+          <input
+            name="dias_anuncio"
+            id="dias_anuncio"
+            type="number"
+            value={servForm.dias_anuncio}
+            readOnly
+            placeholder="Días de anuncio"
+          />
+        </div>
+        <button type="submit" className="servicios-btn-crear">
           {editServId ? 'Actualizar' : 'Crear'} Servicio
         </button>
         {editServId && (
-          <button type="button" onClick={handleCancel} style={{ marginLeft: 8 }}>
+          <button type="button" onClick={handleCancel} className="servicios-btn-cancel">
             Cancelar
           </button>
         )}
-      </div>
-      <ul>
+      </form>
+      <ul className="servicios-list">
         {servicios.length === 0 ? (
           <li>No hay servicios registrados.</li>
         ) : (
           servicios.map(s => (
-            <li key={s.id} style={{ marginBottom: 8 }}>
+            <li key={s.id} className="servicios-list-item">
               <strong>{s.producto}</strong>: {s.contenido} <br />
-              <span>Inicio: {s.fecha_inicio?.slice(0, 10)} | Fin: {s.fecha_fin?.slice(0, 10)} | Precio: {s.precio_servicio}</span>
+              <span>Precio del producto: {s.precio_producto} | Monto pagado: {s.monto_pagado} | Días de anuncio: {s.dias_anuncio} | Precio de la publicidad: {s.precio_publicidad}</span>
               <br />
-              <button onClick={() => handleServEdit(s)} style={{ marginRight: 8 }}>Editar</button>
-              <button onClick={() => handleServDelete(s.id)}>Eliminar</button>
+              <button onClick={() => handleServEdit(s)} className="servicios-btn-edit">Editar</button>
+              <button onClick={() => handleServDelete(s.id)} className="servicios-btn-delete">Eliminar</button>
             </li>
           ))
         )}

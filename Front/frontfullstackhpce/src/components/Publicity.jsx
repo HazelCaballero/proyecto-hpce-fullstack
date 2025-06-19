@@ -32,6 +32,7 @@ export default function Publicity({ onCreated }) {
   const [form, setForm] = useState({
     producto: '',
     contenido: '',
+    fecha_inicio: '',
     precio: '',
     imagen: '',
     servicioId: ''
@@ -95,17 +96,25 @@ export default function Publicity({ onCreated }) {
   };
 
   const handleCrearAnuncio = async () => {
-    if (!form.producto || !form.contenido || !form.precio || !form.servicioId) {
-      Swal.fire('Error', 'Completa todos los campos y selecciona un servicio', 'error');
+    // Solo se requiere seleccionar un servicio
+    if (!form.servicioId) {
+      Swal.fire('Error', 'Selecciona un servicio para publicar el anuncio', 'error');
       return;
     }
     setLoading(true);
     try {
       const usuarioId = Number(localStorage.getItem('usuario_id'));
+      // Buscar el servicio seleccionado para tomar los datos necesarios
+      const servicioSeleccionado = servicios.find(s => s.id === Number(form.servicioId));
+      if (!servicioSeleccionado) {
+        Swal.fire('Error', 'Servicio no encontrado', 'error');
+        setLoading(false);
+        return;
+      }
       const dataToSend = {
-        precio_publicidad: Number(form.precio),
-        servicio: Number(form.servicioId),
-        usuario: usuarioId
+        servicio: servicioSeleccionado.id,
+        usuario: usuarioId,
+        estado: 'activada' // Cambiar el estado a activada al crear el anuncio
       };
       if (editPubId) {
         await CallsPublicidades.UpdatePublicidad(editPubId, dataToSend);
@@ -207,118 +216,125 @@ export default function Publicity({ onCreated }) {
   };
 
   return (
-    <div className="form-anuncio">
-      <h3>Postear anuncio</h3>
-      <div>
-        <label htmlFor="Producto">Producto</label>
-        <select
-          id="Producto"
-          name="producto"
-          value={form.producto}
-          onChange={e => {
-            const selectedServicio = servicios.find(s => s.producto === e.target.value);
-            setForm({
-              ...form,
-              producto: e.target.value,
-              contenido: selectedServicio ? selectedServicio.contenido : '',
-              servicioId: selectedServicio ? selectedServicio.id : ''
-            });
-          }}
-        >
-          <option value="">Selecciona un producto</option>
-          {servicios.map(servicio => (
-            <option key={servicio.id} value={servicio.producto}>
-              {servicio.producto || `Servicio ${servicio.id}`}
-            </option>
-          ))}
-        </select>
-        <label htmlFor="Contenido">Contenido</label>
-        <input
-          type="text"
-          id="Contenido"
-          name="contenido"
-          placeholder="Contenido"
-          value={form.contenido}
-          readOnly
-        />
-        <label htmlFor="Precio">Precio</label>
-        <input
-          type="text"
-          id="Precio"
-          name="precio"
-          placeholder="Precio"
-          value={form.precio}
-          onChange={handleChange}
-        />
-        <label htmlFor="Imagen">Imagen</label>
-        <input
-          type="text"
-          id="Imagen"
-          name="imagen"
-          placeholder="Imagen"
-          value={form.imagen}
-          onChange={handleChange}
-        />
-        <br />
-        <button onClick={handleCrearAnuncio} disabled={loading}>
-          {loading ? 'Creando...' : 'Crear Anuncio'}
-        </button>
+    <div className="publicity-containers-row">
+      <div className="adminpub-section">
+        <h2>Publicación de anuncio</h2>
+        <form className="form-anuncio-form" onSubmit={e => { e.preventDefault(); handleCrearAnuncio(); }}>
+          <div className="form-anuncio-group">
+            <label htmlFor="servicioId">Servicio</label>
+            <select
+              id="servicioId"
+              name="servicioId"
+              value={form.servicioId}
+              onChange={e => {
+                const selectedServicio = servicios.find(s => s.id === Number(e.target.value));
+                // Fecha actual en formato yyyy-mm-dd
+                const today = new Date();
+                const yyyy = today.getFullYear();
+                const mm = String(today.getMonth() + 1).padStart(2, '0');
+                const dd = String(today.getDate()).padStart(2, '0');
+                const fechaActual = `${yyyy}-${mm}-${dd}`;
+                setForm({
+                  ...form,
+                  servicioId: e.target.value,
+                  producto: selectedServicio ? selectedServicio.producto : '',
+                  contenido: selectedServicio ? selectedServicio.contenido : '',
+                  fecha_inicio: fechaActual
+                });
+              }}
+              required
+            >
+              <option value="">Selecciona un servicio</option>
+              {servicios.map(servicio => (
+                <option key={servicio.id} value={servicio.id}>
+                  {servicio.producto || `Servicio ${servicio.id}`}
+                </option>
+              ))}
+            </select>
+          </div>
+          {/* Mostrar datos de solo lectura */}
+          <div className="form-anuncio-group">
+            <label>Producto</label>
+            <input type="text" value={form.producto || ''} readOnly />
+          </div>
+          <div className="form-anuncio-group">
+            <label>Contenido del anuncio</label>
+            <input
+              type="text"
+              name="contenido"
+              value={form.contenido || ''}
+              readOnly
+            />
+          </div>
+          <div className="form-anuncio-group">
+            <label>Fecha inicio</label>
+            <input
+              type="date"
+              name="fecha_inicio"
+              value={form.fecha_inicio || ''}
+              readOnly
+            />
+          </div>
+          <button type="submit" className="form-anuncio-btn">
+            Activar anuncio
+          </button>
+        </form>
       </div>
-      <hr />
-      <h3>Lista de anuncios</h3>
-      <ul>
-        {publicidades.length === 0 ? (
-          <li>No hay anuncios</li>
-        ) : (
-          publicidades.map((ad, idx) => (
-            <li key={ad.id || idx} className="publicity-list-item">
-              <div><b>Precio:</b> {ad.precio_publicidad}</div>
-              <div>
-                <b>Estado:</b>
-                <label className="publicity-label">
-                  <input
-                    type="checkbox"
-                    checked={ad.estado === 'activada'}
-                    onChange={async (e) => {
-                      const nuevoEstado = e.target.checked ? 'activada' : 'desactivada';
-                      try {
-                        await CallsPublicidades.UpdatePublicidad(ad.id, { ...ad, estado: nuevoEstado });
-                        setPublicidades(publicidades =>
-                          publicidades.map(p =>
-                            p.id === ad.id ? { ...p, estado: nuevoEstado } : p
-                          )
-                        );
-                      } catch (err) {
-                        Swal.fire('Error', 'Error al actualizar el estado', 'error');
-                      }
-                    }}
-                  />
-                  {' '}{ad.estado}
-                </label>
-              </div>
-              <div>
-                <b>Usuario:</b> <UsuarioNombre usuarioId={ad.usuario} />
-              </div>
-              <div>
-                <b>Servicio ID:</b> {ad.servicio}
-              </div>
-              <div className="publicity-actions">
-                <button onClick={() => setModalAnuncio(ad)} className="publicity-btn">Ver</button>
-                <button onClick={() => handleEditPublicidad(ad)} className="publicity-btn">Editar</button>
-                <button onClick={async () => {
-                  if (!window.confirm('¿Seguro que deseas eliminar este anuncio?')) return;
-                  try {
-                    await CallsPublicidades.DeletePublicidad(ad.id);
-                    setPublicidades(publicidades => publicidades.filter(p => p.id !== ad.id));
-                  } catch (err) {
-                    Swal.fire('Error', 'Error al eliminar el anuncio', 'error');
-                  }
-                }}>Eliminar</button>
-              </div>
-            </li>
-          ))
-        )}
-      </ul>
+      <div className="adminpub-section">
+        <h2>Lista de anuncios</h2>
+        <ul>
+          {publicidades.length === 0 ? (
+            <li>No hay anuncios</li>
+          ) : (
+            publicidades.map((ad, idx) => (
+              <li key={ad.id || idx} className="publicity-list-item">
+                <div><b>Precio:</b> {ad.precio_publicidad}</div>
+                <div>
+                  <b>Estado:</b>
+                  <label className="publicity-label">
+                    <input
+                      type="checkbox"
+                      checked={ad.estado === 'activada'}
+                      onChange={async (e) => {
+                        const nuevoEstado = e.target.checked ? 'activada' : 'desactivada';
+                        try {
+                          await CallsPublicidades.UpdatePublicidad(ad.id, { ...ad, estado: nuevoEstado });
+                          setPublicidades(publicidades =>
+                            publicidades.map(p =>
+                              p.id === ad.id ? { ...p, estado: nuevoEstado } : p
+                            )
+                          );
+                        } catch (err) {
+                          Swal.fire('Error', 'Error al actualizar el estado', 'error');
+                        }
+                      }}
+                    />
+                    {' '}{ad.estado}
+                  </label>
+                </div>
+                <div>
+                  <b>Usuario:</b> <UsuarioNombre usuarioId={ad.usuario} />
+                </div>
+                <div>
+                  <b>Servicio ID:</b> {ad.servicio}
+                </div>
+                <div className="publicity-actions">
+                  <button onClick={() => setModalAnuncio(ad)} className="publicity-btn">Ver</button>
+                  <button onClick={async () => {
+                    if (!window.confirm('¿Seguro que deseas eliminar este anuncio?')) return;
+                    try {
+                      await CallsPublicidades.DeletePublicidad(ad.id);
+                      setPublicidades(publicidades => publicidades.filter(p => p.id !== ad.id));
+                    } catch (err) {
+                      Swal.fire('Error', 'Error al eliminar el anuncio', 'error');
+                    }
+                  }}>Eliminar</button>
+                </div>
+              </li>
+            ))
+          )}
+        </ul>
+      </div>
     
       {modalAnuncio && (
         <div className="publicity-modal">
@@ -329,18 +345,12 @@ export default function Publicity({ onCreated }) {
             <p><b>Estado:</b> {modalAnuncio.estado}</p>
             <p><b>Usuario:</b> <UsuarioNombre usuarioId={modalAnuncio.usuario} /></p>
             <p><b>Servicio ID:</b> {modalAnuncio.servicio}</p>
-            {servicioDetalle ? (
-              <>
-                <p><b>Producto:</b> {servicioDetalle.producto || '-'}</p>
-                <p><b>Contenido:</b> {servicioDetalle.contenido || '-'}</p>
-                <p><b>Fecha inicio:</b> {servicioDetalle.fecha_inicio ? servicioDetalle.fecha_inicio.split('T')[0] : '-'}</p>
-                <p><b>Fecha fin:</b> {servicioDetalle.fecha_fin ? servicioDetalle.fecha_fin.split('T')[0] : '-'}</p>
-                <p><b>Precio servicio:</b> {servicioDetalle.precio_servicio || '-'}</p>
-                <p><b>Imagen:</b> {servicioDetalle.imagen_url ? <a href={servicioDetalle.imagen_url} target="_blank" rel="noopener noreferrer">{servicioDetalle.imagen_url}</a> : '-'}</p>
-              </>
-            ) : (
-              <p>Cargando datos del servicio...</p>
-            )}
+            <p><b>Producto:</b> {modalAnuncio.producto || '-'}</p>
+            <p><b>Contenido:</b> {modalAnuncio.contenido || '-'}</p>
+            <p><b>Fecha inicio:</b> {modalAnuncio.fecha_inicio ? modalAnuncio.fecha_inicio.split('T')[0] : '-'}</p>
+            <p><b>Fecha fin:</b> {modalAnuncio.fecha_fin ? modalAnuncio.fecha_fin.split('T')[0] : '-'}</p>
+            <p><b>Precio servicio:</b> {modalAnuncio.precio_servicio || '-'}</p>
+            <p><b>Imagen:</b> {modalAnuncio.imagen_url ? <a href={modalAnuncio.imagen_url} target="_blank" rel="noopener noreferrer">{modalAnuncio.imagen_url}</a> : '-'}</p>
             <button onClick={() => setModalAnuncio(null)} className="publicity-modal-close">Cerrar</button>
           </div>
         </div>

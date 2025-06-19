@@ -1,14 +1,94 @@
 /* Estilos para ServiciosAdmin.jsx */
 
-.servicios-mb12 {
-  margin-bottom: 12px;
+.servicios-admin-container {
+  max-width: 420px;
+  margin: 0 auto 24px auto;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 24px 18px 18px 18px;
 }
+
+.servicios-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.servicios-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.servicios-form-group label {
+  font-weight: 500;
+  color: #2c3e50;
+  margin-bottom: 2px;
+}
+
+.servicios-form-group input {
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.servicios-btn-crear {
+  margin-top: 8px;
+  background: #2d8cff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 0;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.servicios-btn-crear:hover {
+  background: #1a6ed8;
+}
+
 .servicios-btn-cancel {
   margin-left: 8px;
+  background: #eee;
+  color: #333;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 0;
+  font-weight: 500;
+  cursor: pointer;
 }
+
+.servicios-list {
+  list-style: none;
+  padding: 0;
+}
+
 .servicios-list-item {
   margin-bottom: 8px;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 8px;
 }
+
 .servicios-btn-edit {
   margin-right: 8px;
+  background: #f7b731;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.servicios-btn-delete {
+  background: #eb3b5a;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-weight: 500;
+  cursor: pointer;
 }

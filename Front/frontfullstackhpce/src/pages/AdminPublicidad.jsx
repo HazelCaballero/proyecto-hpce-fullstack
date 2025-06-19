@@ -19,12 +19,15 @@ export default function AdminPublicidad() {
         <AsideAdmin />
       </div>
       <div>
-        <Header titulo="Panel de Publicidad, Servicios y Categorías" />
+        <Header titulo="Panel de Publicidad" />
         <Main>
-          <div>
-            <ServiciosAdmin />
+          <div className="adminpub-main">
+            <div className="adminpub-section">
+              <h2>Servicio a usuarias</h2>
+              <ServiciosAdmin />
+            </div>
+            <Publicity onCreated={() => setReload(r => !r)} />
           </div>
-          <Publicity onCreated={() => setReload(r => !r)} />
         </Main>
       </div>
       <div>

@@ -88,41 +88,21 @@ export default function APublicaciones() {
     }
   };
 
+  const rol = localStorage.getItem('rol');
+  const isSuperUser = localStorage.getItem('is_superuser') === 'true';
+  const isSuperOrMod = isSuperUser || rol === 'superusuario' || rol === 'moderador';
+
   return (
     <div className="publicaciones-container">
-      <PublicacionesLista publicaciones={publicaciones} onSelect={setModalPub} />
+      <PublicacionesLista
+        publicaciones={publicaciones}
+        onSelect={setModalPub}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+        isSuperOrMod={isSuperOrMod}
+      />
       {modalPub && (
-        <PublicacionModal publicacion={modalPub} onClose={() => setModalPub(null)} onEdit={async () => {
-          const pub = modalPub;
-          const { value: formValues } = await Swal.fire({
-            title: 'Editar publicación',
-            html:
-              `<input id="swal-titulo" class="swal2-input" placeholder="Título" value="${pub.titulo || ''}">` +
-              `<textarea id="swal-publicacion" class="swal2-textarea" placeholder="Publicación">${pub.publicacion || ''}</textarea>` +
-              `<input id="swal-imagen" class="swal2-input" placeholder="URL de imagen (opcional)" value="${pub.imagen_url || ''}">`,
-            focusConfirm: false,
-            showCancelButton: true,
-            confirmButtonText: 'Guardar',
-            cancelButtonText: 'Cancelar',
-            preConfirm: () => {
-              return {
-                titulo: document.getElementById('swal-titulo').value,
-                publicacion: document.getElementById('swal-publicacion').value,
-                imagen_url: document.getElementById('swal-imagen').value
-              };
-            }
-          });
-          if (formValues) {
-            try {
-              await CallsPublicaciones.UpdatePublicaciones(pub.id, { ...pub, ...formValues });
-              setPublicaciones(publicaciones => publicaciones.map(p => p.id === pub.id ? { ...p, ...formValues } : p));
-              Swal.fire('Actualizado', 'La publicación ha sido actualizada.', 'success');
-              setModalPub(null);
-            } catch (e) {
-              Swal.fire('Error', 'No se pudo actualizar la publicación.', 'error');
-            }
-          }
-        }} />
+        <PublicacionModal publicacion={modalPub} onClose={() => setModalPub(null)} />
       )}
       <div className="publicaciones-info">
         <h2>N° de publicaciones activas</h2>

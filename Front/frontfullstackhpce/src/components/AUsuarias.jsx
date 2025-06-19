@@ -65,22 +65,34 @@ export default function Usuarias() {
         `<input id="swal-input5" class="swal2-input" placeholder="Intereses" value="${usuaria.intereses || ''}">` +
         `<input id="swal-input6" class="swal2-input" placeholder="Ubicación" value="${usuaria.ubicacion || ''}">` +
         `<input id="swal-input7" class="swal2-input" placeholder="Aportaciones" value="${usuaria.aportaciones || ''}">` +
-        `<label style='display:block;margin-top:8px;'><input id="swal-input8" type="checkbox" ${usuaria.is_active ? 'checked' : ''}/> Activa</label>`,
+        (isSuperuser ?
+          `<select id="swal-input9" class="swal2-input">
+            <option value="usuaria" ${usuaria.rol === 'usuaria' ? 'selected' : ''}>Usuaria</option>
+            <option value="moderador" ${usuaria.rol === 'moderador' ? 'selected' : ''}>Moderador</option>
+            <option value="soporte" ${usuaria.rol === 'soporte' ? 'selected' : ''}>Soporte</option>
+            <option value="superusuario" ${usuaria.rol === 'superusuario' ? 'selected' : ''}>Superusuario</option>
+          </select>` :
+          ''
+        ) +
+        `<div style='margin-top:8px;'><b>Estado:</b> ${usuaria.is_active ? 'Activa' : 'Inactiva'}</div>`,
       focusConfirm: false,
       showCancelButton: true,
       confirmButtonText: 'Guardar',
       cancelButtonText: 'Cancelar',
       preConfirm: () => {
-        return {
+        const base = {
           username: document.getElementById('swal-input1').value,
           email: document.getElementById('swal-input2').value,
           telefono: document.getElementById('swal-input3').value,
           fecha_nacimiento: document.getElementById('swal-input4').value,
           intereses: document.getElementById('swal-input5').value,
           ubicacion: document.getElementById('swal-input6').value,
-          aportaciones: document.getElementById('swal-input7').value,
-          is_active: document.getElementById('swal-input8').checked
+          aportaciones: document.getElementById('swal-input7').value
         };
+        if (isSuperuser) {
+          base.rol = document.getElementById('swal-input9').value;
+        }
+        return base;
       }
     });
     if (formValues) {
@@ -103,7 +115,7 @@ export default function Usuarias() {
       {loading && <div className="usuarias-loading">Cargando...</div>}
       {error && <div className="usuarias-error">{error}</div>}
       {!loading && !error && (
-        <UsuariasLista usuarias={usuarias} onSelect={setModalUsuaria} />
+        <UsuariasLista usuarias={usuarias} onSelect={setModalUsuaria} onEdit={handleEditar} />
       )}
 
       <div className="usuarias-stats">
@@ -114,47 +126,7 @@ export default function Usuarias() {
       </div>
 
       {modalUsuaria && (
-        <UsuariaModal usuaria={modalUsuaria} onClose={() => setModalUsuaria(null)} onEdit={async () => {
-          const usuaria = modalUsuaria;
-          const { value: formValues } = await Swal.fire({
-            title: 'Editar usuaria',
-            html:
-              `<input id="swal-input1" class="swal2-input" placeholder="Nombre" value="${usuaria.username || ''}">` +
-              `<input id="swal-input2" class="swal2-input" placeholder="Email" value="${usuaria.email || ''}">` +
-              `<input id="swal-input3" class="swal2-input" placeholder="Teléfono" value="${usuaria.telefono || ''}">` +
-              `<input id="swal-input4" class="swal2-input" type="date" placeholder="Fecha de nacimiento" value="${usuaria.fecha_nacimiento || ''}">` +
-              `<input id="swal-input5" class="swal2-input" placeholder="Intereses" value="${usuaria.intereses || ''}">` +
-              `<input id="swal-input6" class="swal2-input" placeholder="Ubicación" value="${usuaria.ubicacion || ''}">` +
-              `<input id="swal-input7" class="swal2-input" placeholder="Aportaciones" value="${usuaria.aportaciones || ''}">` +
-              `<label style='display:block;margin-top:8px;'><input id="swal-input8" type="checkbox" ${usuaria.is_active ? 'checked' : ''}/> Activa</label>`,
-            focusConfirm: false,
-            showCancelButton: true,
-            confirmButtonText: 'Guardar',
-            cancelButtonText: 'Cancelar',
-            preConfirm: () => {
-              return {
-                username: document.getElementById('swal-input1').value,
-                email: document.getElementById('swal-input2').value,
-                telefono: document.getElementById('swal-input3').value,
-                fecha_nacimiento: document.getElementById('swal-input4').value,
-                intereses: document.getElementById('swal-input5').value,
-                ubicacion: document.getElementById('swal-input6').value,
-                aportaciones: document.getElementById('swal-input7').value,
-                is_active: document.getElementById('swal-input8').checked
-              };
-            }
-          });
-          if (formValues) {
-            try {
-              await CallsUsuarias.UpdateUsuarias(usuaria.id, formValues);
-              setUsuarias(us => us.map(u => u.id === usuaria.id ? { ...u, ...formValues } : u));
-              Swal.fire('Actualizado', 'La usuaria ha sido actualizada.', 'success');
-              setModalUsuaria(null);
-            } catch (err) {
-              Swal.fire('Error', 'Error al actualizar usuaria', 'error');
-            }
-          }
-        }} />
+        <UsuariaModal usuaria={modalUsuaria} onClose={() => setModalUsuaria(null)} />
       )}
     </div>
   );

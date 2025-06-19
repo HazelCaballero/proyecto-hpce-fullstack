@@ -109,18 +109,27 @@ class CategoriaDetailView(RetrieveUpdateDestroyAPIView):
     queryset = Categoria.objects.all()
     serializer_class = CategoriaSerializer
 
+    def delete(self, request, *args, **kwargs):
+        categoria = self.get_object()
+        trueques_count = categoria.trueque_set.count()
+        if trueques_count > 0 and request.query_params.get('force') != 'true':
+            return Response({
+                'detail': f'Esta categoría tiene {trueques_count} trueques asociados. ¿Deseas eliminarla junto con todos sus trueques? Envía force=true para confirmar.'
+            }, status=status.HTTP_409_CONFLICT)
+        return super().delete(request, *args, **kwargs)
+
 
 # Vista para listar y crear trueques
 class TruequeListCreateView(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
-    queryset = Trueque.objects.all()
+    queryset = Trueque.objects.select_related('categoria', 'usuario').all()
     serializer_class = TruequeSerializer
 
 
 # Vista para obtener, actualizar o eliminar un trueque
 class TruequeDetailView(RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
-    queryset = Trueque.objects.all()
+    queryset = Trueque.objects.select_related('categoria', 'usuario').all()
     serializer_class = TruequeSerializer
 
 

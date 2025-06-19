@@ -2,7 +2,7 @@ import React from 'react';
 import '../../styles/Scomponents/UsuariaModal.css';
 
 // Modal para mostrar detalles de una usuaria
-export default function UsuariaModal({ usuaria, onClose, onEdit }) {
+export default function UsuariaModal({ usuaria, onClose }) {
   if (!usuaria) return null;
   return (
     <div className="modal">
@@ -17,7 +17,6 @@ export default function UsuariaModal({ usuaria, onClose, onEdit }) {
         <p><b>Ubicación:</b> {usuaria.ubicacion}</p>
         <p><b>Aportaciones:</b> {usuaria.aportaciones}</p>
         <p><b>Activa:</b> {usuaria.is_active ? 'Sí' : 'No'}</p>
-        <button onClick={onEdit}>Editar</button>
         <button onClick={onClose} className="close-btn">Cerrar</button>
       </div>
     </div>
