@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import '../styles/Scomponents/AUsuarias.css';
 import UsuariasLista from './UsuariasLista';
 import UsuariaModal from './UsuariaModal';
+import UsuariasActivasRegistradas from './UsuariasActivasRegistradas';
 
 /**
  * Componente de administración de usuarias.
@@ -112,11 +113,14 @@ export default function Usuarias() {
   return (
     <div className="ausuarias-admin-container">
       <h2 className="ausuarias-titulo">Administración de Usuarias</h2>
-      <div className='ausuarias-estadisticas'>
+      <div className='ausuarias-estadisticas' style={{ display: 'flex', gap: '32px', alignItems: 'flex-start' }}>
         {loading && <div className="ausuarias-loading">Cargando usuarias...</div>}
         {error && <div className="ausuarias-error">{error}</div>}
         {!loading && !error && (
-          <UsuariasLista usuarias={usuarias} onSelect={setModalUsuaria} onEdit={handleEditar} />
+          <>
+            <UsuariasLista usuarias={usuarias} onSelect={setModalUsuaria} onEdit={handleEditar} />
+            <UsuariasActivasRegistradas usuarias={usuarias} />
+          </>
         )}
         {modalUsuaria && (
           <UsuariaModal usuaria={modalUsuaria} onClose={() => setModalUsuaria(null)} />

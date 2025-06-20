@@ -1,0 +1,48 @@
+/* Estilos para UsuariasActivasRegistradas.jsx */
+.usuarias-activas-bloque-tabla {
+  border: 2px solid  #154360;
+  border-radius: 14px;
+  margin: 24px 0;
+  padding: 48px 12px;
+  background-image: url('/main-background-remove.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  max-height: 60vh;
+  position: relative;
+  bottom: 2vh;
+}
+
+.usuarias-activas-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 12px;
+  padding: 3vh;
+}
+
+.usuarias-activas-table th, .usuarias-activas-table td {
+  padding: 12px 16px;
+  text-align: center;
+}
+.usuarias-activas-table th {
+  background:#281549;
+  color: #fff;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  border-radius: 50px;
+}
+
+.usuaria-inactiva {
+  background: rgb(215, 189, 226, 0.9);
+  color:#281549;
+  font-weight: 600;
+}
+
+.usuarias-activas-tbody-container {
+  max-height: 40vh;
+  background-color:  rgb(215, 189, 226, 0.9);
+  padding: 5%;
+  border-radius: 15px;
+}
