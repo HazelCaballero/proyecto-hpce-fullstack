@@ -11,9 +11,10 @@ export default function UsuariasActivasRegistradas({ usuarias }) {
     );
   }
 
-  const activas = usuarias.filter(u => u.is_active === true || u.is_active === 1 || u.is_active === "1");
-  const inactivas = usuarias.length - activas.length;
-
+  const activas = usuarias.filter(u => u.is_active=== true);
+  console.log("Cantidad de usuarias activas:", activas);
+  const activasCount = activas.length;
+  const inactivas = usuarias.length - activasCount;
   return (
     <div className="usuarias-activas-bloque-tabla">
       <div className="usuarias-activas-tbody-container">
@@ -27,11 +28,15 @@ export default function UsuariasActivasRegistradas({ usuarias }) {
           <tbody>
             <tr>
               <td>Activas</td>
-              <td>{activas.length}</td>
+              <td>{activasCount}</td>
             </tr>
             <tr>
               <td>Registradas</td>
               <td>{usuarias.length}</td>
+            </tr>
+            <tr>
+              <td>Inactivas</td>
+              <td>{inactivas}</td>
             </tr>
           </tbody>
         </table>

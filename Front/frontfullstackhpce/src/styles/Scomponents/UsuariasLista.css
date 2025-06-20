@@ -25,6 +25,14 @@
   color:#281549;
   font-weight: 600;
 }
+
+.usuaria-activa {
+  background: rgb(215, 189, 226, 0.9);
+  color:#281549;
+  font-weight: 600;
+}
+
+
 .ausuarias-bloque-tabla {
   border: 2px solid  #154360;
   border-radius: 14px;
@@ -34,7 +42,9 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  background-color: rgb(215, 189, 226, 0.8);
   max-height: 60vh;
+  width: 100%;
   position: relative;
   bottom: 2vh;
 }
@@ -65,4 +75,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.user-list-icon:hover {
+  background-color: #d7bde2;
+  border-radius: 5px;
 }

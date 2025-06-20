@@ -101,9 +101,9 @@ export default function Contactos() {
     <div className="acontactos-container">
       <div className='acontactos-resumen'>
         <h2>Mensajes por revisar</h2>
-        <p>{mensajes.filter(m => !m.leido).length}</p>
+        <p className='p-p'>{mensajes.filter(m => !m.leido).length}</p>
         <h2>Mensajes revisados</h2>
-        <p>{mensajes.filter(m => m.leido).length}</p>
+        <p className='p-p'>{mensajes.filter(m => m.leido).length}</p>
       </div>
       <div className="acontactos-listas">
         <div className="acontactos-bloque acontactos-bloque-norevisados">
@@ -113,11 +113,11 @@ export default function Contactos() {
               <li>No hay mensajes por revisar</li>
             ) : (
               mensajes.filter(m => !m.leido).map((msg, idx) => (
-                <li key={msg.id || idx}>
-                  mensaje: {msg.contenido || msg.mensaje || '-'}<br />
+                <li className='men-ach' key={msg.id || idx}>
+                 <span className='tres-estilos'> mensaje:  {msg.contenido || msg.mensaje || '-'}<br />
                   usuaria: {msg.usuario_nombre || msg.usuaria || msg.usuario || '-'}<br />
-                  Promocionarse: {(msg.promocionarse === true || msg.promocionarse === 'si' || msg.promocionarse === 'sí') ? 'sí' : 'no'}<br />
-                  <label className="contactos-label">
+                  Promocionarse: {(msg.promocionarse === true || msg.promocionarse === 'si' || msg.promocionarse === 'sí') ? 'sí' : 'no'}<br /></span>
+                <span className='dos-estilos'> <label className="contactos-label">
                     <input
                       type="checkbox"
                       checked={!!msg.leido}
@@ -132,9 +132,9 @@ export default function Contactos() {
                       }}
                     />
                     {' '}Leído
-                  </label>
-                  <button className="contactos-button" onClick={() => setModalMsg(msg)}>Ver</button>
-                  <button onClick={() => handleEliminarMensaje(msg.id)} disabled={eliminando}>Eliminar</button>
+                  </label> </span> 
+                  <button className="contactos-button" onClick={() => setModalMsg(msg)}><img className='user-list-icon' src="../public/see-removebg-preview.png" alt="see-icon" /></button>
+                  <button className="contactos-button" onClick={() => handleEliminarMensaje(msg.id)} disabled={eliminando}><img className='user-list-icon' src="../public/trash-removebg-preview.png" alt="trash-icon" /></button>
                 </li>
               ))
             )}
@@ -148,10 +148,10 @@ export default function Contactos() {
             ) : (
               mensajes.filter(m => m.leido).map((msg, idx) => (
                 <li key={msg.id || idx}>
-                  mensaje: {msg.contenido || msg.mensaje || '-'}<br />
+                  <span className='tres-estilos'> mensaje: {msg.contenido || msg.mensaje || '-'}<br />
                   usuaria: {msg.usuario_nombre || msg.usuaria || msg.usuario || '-'}<br />
-                  Promocionarse: {(msg.promocionarse === true || msg.promocionarse === 'si' || msg.promocionarse === 'sí') ? 'sí' : 'no'}<br />
-                  <label className="contactos-label">
+                  Promocionarse: {(msg.promocionarse === true || msg.promocionarse === 'si' || msg.promocionarse === 'sí') ? 'sí' : 'no'}<br /> </span>
+                 <span className='dos-estilos'> <label className="contactos-label">
                     <input
                       type="checkbox"
                       checked={!!msg.leido}
@@ -166,9 +166,9 @@ export default function Contactos() {
                       }}
                     />
                     {' '}Leído
-                  </label>
-                  <button className="contactos-button" onClick={() => setModalMsg(msg)}>Ver</button>
-                  <button onClick={() => handleEliminarMensaje(msg.id)} disabled={eliminando}>Eliminar</button>
+                  </label> </span>
+                  <button className="contactos-button" onClick={() => setModalMsg(msg)}><img className='user-list-icon' src="../public/see-removebg-preview.png" alt="see-icon" /></button>
+                  <button className="contactos-button" onClick={() => handleEliminarMensaje(msg.id)} disabled={eliminando}><img className='user-list-icon' src="../public/trash-removebg-preview.png" alt="trash-icon" /></button>
                 </li>
               ))
             )}

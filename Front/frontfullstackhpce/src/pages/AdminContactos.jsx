@@ -12,7 +12,7 @@ import '../styles/Spages/AdminContactos.css';
  */
 export default function AdminContactos() {
   return (
-    <div className="page-grid">
+    <div className="page-grid-admin-contactos">
         <div >
             <AsideAdmin/>
         </div>

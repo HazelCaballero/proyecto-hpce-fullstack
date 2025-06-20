@@ -1,73 +1,129 @@
 /* Estilos para AContactos.jsx */
 
 .acontactos-container {
-  background: #fff3e0; /* naranja claro */
-  border-left: 4px solid #f57c00;
+  background-color: rgb(21, 67, 97, 0.4);
+  border-left: 4px solid #154360;
   padding: 28px 24px;
   border-radius: 14px;
-  box-shadow: 0 2px 12px rgba(245,124,0,0.10);
   margin-bottom: 32px;
+   align-items: center;
 }
 .acontactos-resumen {
-  background: #ffe0b2;
-  border: 2px solid #f57c00;
+  background: rgb(40, 21, 73, 0.9);
+  border: 2px solid   #154360;
   border-radius: 12px;
   padding: 16px 20px;
   margin-bottom: 28px;
   display: flex;
   gap: 32px;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
+  width: 60%;
+  justify-self: center;
 }
 .acontactos-resumen h2 {
-  color: #f57c00;
+  color: #fcfbfe;
   margin: 0 12px 0 0;
   font-size: 1.2rem;
 }
+
+.acontactos-listas h3 {
+  color: #154360;
+  font-size: 1.4rem;
+  background-color:#f0ecfa;
+  width: 55%;
+  text-align: center;
+  padding: 1%;
+  border-radius: 10px;
+  justify-self: center;
+}
+
 .acontactos-listas {
   display: flex;
   gap: 32px;
-  flex-wrap: wrap;
+  width: 45%;
 }
 .acontactos-bloque {
-  background: #fff8e1;
-  border: 2px solid #fbc02d;
+  background: #f3e5f5;
+  border: 2px solid  #154360;
   border-radius: 12px;
   padding: 18px 14px;
-  min-width: 320px;
+  min-width: 440px;
   flex: 1 1 350px;
-  box-shadow: 0 2px 8px rgba(251,192,45,0.10);
+  background-image: url('/main-background-remove.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .acontactos-bloque h3 {
-  color: #f57c00;
+  color: #281549;
   margin-bottom: 12px;
 }
 .acontactos-bloque ul {
   list-style: none;
   padding: 0;
   margin: 0;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: #154360 transparent;
+  max-height: 40vh;
 }
 .acontactos-bloque li {
-  background: #fffde7;
+  background: rgb(40, 21, 73, 0.9);
+  color: #f0ecfa;
   border-radius: 8px;
   margin-bottom: 12px;
   padding: 10px 12px;
-  border: 1px solid #ffe082;
-  box-shadow: 0 1px 4px rgba(251,192,45,0.06);
+  border: 1px solid #281549;
+  font: 1em sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .acontactos-btn, .contactos-button {
-  background: #f57c00;
-  color: #fff;
+  background:#fff ;
+  color: #281549;
   border: none;
   border-radius: 4px;
-  padding: 6px 16px;
-  margin: 4px 0 4px 8px;
+  padding: 10px 16px;
   cursor: pointer;
   transition: background 0.2s;
 }
 .acontactos-btn:hover, .contactos-button:hover {
-  background: #e65100;
+  background: #d7bde2;
 }
 .contactos-label {
   margin-right: 8px;
+}
+
+.p-p {
+  color: #f7f5f9;
+  font-size: 1.8rem;
+  font-weight: 600;
+  text-shadow: 2px 2px 20px rgb(234, 222, 255),
+             -2px 2px 20px rgb(234, 222, 255),
+             2px -2px 20px rgb(234, 222, 255),
+             -2px -2px 20px rgb(234, 222, 255);
+}
+
+
+.men-ach{
+  display: grid;
+  grid-template-areas: 
+    "tres-estilos dos-estilos";
+}
+
+.tres-estilos {
+  grid-area: tres-estilos;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 40%;
+}
+
+.dos-estilos {
+  grid-area: dos-estilos;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }

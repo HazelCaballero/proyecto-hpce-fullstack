@@ -24,6 +24,10 @@
   max-width: 90%;
   max-height: 90%;
 }
+.aside-admin__logo:hover{
+  transition: all 0.6s ease-in-out;
+  transform: rotate(360deg);
+}
 
 .aside-admin__nav-list {
   width: 80%;
@@ -31,7 +35,9 @@
   background-color: rgb(215, 189, 226, 0.8);
   list-style: none;
   padding: 5%;
-  border: #154360 solid 2px;
+  border-top: #154360 solid 2px;
+  border-bottom: #154360 solid 2px;
+  border-radius: 12px;
 }
 
 .aside-admin__nav-item {

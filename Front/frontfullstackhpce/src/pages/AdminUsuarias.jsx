@@ -12,7 +12,7 @@ import '../styles/Spages/AdminUsuarias.css';
  */
 function AdminUsuarias() {
   return (
-    <div className="page-grid">
+    <div className="page-grid-admin-usuarias">
       <div>
           <AsideAdmin/>
       </div>

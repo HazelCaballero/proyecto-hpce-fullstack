@@ -199,7 +199,7 @@ class Contactos(models.Model):
     Incluye campos para el usuario remitente, correo, opción de promocionarse, mensaje y fecha de envío.
     """
     usuario = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    correo = models.EmailField(max_length=50, unique=True)
+    correo = models.EmailField(max_length=50)
     promocionarse = models.BooleanField(default=False)
     mensaje = models.TextField()
     fecha_envio = models.DateTimeField(auto_now_add=True)

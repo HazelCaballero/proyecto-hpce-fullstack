@@ -16,7 +16,7 @@ export default function UsuariasLista({ usuarias, onSelect, onEdit }) {
           </thead>
           <tbody >
             {usuarias.map(u => (
-              <tr key={u.id} className={(u.is_active === true || u.is_active === 1 || u.is_active === "1") ? '' : 'usuaria-inactiva'}>
+              <tr key={u.id} className={(u.is_active === true || u.is_active === 1 || u.is_active === "1") ? 'usuaria-activa' : 'usuaria-inactiva'}>
                 <td>{u.id}</td>
                 <td>{u.username}</td>
                 <td>

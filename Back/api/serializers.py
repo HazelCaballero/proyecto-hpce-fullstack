@@ -21,7 +21,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'username', 'password', 'email',
             'telefono', 'fecha_nacimiento', 'intereses',
-            'aportaciones', 'ubicacion', 'imagen_url', 'rol'
+            'aportaciones', 'ubicacion', 'imagen_url', 'rol', 'is_active'
         ]
         # Si descomento esto la contraseña será solo de escritura
         # extra_kwargs = {

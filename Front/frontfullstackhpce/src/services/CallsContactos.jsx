@@ -36,7 +36,6 @@ async function GetContactos() {
  */
 async function PostContactos(objeto) {
   try {
-   
     const token = localStorage.getItem('access');
     const response = await fetch(`${BASE_URL}contactos/`, {
       method: 'POST',
@@ -46,12 +45,15 @@ async function PostContactos(objeto) {
       },
       body: JSON.stringify(objeto)
     });
-    
-    if (!response.ok) throw new Error('Error posting contacto');
- 
-    return await response.json();
+    const data = await response.json();
+    if (!response.ok) {
+      // Lanzar el error con el detalle del backend
+      const error = new Error('Error posting contacto');
+      error.backend = data;
+      throw error;
+    }
+    return data;
   } catch (error) {
-   
     console.error('Error posting contacto:', error);
     throw error;
   }

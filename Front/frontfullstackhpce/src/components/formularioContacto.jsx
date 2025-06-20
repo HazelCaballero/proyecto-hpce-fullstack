@@ -37,17 +37,47 @@ export default function FormularioContacto() {
 
     setLoading(true)
     try {
-      await CallsContactos.PostContactos({
+      // Obtener el ID de usuario desde localStorage si existe
+      const usuarioId = localStorage.getItem('usuario_id');
+      console.log('usuario_id en localStorage:', usuarioId);
+      const payload = {
         correo: email,
         mensaje,
         promocionarse: interEnPromocionarse
-      })
+      };
+      if (usuarioId) {
+        payload.usuario = Number(usuarioId); // Asegura que sea número
+      } else {
+        setLoading(false);
+        Swal.fire('Error', 'Debes iniciar sesión para enviar el formulario.', 'error');
+        return;
+      }
+      console.log('Payload enviado:', payload);
+      await CallsContactos.PostContactos(payload)
       Swal.fire('Enviado', 'Mensaje enviado correctamente.', 'success')
       setEmail('')
       setMensaje('')
       setInterEnPromocionarse(false)
     } catch (err) {
-      Swal.fire('Error', 'Error al enviar el mensaje.', 'error')
+      // Mostrar el mensaje de error del backend si existe
+      if (err.backend) {
+        // Mostrar todos los errores del backend de forma amigable
+        let msg = '';
+        if (typeof err.backend === 'object') {
+          for (const key in err.backend) {
+            if (Array.isArray(err.backend[key])) {
+              msg += `${key}: ${err.backend[key].join(', ')}\n`;
+            } else {
+              msg += `${key}: ${err.backend[key]}\n`;
+            }
+          }
+        } else {
+          msg = err.backend;
+        }
+        Swal.fire('Error', msg, 'error');
+      } else {
+        Swal.fire('Error', 'Error al enviar el mensaje.\n' + (err.message || ''), 'error')
+      }
     }
     setLoading(false)
   }
