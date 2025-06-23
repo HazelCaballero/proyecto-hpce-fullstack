@@ -47,13 +47,14 @@
   background: #f3e5f5;
   border: 2px solid  #154360;
   border-radius: 12px;
-  padding: 18px 14px;
-  min-width: 440px;
-  flex: 1 1 350px;
   background-image: url('/main-background-remove.png');
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover; 
+  padding: 18px 14px;
+  min-width: 440px;
+  flex: 1 1 350px;
+  
 }
 .acontactos-bloque h3 {
   color: #281549;

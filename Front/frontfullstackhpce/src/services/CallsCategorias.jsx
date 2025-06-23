@@ -1,3 +1,5 @@
+import { fetchWithAuth } from './fetchWithAuth';
+
 // Servicio para operaciones CRUD de categorías
 const BASE_URL = "http://127.0.0.1:8000/api/";
 
@@ -7,15 +9,9 @@ const BASE_URL = "http://127.0.0.1:8000/api/";
  */
 async function GetCategorias() {
   try {
-    const token = localStorage.getItem('access');
-    const response = await fetch(`${BASE_URL}categorias/`, {
+    const response = await fetchWithAuth(`${BASE_URL}categorias/`, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(token ? { 'Authorization': 'Bearer ' + token } : {})
-      }
-    });
-    if (!response.ok) throw new Error('Error fetching categories');
+    }, 'categorias');
     return await response.json();
   } catch (error) {
     console.error('Error fetching categories:', error);
@@ -30,17 +26,11 @@ async function GetCategorias() {
  */
 async function PostCategorias(objeto) {
   try {
-    const token = localStorage.getItem('access');
-    const response = await fetch(`${BASE_URL}categorias/`, {
+    const response = await fetchWithAuth(`${BASE_URL}categorias/`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(token ? { 'Authorization': 'Bearer ' + token } : {})
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(objeto)
-    });
-    if (!response.ok) throw new Error('Error posting categorie');
-    
+    }, 'categorias');
     return await response.json();
   } catch (error) {
     console.error('Error posting categorie:', error);
@@ -55,14 +45,10 @@ async function PostCategorias(objeto) {
  */
 async function DeleteCategorias(id, force = false) {
   try {
-    const token = localStorage.getItem('access');
-    const response = await fetch(`${BASE_URL}categorias/${id}/` + (force ? '?force=true' : ''), {
+    const response = await fetchWithAuth(`${BASE_URL}categorias/${id}/` + (force ? '?force=true' : ''), {
       method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(token ? { 'Authorization': 'Bearer ' + token } : {})
-      }
-    });
+      headers: { 'Content-Type': 'application/json' }
+    }, 'categorias');
     if (response.status === 409) {
       const data = await response.json();
       throw { type: 'confirm', detail: data.detail };

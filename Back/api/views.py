@@ -125,6 +125,9 @@ class TruequeListCreateView(ListCreateAPIView):
     queryset = Trueque.objects.select_related('categoria', 'usuario').all()
     serializer_class = TruequeSerializer
 
+    def perform_create(self, serializer):
+        serializer.save(usuario=self.request.user)
+
 
 # Vista para obtener, actualizar o eliminar un trueque
 class TruequeDetailView(RetrieveUpdateDestroyAPIView):

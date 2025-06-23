@@ -1,16 +1,30 @@
 /* Estilos para PublicacionesLista.jsx */
 
-.publicaciones-table {
-  width: 100%;
-  background: #e3f2fd; /* celeste claro */
+.publicaciones-table-container {
+  height: 55vh;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: #154360 transparent;
+  background: #f3e5f5;
+border-radius: 12px;
+background-image: url('/main-background-remove.png');
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+  width: 96vh;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(2,136,209,0.07);
+}
+
+.publicaciones-table {
+  width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  margin-bottom: 24px;
+  padding: 2vh;
 }
+
 .publicaciones-table th {
-  background: #0288d1;
+  background-color: rgb(21, 67, 96);
   color: #fff;
   padding: 10px 8px;
   font-weight: 600;
@@ -18,16 +32,25 @@
   border-top-right-radius: 12px;
 }
 .publicaciones-table td {
-  background: #fff;
-  color: #333;
-  padding: 10px 8px;
-  border-bottom: 1px solid #b3e5fc;
+ padding: 10px 8px; 
 }
+
+.publicaciones-table tr {
+ background: rgb(215, 189, 226, 0.9);
+  color: #333;
+  padding: 10px 8px; 
+}
+
+.publicaciones-table tr:hover {
+  background-color:rgb(40, 21, 73, 0.5);
+   color: #fff;
+}
+
 .publicaciones-table tr:last-child td {
   border-bottom: none;
 }
 .publicaciones-table button {
-  background: #0288d1;
+  background-color: #c5deee;
   color: #fff;
   border: none;
   border-radius: 4px;

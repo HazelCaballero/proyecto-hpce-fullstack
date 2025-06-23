@@ -1,3 +1,5 @@
+import { fetchWithAuth } from './fetchWithAuth';
+
 // Servicio para operaciones CRUD de publicaciones
 const BASE_URL = "http://127.0.0.1:8000/api/";
 
@@ -7,21 +9,11 @@ const BASE_URL = "http://127.0.0.1:8000/api/";
  */
 async function GetPublicaciones() {
   try {
- 
-    const token = localStorage.getItem('access');
-    const response = await fetch(`${BASE_URL}publicaciones/`, {
+    const response = await fetchWithAuth(`${BASE_URL}publicaciones/`, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(token ? { 'Authorization': 'Bearer ' + token } : {})
-      }
-    });
-  
-    if (!response.ok) throw new Error('Error fetching publicaciones');
-  
+    }, 'publicaciones');
     return await response.json();
   } catch (error) {
-
     console.error('Error fetching publicaciones:', error);
     throw error;
   }
@@ -35,22 +27,13 @@ async function GetPublicaciones() {
  */
 async function PostPublicaciones(objeto) {
   try {
-   
-    const token = localStorage.getItem('access');
-    const response = await fetch(`${BASE_URL}publicaciones/`, {
+    const response = await fetchWithAuth(`${BASE_URL}publicaciones/`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(token ? { 'Authorization': 'Bearer ' + token } : {})
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(objeto)
-    });
-    
-    if (!response.ok) throw new Error('Error posting publicacion');
- 
+    }, 'publicaciones');
     return await response.json();
   } catch (error) {
-   
     console.error('Error posting publicacion:', error);
     throw error;
   }
@@ -59,22 +42,13 @@ async function PostPublicaciones(objeto) {
 
 async function UpdatePublicaciones(id, objeto) {
   try {
-   
-    const token = localStorage.getItem('access');
-    const response = await fetch(`${BASE_URL}publicaciones/${id}/`, {
+    const response = await fetchWithAuth(`${BASE_URL}publicaciones/${id}/`, {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(token ? { 'Authorization': 'Bearer ' + token } : {})
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(objeto)
-    });
-   
-    if (!response.ok) throw new Error(`Error updating publicacion with id ${id}`);
-   
+    }, 'publicaciones');
     return await response.json();
   } catch (error) {
-   
     console.error('Error updating publicacion:', error);
     throw error;
   }
@@ -83,14 +57,10 @@ async function UpdatePublicaciones(id, objeto) {
 
 async function DeletePublicaciones(id) {
   try {
-    const token = localStorage.getItem('access');
-    const response = await fetch(`${BASE_URL}publicaciones/${id}/`, {
+    const response = await fetchWithAuth(`${BASE_URL}publicaciones/${id}/`, {
       method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(token ? { 'Authorization': 'Bearer ' + token } : {})
-      }
-    });
+      headers: { 'Content-Type': 'application/json' }
+    }, 'publicaciones');
     if (!response.ok) throw new Error(`Error deleting publicacion with id ${id}`);
     return { message: `Publicacion with id ${id} deleted successfully` };
   } catch (error) {

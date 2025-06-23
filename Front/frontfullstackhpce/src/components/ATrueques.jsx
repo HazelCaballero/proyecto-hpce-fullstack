@@ -175,13 +175,13 @@ export default function Trueques() {
         return
       }
       try {
+        // No enviar usuario, el backend lo toma del token
         const truequeAEnviar = {
           titulo,
           trueque: truequeDesc,
           ubicacion,
           imagen_url,
-          categoria: Number(categoria),
-          usuario: trueque.usuario  
+          categoria_id: Number(categoria)
         }
         await CallsTrueques.UpdateTrueques(trueque.id, truequeAEnviar)
         Swal.fire('Éxito', 'Trueque actualizado.', 'success')
@@ -199,67 +199,76 @@ export default function Trueques() {
 
   const TruequeItem = memo(function TruequeItem({ t, onVer, onEditar, onEliminar }) {
     return (
-      <li>
-        <strong>{t.titulo}</strong> - {t.estado}
+      <li className='li-trueque'>
+       <span className='descrip-trueque'>Trueque:<strong>{t.titulo}</strong> <br /> Estado: {t.estado}</span>
         <br />
-        <button onClick={() => onVer(t)}>Ver más</button>
-        <button onClick={() => onEditar(t)} className="trueques-editar">Editar</button>
-        <button onClick={() => onEliminar(t.id)} className="trueques-eliminar">Eliminar</button>
+        <span className='btn-trueque'>
+        <button onClick={() => onVer(t)} className="trueques-ver"> <img className='user-list-icon' src="../public/see-removebg-preview.png" alt="see-icon" /> </button>
+        <button onClick={() => onEditar(t)} className="trueques-editar"> <img className='user-list-icon' src="../public/edit-removebg-preview.png" alt="edit-icon" /></button>
+        <button onClick={() => onEliminar(t.id)} className="trueques-eliminar"><img className='user-list-icon' src="../public/trash-removebg-preview.png" alt="trash-icon" /></button>
+      </span>
       </li>
     );
   });
 
+  
   return (
     <div className="trueques-container">
-      <ul className="trueques-list">
-        <h3>Lista de trueques</h3>
-        {loading && <Spinner />}
-        {error && <li>{error}</li>}
-        {!loading && !error && trueques.length === 0 && <li>No hay trueques</li>}
-        {!loading && !error && paginatedTrueques.map(t => (
-          <TruequeItem key={t.id} t={t} onVer={(t) => Swal.fire({
-            title: t.titulo,
-            html: `
-              <p><strong>Ubicación:</strong> ${t.ubicacion}</p>
-              <p><strong>Estado:</strong> ${t.estado}</p>
-              ${t.imagen_url ? `<img src="${t.imagen_url}" style="max-width:100%;margin-top:10px;" />` : ''}
-            `,
-            confirmButtonText: 'Cerrar'
-          })} onEditar={handleEditar} onEliminar={handleEliminar} />
-        ))}
-      </ul>
-
+      
+      <div className="trueques-info">
+        <h2 className='info-h2'>N° de trueques activos</h2>
+        <p className="trueques-num">{activos}</p>
+        <h2 className='info-h2'>N° de trueques registrados</h2>
+        <p className="trueques-num">{registrados}</p>
+      </div>
      
-      <div style={{marginTop: 32}}>
-        <h3>Categorías</h3>
-        <form onSubmit={handleCatSubmit} className="trueques-categorias-form">
-          <input name="nombre" value={catForm.nombre} onChange={handleCatChange} placeholder="Nombre" required /> <br />
-          <button type="submit">{editCatId ? 'Actualizar' : 'Crear'} Categoría</button>
-          {editCatId && <button type="button" onClick={()=>{setEditCatId(null);setCatForm({nombre:''})}}>Cancelar</button>}
-        </form>
-        <ul>
-          {categorias.map(c => (
-            <li key={c.id}>
-              {c.nombre}
-              <button onClick={()=>handleCatEdit(c)} className="trueques-editar">Editar</button>
-              <button onClick={()=>handleCatDelete(c.id)} className="trueques-eliminar">Eliminar</button>
-            </li>
+      <div className='trueques-list-container'>
+     <h3 className='title-h3-2'>Lista de trueques</h3>
+        <ul className="trueques-list"> 
+          
+          {loading && <Spinner />}
+          {error && <li>{error}</li>}
+          {!loading && !error && trueques.length === 0 && <li>No hay trueques</li>}
+          {!loading && !error && paginatedTrueques.map(t => (
+            <TruequeItem key={t.id} t={t} onVer={(t) => Swal.fire({
+             title: t.titulo,
+              html: `
+                <p><strong>Ubicación:</strong> ${t.ubicacion}</p>
+                <p><strong>Estado:</strong> ${t.estado}</p>
+                ${t.imagen_url ? `<img src="${t.imagen_url}" style="max-width:100%;margin-top:10px;" />` : ''}
+              `,
+              confirmButtonText: 'Cerrar'
+            })} onEditar={handleEditar} onEliminar={handleEliminar} />
           ))}
         </ul>
       </div>
 
-      <div className="trueques-info">
-        <h2>N° de trueques activos</h2>
-        <p className="trueques-num">{activos}</p>
-        <h2>N° de trueques registrados</h2>
-        <p className="trueques-num">{registrados}</p>
+     
+      <div className='categorias-container'>
+        
+        <h3 className='title-h3'>Categorías</h3>
+        <ul className='list-cate'>
+          {categorias.map(c => (
+            <li className='li-categories' key={c.id}>
+              {c.nombre}
+              <button onClick={()=>handleCatEdit(c)} className="categorias-editar"> <img className='user-list-icon' src="../public/edit-removebg-preview.png" alt="edit-icon" /></button>
+              <button onClick={()=>handleCatDelete(c.id)} className="categorias-eliminar"><img className='user-list-icon' src="../public/trash-removebg-preview.png" alt="trash-icon" /></button>
+            </li>
+          ))}
+        </ul><form onSubmit={handleCatSubmit} className="trueques-categorias-form">
+          <label className='new-c' htmlFor="categoria">Nueva Categoría</label> <br />
+          <input name="categoria" value={catForm.nombre} onChange={handleCatChange} placeholder="Categoría" required /> <br />
+          <button className='btn-createc' type="submit">{editCatId ? 'Actualizar' : 'Crear'} Categoría</button>
+          {editCatId && <button type="button" onClick={()=>{setEditCatId(null);setCatForm({nombre:''})}}>Cancelar</button>}
+        </form>
       </div>
-
-      <div className="trueques-paginacion">
-        <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}>Anterior</button>
-        <span className="trueques-pagina">Página {page} de {Math.ceil(trueques.length / PAGE_SIZE)}</span>
-        <button onClick={() => setPage(p => p + 1)} disabled={page * PAGE_SIZE >= trueques.length}>Siguiente</button>
-      </div>
+      
     </div>
   )
 }
+
+/*  <div className="trueques-paginacion">
+        <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}>Anterior</button>
+        <span className="trueques-pagina">Página {page} de {Math.ceil(trueques.length / PAGE_SIZE)}</span>
+        <button onClick={() => setPage(p => p + 1)} disabled={page * PAGE_SIZE >= trueques.length}>Siguiente</button>
+      </div>   */

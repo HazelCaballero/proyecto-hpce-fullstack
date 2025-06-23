@@ -1,3 +1,5 @@
+import { fetchWithAuth } from './fetchWithAuth';
+
 // Servicio para operaciones CRUD de interacciones en trueques
 const BASE_URL = "http://127.0.0.1:8000/api/";
 
@@ -7,21 +9,11 @@ const BASE_URL = "http://127.0.0.1:8000/api/";
  */
 async function GetInterTrueques() {
   try {
- 
-    const token = localStorage.getItem('access');
-    const response = await fetch(`${BASE_URL}interacciones-trueque/`, {
+    const response = await fetchWithAuth(`${BASE_URL}interacciones-trueque/`, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(token ? { 'Authorization': 'Bearer ' + token } : {})
-      }
-    });
-  
-    if (!response.ok) throw new Error('Error fetching interTrueques');
-  
+    }, 'interacciones-trueque');
     return await response.json();
   } catch (error) {
-
     console.error('Error fetching interTrueques:', error);
     throw error;
   }
@@ -35,22 +27,13 @@ async function GetInterTrueques() {
  */
 async function PostInterTrueques(objeto) {
   try {
-   
-    const token = localStorage.getItem('access');
-    const response = await fetch(`${BASE_URL}interacciones-trueque/`, {
+    const response = await fetchWithAuth(`${BASE_URL}interacciones-trueque/`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(token ? { 'Authorization': 'Bearer ' + token } : {})
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(objeto)
-    });
-    
-    if (!response.ok) throw new Error('Error posting interTrueque');
- 
+    }, 'interacciones-trueque');
     return await response.json();
   } catch (error) {
-   
     console.error('Error posting interTrueque:', error);
     throw error;
   }
@@ -59,22 +42,13 @@ async function PostInterTrueques(objeto) {
 
 async function UpdateInterTrueques(id, objeto) {
   try {
-   
-    const token = localStorage.getItem('access');
-    const response = await fetch(`${BASE_URL}interacciones-trueque/${id}/`, {
+    const response = await fetchWithAuth(`${BASE_URL}interacciones-trueque/${id}/`, {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(token ? { 'Authorization': 'Bearer ' + token } : {})
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(objeto)
-    });
-   
-    if (!response.ok) throw new Error(`Error updating interTrueque with id ${id}`);
-   
+    }, 'interacciones-trueque');
     return await response.json();
   } catch (error) {
-   
     console.error('Error updating interTrueque:', error);
     throw error;
   }
@@ -83,20 +57,13 @@ async function UpdateInterTrueques(id, objeto) {
 
 async function DeleteInterTrueques(id) {
   try {
-    const token = localStorage.getItem('access');
-    const response = await fetch(`${BASE_URL}interacciones-trueque/${id}/`, {
+    const response = await fetchWithAuth(`${BASE_URL}interacciones-trueque/${id}/`, {
       method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(token ? { 'Authorization': 'Bearer ' + token } : {})
-      }
-    });
-
+      headers: { 'Content-Type': 'application/json' }
+    }, 'interacciones-trueque');
     if (!response.ok) throw new Error(`Error deleting interTrueque with id ${id}`);
-
     return { message: `Interaccion with id ${id} deleted successfully` };
   } catch (error) {
-
     console.error('Error deleting interTrueque:', error);
     throw error;
   }
@@ -105,14 +72,10 @@ async function DeleteInterTrueques(id) {
 
 async function GetInterTruequesPorTrueque(truequeId) {
   try {
-    const token = localStorage.getItem('access');
-    const response = await fetch(`${BASE_URL}interacciones-trueque/?trueque=${truequeId}`, {
+    const response = await fetchWithAuth(`${BASE_URL}interacciones-trueque/?trueque=${truequeId}`, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(token ? { 'Authorization': 'Bearer ' + token } : {})
-      }
-    });
+      headers: { 'Content-Type': 'application/json' }
+    }, 'interacciones-trueque');
     if (!response.ok) throw new Error('Error fetching interTrueques por trueque');
     return await response.json();
   } catch (error) {

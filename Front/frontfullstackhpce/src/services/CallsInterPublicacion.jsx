@@ -1,3 +1,5 @@
+import { fetchWithAuth } from './fetchWithAuth';
+
 // Servicio para operaciones CRUD de interacciones en publicaciones
 const BASE_URL = "http://127.0.0.1:8000/api/";
 
@@ -8,21 +10,11 @@ const BASE_URL = "http://127.0.0.1:8000/api/";
  */
 async function GetInterPublicacion() {
   try {
- 
-    const token = localStorage.getItem('access');
-    const response = await fetch(`${BASE_URL}interacciones-publicacion/`, {
+    const response = await fetchWithAuth(`${BASE_URL}interacciones-publicacion/`, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(token ? { 'Authorization': 'Bearer ' + token } : {})
-      }
-    });
-  
-    if (!response.ok) throw new Error('Error fetching interPublicacions');
-  
+    }, 'interacciones-publicacion');
     return await response.json();
   } catch (error) {
-
     console.error('Error fetching interPublicacions:', error);
     throw error;
   }
@@ -36,22 +28,13 @@ async function GetInterPublicacion() {
  */
 async function PostInterPublicacion(objeto) {
   try {
-   
-    const token = localStorage.getItem('access');
-    const response = await fetch(`${BASE_URL}interacciones-publicacion/`, {
+    const response = await fetchWithAuth(`${BASE_URL}interacciones-publicacion/`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(token ? { 'Authorization': 'Bearer ' + token } : {})
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(objeto)
-    });
-    
-    if (!response.ok) throw new Error('Error posting interPublicacion');
- 
+    }, 'interacciones-publicacion');
     return await response.json();
   } catch (error) {
-   
     console.error('Error posting interPublicacion:', error);
     throw error;
   }
@@ -60,22 +43,13 @@ async function PostInterPublicacion(objeto) {
 
 async function UpdateInterPublicacion(id, objeto) {
   try {
-   
-    const token = localStorage.getItem('access');
-    const response = await fetch(`${BASE_URL}interacciones-publicacion/${id}/`, {
+    const response = await fetchWithAuth(`${BASE_URL}interacciones-publicacion/${id}/`, {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(token ? { 'Authorization': 'Bearer ' + token } : {})
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(objeto)
-    });
-   
-    if (!response.ok) throw new Error(`Error updating interPublicacion with id ${id}`);
-   
+    }, 'interacciones-publicacion');
     return await response.json();
   } catch (error) {
-   
     console.error('Error updating interPublicacion:', error);
     throw error;
   }
@@ -84,14 +58,10 @@ async function UpdateInterPublicacion(id, objeto) {
 
 async function DeleteInterPublicacion(id) {
   try {
-    const token = localStorage.getItem('access');
-    const response = await fetch(`${BASE_URL}interacciones-publicacion/${id}/`, {
+    const response = await fetchWithAuth(`${BASE_URL}interacciones-publicacion/${id}/`, {
       method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(token ? { 'Authorization': 'Bearer ' + token } : {})
-      }
-    });
+      headers: { 'Content-Type': 'application/json' }
+    }, 'interacciones-publicacion');
     if (!response.ok) throw new Error(`Error deleting interPublicacion with id ${id}`);
     return { message: `Employe with id ${id} deleted successfully` };
   } catch (error) {

@@ -13,14 +13,16 @@ import '../styles/Spages/AdminPublicaciones.css'
 export default function AdminPublicaciones() {
   return (
     <div className="page-grid">
-      <AsideAdmin />
+      <div><AsideAdmin /></div>
+      
       <div>
         <Header titulo="Panel De Administración Publicaciones" />
         <Main>
           <APublicaciones/>
         </Main>
       </div>
-      <Footer />
+      <div><Footer /></div>
+      
     </div>
   )
 }

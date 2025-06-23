@@ -1,37 +1,233 @@
 .trueques-container {
-  max-width: 500px;
-  margin: 40px auto;
+  width: 164vh;
+  height: 76vh;
   padding: 24px 32px;
   background: rgb(21, 67, 97, 0.4); /* azul oscuro semitransparente */
   border-left: 4px solid #154360;
   border-radius: 14px;
-  box-shadow: 0 2px 12px rgba(21,67,97,0.10);
   color: #fcfbfe;
-  font-family: 'Segoe UI', Arial, sans-serif;
+  display: grid;
+  grid-template-areas: 
+  "trueques-info trueques-info"
+  "trueques-list-container categorias-container"
+  "trueques-paginacion trueques-paginacion";
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 14vh auto auto;
 }
 
-.trueques-container h2, .trueques-container h3 {
-  color: #fcfbfe;
+
+.trueques-list-container {
+  grid-area: trueques-list-container;
+  background: #f3e5f5;
+  border: 2px solid  #154360;
+  border-radius: 12px;
+  background-image: url('/main-background-remove.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 50vh;
+  position: relative;
+  top: 2vh;
+}
+
+.categorias-container {
+  grid-area: categorias-container;
+  background: #f3e5f5;
+  border: 2px solid  #154360;
+  border-radius: 12px;
+  background-image: url('/main-background-remove.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 26px;
+  height: 50vh;
+  border-radius: 12px;
+  margin: 12px;
+  padding-top: 3.5%;
+} 
+
+.trueques-info {
+  grid-area: trueques-info;
+  margin-bottom: 24px;
+  padding: 16px;
+  background: rgba(40, 21, 73, 0.8);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  justify-self: center;
+  width: 80%;
+
+}
+.trueques-paginacion {
+  grid-area: trueques-paginacion;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.info-h2 {
+  color: #fff;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  border-radius: 5px;
+}
+
+.trueques-num {
+   color: #f7f5f9;
+  font-size: 1.8rem;
+  font-weight: 600;
+  text-shadow: 2px 2px 20px rgb(234, 222, 255),
+             -2px 2px 20px rgb(234, 222, 255),
+             2px -2px 20px rgb(234, 222, 255),
+             -2px -2px 20px rgb(234, 222, 255);
+}
+
+.trueques-list {
+  list-style: none;
+  padding: 16px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #154360 transparent;
+  border-radius: 12px;
+  margin: 12px;
+  height: 38vh;
+  position: relative;
+  top: 1vh;
+}
+
+.new-c{
+position: relative;
+top: 10px;
+}
+
+.trueques-categorias-form {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background: rgba(40, 21, 73, 0.8);
+  padding: 10px;
+  border-radius: 12px;
+  color: #f7f5f9;
+  font-size: 1.2rem;
+  font-weight: 500;
+  height: 16vh;
+  position: relative;
+  top: 2px;
+}
+
+.btn-createc{
+  color: #281549;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 1%;
+  position: relative;
+  bottom: 15%;
+}
+
+.title-h3{
+  color: #f7f5f9;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  background: rgba(40, 21, 73);
+  width: 40%;
+  justify-self: center;
+  
+}
+
+.title-h3-2{
+  color: #f7f5f9;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  text-align: center;
+  justify-self: center;
+  position: sticky;
+  top: 0;
+  background: rgba(40, 21, 73);
+  width: 40%;
+  position: relative;
+  top: 2.5vh;
+}
+
+
+.list-cate{
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: #154360 transparent;
+  height: 20vh;
+  position: relative;
+  bottom: 10px;
+}
+
+.descrip-trueque {
+  font-size: 0.9rem;
+  color: #d7bde2;
+  margin-bottom: 4px;
+  grid-area: descrip-trueque;
+  width: 46vh;
+  padding: 8px;
+}
+.btn-trueque {
+  grid-area: trueque-btn;
+  width: 20vh;
+  color: #281549;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  cursor: pointer;
+  justify-self: self-end;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+}
+
+.li-trueque{
+  background: rgba(40, 21, 73, 0.9);
+  color: #f0ecfa;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  padding: 5px 6px;
+  display: grid;
+  grid-template-areas: 
+  "descrip-trueque trueque-btn";
+}
+
+.li-categories{
+  background: rgba(40, 21, 73, 0.9);
+  color: #f0ecfa;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  padding: 5px 6px;
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  justify-content: space-between;
+  width: 50%;
+  
+
+}
+
+/*
+.trueques-container h3 {
+  color: #20094f;
   font-size: 1.4rem;
   font-weight: 700;
   margin-bottom: 18px;
 }
 
-.trueques-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  max-height: 40vh;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: #154360 transparent;
-}
 
-.trueques-list h3 {
-  margin-bottom: 12px;
-  color: #d81b60;
-  font-size: 1.2rem;
-}
 
 .trueques-list li {
   background: rgb(40, 21, 73, 0.9);
@@ -42,8 +238,9 @@
   border: 1px solid #281549;
   font: 1em sans-serif;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
+  width: 45%;
 }
 
 .trueques-info h2 {
@@ -59,52 +256,11 @@
   margin-bottom: 10px;
 }
 
-.trueques-editar {
-  background: #d81b60;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 4px 12px;
-  margin-left: 8px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
 
-.trueques-editar:hover {
-  background: #ad1457;
-}
 
-.trueques-eliminar {
-  background: #ff1744;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 4px 12px;
-  margin-left: 8px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
 
-.trueques-eliminar:hover {
-  background: #b2102f;
-}
 
-.trueques-categorias-form {
-  margin-bottom: 16px;
-}
 
-.trueques-info {
-  background: #fff;
-  border-radius: 8px;
-  padding: 12px 16px;
-  margin-top: 24px;
-  box-shadow: 0 1px 4px rgba(216,27,96,0.04);
-}
-
-.trueques-paginacion {
-  margin-top: 24px;
-  text-align: center;
-}
 
 .trueques-pagina {
   margin: 0 12px;
@@ -112,7 +268,6 @@
   color: #d81b60;
 }
 
-/* Estilos unificados y mejorados para ATrueques.jsx */
 .atrueques-container {
   background: linear-gradient(135deg, rgba(21,67,97,0.5) 60%, rgba(40,21,73,0.7) 100%);
   border-left: 5px solid #154360;
@@ -180,3 +335,11 @@
   background: #281549;
   color: #f7e8ff;
 }
+
+.user-list-icon{
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+}
+
+*/

@@ -1,3 +1,4 @@
+import { fetchWithAuth } from './fetchWithAuth';
 import { buildHeaders, handleFetchError } from './utils';
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -9,10 +10,9 @@ const BASE_URL = import.meta.env.VITE_API_BASE_URL;
  */
 async function GetTrueques() {
   try {
-    const response = await fetch(`${BASE_URL}trueques/`, {
+    const response = await fetchWithAuth(`${BASE_URL}trueques/`, {
       method: 'GET',
-      headers: buildHeaders(),
-    });
+    }, 'trueques');
     if (!response.ok) await handleFetchError(response, 'trueques');
     return await response.json();
   } catch (error) {
@@ -28,11 +28,11 @@ async function GetTrueques() {
  */
 async function PostTrueques(objeto) {
   try {
-    const response = await fetch(`${BASE_URL}trueques/`, {
+    const response = await fetchWithAuth(`${BASE_URL}trueques/`, {
       method: 'POST',
-      headers: buildHeaders(),
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(objeto)
-    });
+    }, 'trueques');
     if (!response.ok) await handleFetchError(response, 'trueques');
     return await response.json();
   } catch (error) {
@@ -49,11 +49,11 @@ async function PostTrueques(objeto) {
  */
 async function UpdateTrueques(id, objeto) {
   try {
-    const response = await fetch(`${BASE_URL}trueques/${id}/`, {
+    const response = await fetchWithAuth(`${BASE_URL}trueques/${id}/`, {
       method: 'PUT',
-      headers: buildHeaders(),
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(objeto)
-    });
+    }, 'trueques');
     if (!response.ok) await handleFetchError(response, 'trueques');
     return await response.json();
   } catch (error) {
@@ -69,10 +69,10 @@ async function UpdateTrueques(id, objeto) {
  */
 async function DeleteTrueque(id) {
   try {
-    const response = await fetch(`${BASE_URL}trueques/${id}/`, {
+    const response = await fetchWithAuth(`${BASE_URL}trueques/${id}/`, {
       method: 'DELETE',
-      headers: buildHeaders(),
-    })
+      headers: { 'Content-Type': 'application/json' }
+    }, 'trueques');
     if (!response.ok) await handleFetchError(response, 'trueques');
   } catch (error) {
     throw error;

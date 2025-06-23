@@ -94,6 +94,7 @@ export default function APublicaciones() {
 
   return (
     <div className="apublicaciones-container">
+      <div>
       <PublicacionesLista
         publicaciones={publicaciones}
         onSelect={setModalPub}
@@ -103,12 +104,12 @@ export default function APublicaciones() {
       />
       {modalPub && (
         <PublicacionModal publicacion={modalPub} onClose={() => setModalPub(null)} />
-      )}
+      )}</div>
       <div className="publicaciones-info">
-        <h2>N° de publicaciones activas</h2>
-        <p>{publicaciones.length}</p>
-        <h2>N° de usuarias registradas en publicaciones</h2>
-        <p>{Object.keys(usuarios).length}</p>
+        <h2 className='publi-info-title'>N° de publicaciones activas</h2>
+        <p className='p-p'>{publicaciones.length}</p>
+        <h2 className='publi-info-title'>N° de usuarias registradas en publicaciones</h2>
+        <p className='p-p'>{Object.keys(usuarios).length}</p>
       </div>
     </div>
   );

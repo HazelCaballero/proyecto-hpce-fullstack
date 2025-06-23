@@ -104,13 +104,16 @@ export default function Mercado() {
         Swal.fire('Error', 'Completa todos los campos obligatorios.', 'error')
         return
       }
-      const usuario_id = localStorage.getItem('usuario_id')
+      // No enviar usuario, el backend lo toma del token
       const truequeAEnviar = {
-        ...nuevoTrueque,
+        titulo: nuevoTrueque.titulo,
+        trueque: nuevoTrueque.trueque,
+        ubicacion: nuevoTrueque.ubicacion,
+        imagen_url: nuevoTrueque.imagen_url,
         categoria_id: Number(nuevoTrueque.categoria),
-        usuario: Number(usuario_id),
-        estado: 'pendiente' 
+        estado: 'pendiente'
       }
+      console.log('Enviando trueque:', truequeAEnviar)
       if (editandoId) {
         await CallsTrueques.UpdateTrueques(editandoId, truequeAEnviar)
         Swal.fire('Éxito', 'Trueque actualizado.', 'success')
@@ -122,7 +125,7 @@ export default function Mercado() {
       setNuevoTrueque({ titulo: '', trueque: '', categoria: '', ubicacion: '', imagen_url: '' })
       cargarTrueques()
     } catch (error) {
-      Swal.fire('Error', 'No se pudo guardar el trueque.', 'error')
+      Swal.fire('Error', error.message || 'No se pudo guardar el trueque.', 'error')
     }
   }
 
