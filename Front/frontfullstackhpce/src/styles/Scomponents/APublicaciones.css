@@ -1,7 +1,68 @@
-/* Estilos para APublicaciones.jsx */
+/* Estilos unificados y mejorados para APublicaciones.jsx */
 .apublicaciones-container {
-  background-color: rgb(21, 67, 97, 0.4);
-  border-left: 4px solid #154360;
-  padding: 20px;
-  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(21,67,97,0.5) 60%, rgba(40,21,73,0.7) 100%);
+  border-left: 5px solid #154360;
+  border-radius: 18px;
+  padding: 32px 32px 28px 32px;
+  margin-bottom: 36px;
+  box-shadow: 0 4px 24px 0 rgba(21,67,97,0.18), 0 1.5px 8px 0 rgba(40,21,73,0.10);
+  color: #fcfbfe;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  transition: box-shadow 0.3s;
+}
+.apublicaciones-container:hover {
+  box-shadow: 0 8px 32px 0 rgba(21,67,97,0.28), 0 3px 16px 0 rgba(40,21,73,0.18);
+}
+.apublicaciones-container h2, .apublicaciones-container h3 {
+  color: #f7e8ff;
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  text-shadow: 1px 2px 12px #28154944;
+  border-bottom: 2px solid #d7bde2;
+  padding-bottom: 8px;
+}
+.apublicaciones-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 40vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #154360 #d7bde2;
+}
+.apublicaciones-list li {
+  background: rgba(40, 21, 73, 0.92);
+  color: #f0ecfa;
+  border-radius: 10px;
+  margin-bottom: 14px;
+  padding: 14px 18px;
+  border: 1.5px solid #281549;
+  font: 1.08em 'Segoe UI', Arial, sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px #28154922;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.apublicaciones-list li:hover {
+  background: #795f9f;
+  box-shadow: 0 4px 16px #28154933;
+}
+.apublicaciones-btn {
+  background: linear-gradient(90deg, #d7bde2 60%, #795f9f 100%);
+  color: #281549;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1em;
+  margin-left: 10px;
+  transition: background 0.2s, color 0.2s;
+}
+.apublicaciones-btn:hover {
+  background: #281549;
+  color: #f7e8ff;
 }

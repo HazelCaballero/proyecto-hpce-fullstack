@@ -1,18 +1,27 @@
-/* Estilos para Publicity.jsx */
-
+/* Estilos unificados y mejorados para Publicity.jsx (Apublicidad) */
 .publicity-admin-container {
-  background: #f3e5f5; /* lila claro */
-  border-left: 4px solid #8e24aa;
-  padding: 28px 24px;
-  border-radius: 14px;
-  box-shadow: 0 2px 12px rgba(142,36,170,0.10);
-  margin-bottom: 32px;
+  background: linear-gradient(135deg, rgba(21,67,97,0.5) 60%, rgba(40,21,73,0.7) 100%);
+  border-left: 5px solid #154360;
+  border-radius: 18px;
+  padding: 32px 32px 28px 32px;
+  margin-bottom: 36px;
+  box-shadow: 0 4px 24px 0 rgba(21,67,97,0.18), 0 1.5px 8px 0 rgba(40,21,73,0.10);
+  color: #fcfbfe;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  transition: box-shadow 0.3s;
+}
+.publicity-admin-container:hover {
+  box-shadow: 0 8px 32px 0 rgba(21,67,97,0.28), 0 3px 16px 0 rgba(40,21,73,0.18);
 }
 .publicity-titulo {
-  color: #8e24aa;
+  color: #f7e8ff;
   font-size: 2rem;
-  margin-bottom: 18px;
-  font-weight: 700;
+  margin-bottom: 20px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-shadow: 1px 2px 12px #28154944;
+  border-bottom: 2px solid #d7bde2;
+  padding-bottom: 8px;
 }
 .publicity-bloques {
   display: flex;
@@ -20,13 +29,19 @@
   gap: 32px;
 }
 .publicity-bloque {
-  background: #ede7f6;
-  border: 2px solid #8e24aa;
-  border-radius: 14px;
+  background: rgba(40, 21, 73, 0.92);
+  border: 2px solid #154360;
+  border-radius: 12px;
   padding: 18px 14px;
   min-width: 320px;
   flex: 1 1 350px;
-  box-shadow: 0 2px 8px rgba(142,36,170,0.10);
+  box-shadow: 0 2px 8px #28154922;
+  color: #f0ecfa;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.publicity-bloque:hover {
+  background: #795f9f;
+  box-shadow: 0 4px 16px #28154933;
 }
 .publicity-bloques-grid {
   display: grid;
@@ -105,16 +120,20 @@
 }
 .publicity-btn {
   margin-right: 8px;
-  background: #8e24aa;
-  color: #fff;
+  background: linear-gradient(90deg, #d7bde2 60%, #795f9f 100%);
+  color: #281549;
   border: none;
-  border-radius: 4px;
-  padding: 4px 12px;
+  border-radius: 6px;
+  padding: 10px 20px;
   cursor: pointer;
-  transition: background 0.2s;
+  font-weight: 700;
+  font-size: 1em;
+  margin-left: 10px;
+  transition: background 0.2s, color 0.2s;
 }
 .publicity-btn:hover {
-  background: #6a1b9a;
+  background: #281549;
+  color: #f7e8ff;
 }
 .publicity-modal {
   position: fixed;

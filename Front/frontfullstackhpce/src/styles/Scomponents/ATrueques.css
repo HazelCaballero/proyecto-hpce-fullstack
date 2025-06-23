@@ -2,17 +2,29 @@
   max-width: 500px;
   margin: 40px auto;
   padding: 24px 32px;
-  background: #fce4ec; /* rosa claro */
-  border-left: 4px solid #d81b60;
-  border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(216,27,96,0.07);
+  background: rgb(21, 67, 97, 0.4); /* azul oscuro semitransparente */
+  border-left: 4px solid #154360;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(21,67,97,0.10);
+  color: #fcfbfe;
   font-family: 'Segoe UI', Arial, sans-serif;
 }
 
+.trueques-container h2, .trueques-container h3 {
+  color: #fcfbfe;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
 .trueques-list {
-  list-style: disc inside;
-  margin-bottom: 32px;
+  list-style: none;
   padding: 0;
+  margin: 0;
+  max-height: 40vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #154360 transparent;
 }
 
 .trueques-list h3 {
@@ -22,13 +34,16 @@
 }
 
 .trueques-list li {
-  background: #fff;
+  background: rgb(40, 21, 73, 0.9);
+  color: #f0ecfa;
   border-radius: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   padding: 10px 12px;
-  box-shadow: 0 1px 4px rgba(216,27,96,0.04);
-  color: #4a5568;
-  font-size: 1rem;
+  border: 1px solid #281549;
+  font: 1em sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .trueques-info h2 {
@@ -95,4 +110,73 @@
   margin: 0 12px;
   font-weight: bold;
   color: #d81b60;
+}
+
+/* Estilos unificados y mejorados para ATrueques.jsx */
+.atrueques-container {
+  background: linear-gradient(135deg, rgba(21,67,97,0.5) 60%, rgba(40,21,73,0.7) 100%);
+  border-left: 5px solid #154360;
+  border-radius: 18px;
+  padding: 32px 32px 28px 32px;
+  margin-bottom: 36px;
+  box-shadow: 0 4px 24px 0 rgba(21,67,97,0.18), 0 1.5px 8px 0 rgba(40,21,73,0.10);
+  color: #fcfbfe;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  transition: box-shadow 0.3s;
+}
+.atrueques-container:hover {
+  box-shadow: 0 8px 32px 0 rgba(21,67,97,0.28), 0 3px 16px 0 rgba(40,21,73,0.18);
+}
+.atrueques-container h2, .atrueques-container h3 {
+  color: #f7e8ff;
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  text-shadow: 1px 2px 12px #28154944;
+  border-bottom: 2px solid #d7bde2;
+  padding-bottom: 8px;
+}
+.atrueques-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 40vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #154360 #d7bde2;
+}
+.atrueques-list li {
+  background: rgba(40, 21, 73, 0.92);
+  color: #f0ecfa;
+  border-radius: 10px;
+  margin-bottom: 14px;
+  padding: 14px 18px;
+  border: 1.5px solid #281549;
+  font: 1.08em 'Segoe UI', Arial, sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px #28154922;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.atrueques-list li:hover {
+  background: #795f9f;
+  box-shadow: 0 4px 16px #28154933;
+}
+.atrueques-btn {
+  background: linear-gradient(90deg, #d7bde2 60%, #795f9f 100%);
+  color: #281549;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1em;
+  margin-left: 10px;
+  transition: background 0.2s, color 0.2s;
+}
+.atrueques-btn:hover {
+  background: #281549;
+  color: #f7e8ff;
 }
