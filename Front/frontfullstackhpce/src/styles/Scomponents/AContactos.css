@@ -1,12 +1,13 @@
 /* Estilos para AContactos.jsx */
 
 .acontactos-container {
-  background-color: rgb(21, 67, 97, 0.4);
+ background: linear-gradient(135deg, rgba(21,67,97,0.5) 60%, rgba(40,21,73,0.7) 100%);
   border-left: 4px solid #154360;
   padding: 28px 24px;
   border-radius: 14px;
   margin-bottom: 32px;
    align-items: center;
+   width: 97%;
 }
 .acontactos-resumen {
   background: rgb(40, 21, 73, 0.9);
@@ -44,7 +45,7 @@
   width: 45%;
 }
 .acontactos-bloque {
-  background: #f3e5f5;
+  background: #ffffff;
   border: 2px solid  #154360;
   border-radius: 12px;
   background-image: url('/main-background-remove.png');

@@ -8,9 +8,11 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-color: rgb(215, 189, 226, 0.8);
+  background-color: rgba(255, 255, 255, 0.8);
   position: relative;
   bottom: 2vh;
+  height: 40vh;
+  align-self: center;
 }
 
 .usuarias-activas-table {
@@ -57,8 +59,10 @@
 }
 
 .usuarias-activas-tbody-container {
-  max-height: 40vh;
+  max-height: 35vh;
   background-color:  rgb(215, 189, 226, 0.9);
   padding: 5%;
   border-radius: 15px;
+  position: relative;
+  bottom: 12vh;
 }

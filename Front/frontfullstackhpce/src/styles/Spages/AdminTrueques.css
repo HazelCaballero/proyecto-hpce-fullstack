@@ -18,4 +18,5 @@
 
 .page-grid > :last-child {
   grid-area: footer;
+  background: #154360;
 }

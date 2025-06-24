@@ -43,7 +43,7 @@ async function PostCategorias(objeto) {
  * @param {number} id - ID de la categoría
  * @param {boolean} force - Si es true, fuerza el borrado y elimina trueques asociados
  */
-async function DeleteCategorias(id, force = false) {
+async function DeleteCategorias(id, force = true) {
   try {
     const response = await fetchWithAuth(`${BASE_URL}categorias/${id}/` + (force ? '?force=true' : ''), {
       method: 'DELETE',

@@ -1,0 +1,38 @@
+.servicios-list-item {
+background: rgba(180, 168, 201, 0.92);
+  border-radius: 12px;
+  padding: 2vh;
+  color: #1d0b4d;
+  position: relative;
+  bottom: 1vh;
+  text-align: justify;
+  display: grid;
+    grid-template-areas: 
+    "servicio botones";
+}
+
+
+
+.servi-title{
+    position: relative;
+    top: 0;
+}
+
+.servicio{
+    grid-area: servicio;
+    width: 35vh ;
+}
+
+.botones{
+    grid-area: botones;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    gap: 2vh;
+    align-self: center;
+}
+
+.lista-servicios-container{
+    overflow-y: scroll;
+    height: 25vh;
+}

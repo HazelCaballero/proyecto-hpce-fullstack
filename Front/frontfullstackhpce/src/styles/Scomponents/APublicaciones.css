@@ -53,7 +53,7 @@
 .publicaciones-info {
  padding: 2%;
  width: 30%;
-background: #f3e5f5;
+background: #ffffff;
 border: 2px solid  #154360;
 border-radius: 12px;
 background-image: url('/main-background-remove.png');
@@ -78,7 +78,7 @@ align-self: center;
              -2px -2px 20px rgb(234, 222, 255);
   margin-bottom: 10px;
   text-align: center;
-  background-color:  rgba(40, 21, 73);
+ 
   width: 22%;
   border-radius: 75%;
   justify-self: center;

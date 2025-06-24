@@ -4,40 +4,47 @@
   display: grid;
   grid-template-columns: 250px 1fr;
   min-height: 100vh;
-  background: #f6f8fa;
+
 }
 
 .adminpub-main {
   display: flex;
   flex-direction: row;
-  gap: 32px;
+  gap: 22px;
   justify-content: center;
   align-items: flex-start;
-  padding: 32px 24px;
-  max-width: 1200px;
-  margin: 0 auto;
+  padding: 12px 7px;
+  background: linear-gradient(135deg, rgba(21,67,97,0.5) 60%, rgba(40,21,73,0.7) 100%);
+  border-left: 5px solid #154360;
+  border-radius: 18px;
+  height: 80vh;
+ 
 }
 
 .adminpub-section {
-  background: #fff;
+ 
   border-radius: 10px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-  padding: 24px 20px 20px 20px;
-  margin-bottom: 0;
-  max-width: 400px;
-  min-width: 320px;
-  flex: 1 1 350px;
+  height: 75vh;
+  background-image: url('/aside-admin-remove.png') !important; 
+  background-size: cover;
+  background-position: center;
+ 
 }
 
 .adminpub-section h2 {
-  margin-top: 0;
-  margin-bottom: 18px;
   font-size: 1.3rem;
   color: #2c3e50;
-  border-bottom: 1px solid #eaeaea;
-  padding-bottom: 8px;
+  margin-bottom: 4px;
+  position: relative;
+  bottom: 8px;
+  text-shadow: 8px 8px 10px rgb(234, 222, 255),
+             -8px 8px 10px rgb(234, 222, 255),
+             8px -8px 10px rgb(234, 222, 255),
+             -8px -8px 10px rgb(234, 222, 255);
 }
 
+
+/*
 @media (max-width: 900px) {
   .page-grid {
     grid-template-columns: 1fr;
@@ -52,3 +59,5 @@
     min-width: unset;
   }
 }
+
+*/

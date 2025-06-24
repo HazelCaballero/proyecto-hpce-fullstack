@@ -6,6 +6,7 @@
     "aside main"
     "footer footer";
   min-height: 100vh;
+  background: #154360;
 }
 
 .page-grid-admin-contactos > :first-child {
@@ -20,4 +21,7 @@
 
 .page-grid-admin-contactos > :last-child {
   grid-area: footer;
+  background: #154360;
+  position: relative;
+  bottom: 4vh;
 }

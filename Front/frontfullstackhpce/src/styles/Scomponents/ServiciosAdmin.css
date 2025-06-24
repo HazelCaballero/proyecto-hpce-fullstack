@@ -1,20 +1,25 @@
 /* Estilos para ServiciosAdmin.jsx */
 
 .servicios-admin-container {
-  max-width: 420px;
+  max-width: 40vh;
   margin: 0 auto 24px auto;
-  background: #fffde7; /* amarillo claro */
-  border-left: 4px solid #fbc02d;
+  background: rgba(40, 21, 73, 0.9);
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   padding: 24px 18px 18px 18px;
+  height: 62vh;
+  
+}
+
+.ser-title{
+  color: #ffffff;
+  font-weight: 500;
+  font: 1em sans-serif;
 }
 
 .servicios-form {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  margin-bottom: 18px;
+  gap: 10px;
 }
 
 .servicios-form-group {
@@ -38,8 +43,8 @@
 
 .servicios-btn-crear {
   margin-top: 8px;
-  background: #fbc02d;
-  color: #fff;
+  background-color: thistle;
+  color: #000000;
   border: none;
   border-radius: 4px;
   padding: 8px 0;
@@ -84,22 +89,10 @@
   cursor: pointer;
 }
 
-.servicios-btn-delete {
-  background: #eb3b5a;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 4px 10px;
-  font-weight: 500;
-  cursor: pointer;
-}
 
 .lista-servicios-container {
-  margin-top: 32px;
-  background: #f8f9fa;
   border-radius: 8px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-  padding: 18px 14px;
+  padding: 18px 0px;
 }
 .lista-servicios-container h3 {
   margin-bottom: 16px;

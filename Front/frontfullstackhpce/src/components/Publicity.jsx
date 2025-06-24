@@ -222,11 +222,15 @@ export default function Publicity({ onCreated }) {
     <>
       <div className="publicity-admin-container">
         <h2 className="publicity-titulo">Gestión de Publicidad</h2>
+
         <div className="publicity-bloques-grid">
+
           <div className="publicity-bloque publicity-bloque-formulario">
+
             <form onSubmit={e => { e.preventDefault(); handleCrearAnuncio(); }}>
               <div className="form-anuncio-group">
-                <label htmlFor="servicioId">Servicio</label>
+                <label htmlFor="servicioId"><span className='publi-style'>Anuncio</span></label>
+
                 <select
                   id="servicioId"
                   name="servicioId"
@@ -257,13 +261,14 @@ export default function Publicity({ onCreated }) {
                   ))}
                 </select>
               </div>
-              {/* Mostrar datos de solo lectura */}
+
               <div className="form-anuncio-group">
-                <label>Producto</label>
+                <label><span className='publi-style'>Producto </span></label>
                 <input type="text" value={form.producto || ''} readOnly />
               </div>
+
               <div className="form-anuncio-group">
-                <label>Contenido del anuncio</label>
+                <label><span className='publi-style'> Contenido del anuncio </span></label>
                 <input
                   type="text"
                   name="contenido"
@@ -271,8 +276,9 @@ export default function Publicity({ onCreated }) {
                   readOnly
                 />
               </div>
+
               <div className="form-anuncio-group">
-                <label>Fecha inicio</label>
+                <label><span className='publi-style'>Fecha inicio </span></label>
                 <input
                   type="date"
                   name="fecha_inicio"
@@ -280,30 +286,37 @@ export default function Publicity({ onCreated }) {
                   readOnly
                 />
               </div>
+
               <button type="submit" className="form-anuncio-btn">
                 Activar anuncio
               </button>
             </form>
+
           </div>
         </div>
       </div>
+     
       {/* Listas de anuncios y servicios como contenedores individuales al mismo nivel */}
       <div className="listas-publicidad-servicios">
-        <div className="publicity-bloque publicity-bloque-lista">
-          <h3>Lista de Anuncios</h3>
-          <ul>
+       
+       
+        <div className="bloque-lista">
+          <h3 className='title-list'>Lista de Anuncios</h3>
+          <ul className="publicity-list">
             {publicidades.length === 0 ? (
               <li>No hay anuncios</li>
             ) : (
               publicidades.map((ad, idx) => (
                 <li key={ad.id || idx} className="publicity-list-item">
+                  <div className='descri-item'>
                   <div><b>Producto:</b> {ad.producto || '-'}</div>
                   <div><b>Estado:</b> {ad.estado}</div>
-                  <div><b>Precio del producto:</b> {ad.precio_servicio || '-'}</div>
+                  <div><b>Precio:</b> {ad.precio_servicio || '-'}</div>
                   <div><b>Usuario:</b> <UsuarioNombre usuarioId={ad.usuario} /></div>
                   <div><b>Servicio ID:</b> {ad.servicio}</div>
+                  </div>
                   <div className="publicity-actions">
-                    <button onClick={() => setModalAnuncio(ad)} className="publicity-btn">Ver</button>
+                    <button onClick={() => setModalAnuncio(ad)} className="publicity-btn"><img className='user-list-icon' src="../public/see-removebg-preview.png" alt="see-icon" /></button>
                     <button onClick={async () => {
                       if (!window.confirm('¿Seguro que deseas eliminar este anuncio?')) return;
                       try {
@@ -312,16 +325,21 @@ export default function Publicity({ onCreated }) {
                       } catch (err) {
                         Swal.fire('Error', 'Error al eliminar el anuncio', 'error');
                       }
-                    }}>Eliminar</button>
+                    }} className="publicity-btn"><img className='user-list-icon' src="../public/trash-removebg-preview.png" alt="trash-icon" /></button>
                   </div>
                 </li>
               ))
             )}
           </ul>
         </div>
+        
+        
+        
         <div className="servicios-bloque servicios-bloque-lista">
-          <h3>Lista de Servicios</h3>
+          <div className='servi-title'><h3 className='title-list'>Lista de Servicios</h3></div>
+          
           <ListaServicios servicios={servicios} onEdit={() => {}} onDelete={() => {}} />
+            
         </div>
       </div>
       {modalAnuncio && (

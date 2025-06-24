@@ -155,8 +155,20 @@ export default function ServiciosAdmin() {
   return (
     <div className="servicios-admin-container">
       <form className="servicios-form" onSubmit={e => { e.preventDefault(); handleServSubmit(); }}>
+        
         <div className="servicios-form-group">
-          <label htmlFor="producto">Producto</label>
+            <label  htmlFor="precio_publicidad"><span className='ser-title'>Precio publicidad por día (fijo)</span></label> 
+          <input
+            name="precio_publicidad"
+            id="precio_publicidad"
+            type="number"
+            value={servForm.precio_publicidad}
+            readOnly
+            placeholder="Precio de la publicidad (fijo)"
+          />
+        </div> 
+        <div className="servicios-form-group">
+          {/* <label htmlFor="producto">Producto</label> */}
           <input
             name="producto"
             id="producto"
@@ -167,18 +179,18 @@ export default function ServiciosAdmin() {
           />
         </div>
         <div className="servicios-form-group">
-          <label htmlFor="contenido">Contenido</label>
+         {/* <label htmlFor="contenido">Contenido</label> */}
           <input
             name="contenido"
             id="contenido"
             value={servForm.contenido}
             onChange={handleServChange}
-            placeholder="Contenido"
+            placeholder="Contenido(Descripción)"
             required
           />
         </div>
         <div className="servicios-form-group">
-          <label htmlFor="precio_producto">Precio del producto</label>
+       {/*   <label htmlFor="precio_producto">Precio del producto</label> */}
           <input
             name="precio_producto"
             id="precio_producto"
@@ -190,30 +202,19 @@ export default function ServiciosAdmin() {
           />
         </div>
         <div className="servicios-form-group">
-          <label htmlFor="monto_pagado">Monto pagado por publicidad</label>
+           {/* <label htmlFor="monto_pagado">Monto pagado por publicidad</label> */}
           <input
             name="monto_pagado"
             id="monto_pagado"
             type="number"
             value={servForm.monto_pagado}
             onChange={handleServChange}
-            placeholder="Monto pagado"
+            placeholder="Monto pagado por publicidad"
             required
           />
         </div>
         <div className="servicios-form-group">
-          <label htmlFor="precio_publicidad">Precio de la publicidad (fijo)</label>
-          <input
-            name="precio_publicidad"
-            id="precio_publicidad"
-            type="number"
-            value={servForm.precio_publicidad}
-            readOnly
-            placeholder="Precio de la publicidad"
-          />
-        </div>
-        <div className="servicios-form-group">
-          <label htmlFor="dias_anuncio">Días de anuncio (calculado)</label>
+        {/*    <label htmlFor="dias_anuncio">Días de anuncio (calculado)</label> */}
           <input
             name="dias_anuncio"
             id="dias_anuncio"

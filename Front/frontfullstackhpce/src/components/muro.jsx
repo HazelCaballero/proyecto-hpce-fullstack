@@ -232,7 +232,6 @@ export default function Muro() {
           <button onClick={handleCrearPublicacion}>Publicar</button>
         </div>
         <div className="muro-lista">
-          <h2>Publicaciones</h2>
           {publicaciones.length === 0 ? (
             <div>No hay publicaciones</div>
           ) : (
@@ -243,7 +242,7 @@ export default function Muro() {
               return (
                 <div key={pub.id} className="muro-publicacion-item">
                   <div className="muro-publicacion-autor">
-                    Publicado por: <b>{usuarioNombre}</b>
+                  <span className='publi-por'> Publicado por: <b>{usuarioNombre}</b></span> 
                   </div>
                   <b>{pub.titulo}</b>
                   <div>{pub.publicacion}</div>
