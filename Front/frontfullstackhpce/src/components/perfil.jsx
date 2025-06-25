@@ -6,6 +6,7 @@ import CallsUsuarias from '../services/CallsUsuarias';
 // Importación de componentes segmentados para mayor claridad y reutilización
 import PerfilImagen from './PerfilImagen';
 import PerfilAcciones from './PerfilAcciones';
+import PerfilAcionDos from './PerfilAcionDos';
 import PerfilEditableItem from './PerfilEditableItem';
 
 /**
@@ -107,16 +108,23 @@ export default function Perfil() {
 
       <ul className="perfil-lista">
         {/* Campos editables segmentados en su propio componente */}
-        <PerfilEditableItem label="Nombre" value={usuaria.username || 'Sin nombre'} field="username" onSave={setUsuaria} usuaria={usuaria} />
-        <PerfilEditableItem label="Teléfono" value={usuaria.telefono} field="telefono" onSave={setUsuaria} usuaria={usuaria} />
-        <PerfilEditableItem label="Email" value={usuaria.email} field="email" onSave={setUsuaria} usuaria={usuaria} />
-        <PerfilEditableItem label="Fecha de nacimiento" value={usuaria.fecha_nacimiento} field="fecha_nacimiento" onSave={setUsuaria} usuaria={usuaria} />
-        <PerfilEditableItem label="Intereses" value={usuaria.intereses} field="intereses" onSave={setUsuaria} usuaria={usuaria} />
-        <PerfilEditableItem label="Ubicación" value={usuaria.ubicacion} field="ubicacion" onSave={setUsuaria} usuaria={usuaria} />
-        <PerfilEditableItem label="Aportaciones" value={usuaria.aportaciones} field="aportaciones" onSave={setUsuaria} usuaria={usuaria} />
+        <li><PerfilEditableItem label="Nombre" value={usuaria.username || 'Sin nombre'} field="username" onSave={setUsuaria} usuaria={usuaria} /></li>
+        <li><PerfilEditableItem label="Teléfono" value={usuaria.telefono} field="telefono" onSave={setUsuaria} usuaria={usuaria} /></li>
+        <li><PerfilEditableItem label="Email" value={usuaria.email} field="email" onSave={setUsuaria} usuaria={usuaria} /></li>
+        <li><PerfilEditableItem label="Fecha de nacimiento" value={usuaria.fecha_nacimiento} field="fecha_nacimiento" onSave={setUsuaria} usuaria={usuaria} /></li>
+        <li><PerfilEditableItem label="Intereses" value={usuaria.intereses} field="intereses" onSave={setUsuaria} usuaria={usuaria} /></li>
+        <li><PerfilEditableItem label="Ubicación" value={usuaria.ubicacion} field="ubicacion" onSave={setUsuaria} usuaria={usuaria} /></li>
+        <li><PerfilEditableItem label="Aportaciones" value={usuaria.aportaciones} field="aportaciones" onSave={setUsuaria} usuaria={usuaria} /></li>
 
         {/* Acciones segmentadas en su propio componente */}
-        <PerfilAcciones onCerrarSesion={handleCerrarSesion} onEliminar={handleEliminar} />
+        <li>
+          <PerfilAcciones onCerrarSesion={handleCerrarSesion} />
+        </li>
+
+        <li>
+          <PerfilAcionDos onEliminar={handleEliminar} />
+        </li>
+        
       </ul>
     </div>
   );

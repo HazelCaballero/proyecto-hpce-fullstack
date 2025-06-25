@@ -1,11 +1,51 @@
 .mercado-container {
-  max-width: 500px;
+  width: 175vh;
   margin: 40px auto;
   padding: 32px 24px;
   background: #f8f9fa;
   border-radius: 16px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.08);
   text-align: center;
+  height: 70vh;
+  display: grid;
+  grid-template-areas: 
+  "publi-true busc-true"
+  "publi-true true-ques";
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 11vh auto;
+  justify-items: center;
+}
+
+.publi-true{
+  background-color: #2d6a4f;
+  grid-area: publi-true;
+  width: 40vh;
+  height: 60vh;
+}
+
+.busc-true{
+  background-color: blueviolet;
+  width: 110vh;
+  grid-area: busc-true;
+  height: 10vh;
+  justify-content: center;
+  align-content: center;
+}
+
+.true-ques{
+  background-color: yellow;
+  grid-area: true-ques;
+  margin-top: 1vh;
+  width: 120vh;
+  height: 48vh;
+  overflow-y: scroll;
+
+}
+
+
+.bus-true{
+  display: flex;
+  justify-content: center;
 }
 
 .mercado-title {
@@ -18,76 +58,21 @@
 
 .mercado-item {
   background: #e9ecef;
-  margin: 12px 0;
-  padding: 14px 0;
+  margin: 12px;
+  padding: 14px;
   border-radius: 8px;
   font-size: 1.1rem;
   color: #333;
   transition: background 0.2s;
 }
 
-.mercado-item:hover {
-  background: #b7e4c7;
-  cursor: pointer;
-}
 
-.mercado-btn-cancel {
-  margin-left: 8px;
-}
-
-.mercado-mb8 {
-  margin-bottom: 8px;
-}
-
-.mercado-flex-wrap {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 8px 0;
-}
-
-.mercado-img-200 {
-  max-width: 200px;
-}
-
-.mercado-mt10 {
-  margin-top: 10px;
-}
-
-.mercado-actions {
-  margin-top: 10px;
-}
-
-.mercado-coment-meta {
-  margin-bottom: 4px;
-}
-
-.mercado-coment-btn {
-  margin-left: 8px;
-  color: red;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.mercado-coment-green {
-  margin-left: 12px;
-  color: green;
-}
-
-.mercado-coment-box {
-  width: 100%;
-  min-height: 40px;
-}
-
-.mercado-mt8 {
-  margin-top: 8px;
-}
-
-.mercado-m10 {
-  margin: 10px 0;
-}
-
-.mercado-mr4 {
-  margin-right: 4px;
+.mercado-mb8{
+  height: 3vh;
+  width: 40vh;
+  align-self: center;
+  margin-left: 4vh;
+  margin-bottom: 3vh;
+  position: relative;
+  top: 1vh;
 }

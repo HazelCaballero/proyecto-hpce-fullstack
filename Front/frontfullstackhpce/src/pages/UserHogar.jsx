@@ -12,7 +12,7 @@ import '../styles/Spages/UserHogar.css';
  */
 export default function UserHogar() {
   return (
-    <div className="page-grid">
+    <div className="page-grid-aside-user">
             <div >
                 <AsideUsuarias/>
             </div>

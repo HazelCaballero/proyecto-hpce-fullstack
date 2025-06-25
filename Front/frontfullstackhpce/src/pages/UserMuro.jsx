@@ -12,7 +12,7 @@ import '../styles/Spages/UserMuro.css';
  */
 export default function UserMuro() {
   return (
-    <div className="page-grid">
+    <div className="grid-muro">
         <div >
             <AsideUsuarias/>
         </div>

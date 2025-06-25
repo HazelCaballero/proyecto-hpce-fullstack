@@ -107,9 +107,9 @@ export default function APublicaciones() {
       )}</div>
       <div className="publicaciones-info">
         <h2 className='publi-info-title'>N° de publicaciones activas</h2>
-        <p className='p-p'>{publicaciones.length}</p>
+        <p className='p-p-p'>{publicaciones.length}</p>
         <h2 className='publi-info-title'>N° de usuarias registradas en publicaciones</h2>
-        <p className='p-p'>{Object.keys(usuarios).length}</p>
+        <p className='p-p-p'>{Object.keys(usuarios).length}</p>
       </div>
     </div>
   );

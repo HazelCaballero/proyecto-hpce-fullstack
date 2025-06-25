@@ -1,6 +1,6 @@
-.page-grid {
+.page-grid-inicio {
   display: grid;
-  grid-template-columns: 250px 1fr;
+  grid-template-columns: 28vh 1fr;
   grid-template-rows: 1fr auto;
   grid-template-areas:
     "aside main"
@@ -8,22 +8,30 @@
   min-height: 100vh;
 }
 
-.page-grid > :first-child {
+.page-grid-inicio > :first-child {
   grid-area: aside;
 }
 
-.page-grid > :nth-child(2) {
-  grid-area: main;
+.page-grid-inicio > :nth-child(2) {
+  grid-area: main;   background: #d7bde2;
 }
 
-.page-grid > :last-child {
+.page-grid-inicio > :last-child {
   grid-area: footer;
+    background: #154360;
+  position: relative;
+  top: 1vh;
 }
+
 
 .formularios-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+ display: flex;
+ flex-direction: row;
+  gap: 5rem;
   justify-items: center;
   align-items: start;
+  margin: 6vh;
+ position: relative;
+ left: 7vh;
 }

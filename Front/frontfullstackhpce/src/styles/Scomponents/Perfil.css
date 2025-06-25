@@ -1,17 +1,20 @@
 .perfil-container {
-  max-width: 400px;
-  margin: 40px auto;
+  width: 174vh;
+  margin: 5vh;
   padding: 32px 24px;
-  background: #fff;
+   background: linear-gradient(135deg, rgba(21,67,97,0.5) 60%, rgba(40,21,73,0.7) 100%);
   border-radius: 18px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.08);
   text-align: center;
+  height: 70vh;
 }
 
 .perfil-nombre {
   font-size: 2rem;
   margin-bottom: 16px;
   color: #2d2d2d;
+  text-align: center;
+  vertical-align: middle;
 }
 
 .perfil-img-wrapper {
@@ -19,6 +22,7 @@
   justify-content: center;
   margin-bottom: 20px;
 }
+
 
 .perfil-img {
   width: 120px;
@@ -31,29 +35,19 @@
 
 .perfil-lista {
   list-style: none;
-  padding: 0;
-  margin: 0;
   text-align: left;
+  height: 28vh;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  grid-template-rows: 1fr 1fr 1fr; 
 }
 
 .perfil-lista li {
-  padding: 10px 0;
-  border-bottom: 1px solid #ececec;
-  font-size: 1.05rem;
+  justify-self: center;
 }
 
 .perfil-lista li:last-child {
   border-bottom: none;
 }
 
-.perfil-eliminar {
-  color: #e74c3c;
-  cursor: pointer;
-  font-weight: bold;
-  text-align: center;
-  transition: color 0.2s;
-}
 
-.perfil-eliminar:hover {
-  color: #c0392b;
-}

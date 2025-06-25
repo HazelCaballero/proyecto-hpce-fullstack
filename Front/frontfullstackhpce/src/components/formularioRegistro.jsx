@@ -77,8 +77,8 @@ export default function FormularioRegistro() {
 
   return (
     <div className="registro-container">
+      <h2 className="formulario-titulo">Registro de Usuario</h2> 
       <div className="registro-form">
-        <h2>Registro de Usuario</h2>
         <label>Nombre de usuario</label>
         <input
           className="registro-input"
@@ -150,10 +150,10 @@ export default function FormularioRegistro() {
           type="text"
           placeholder="URL de imagen de perfil"
         />
-        <button className="registro-form-button" onClick={handleRegister}>
+        
+      </div><button className="registro-form-button" onClick={handleRegister}>
           Registrar Usuario
         </button>
-      </div>
     </div>
   )
 }

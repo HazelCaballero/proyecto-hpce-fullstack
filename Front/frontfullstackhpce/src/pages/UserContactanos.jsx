@@ -12,7 +12,7 @@ import '../styles/Spages/UserContactanos.css';
  */
 export default function UserContactanos() {
   return (
-    <div className="page-grid">
+    <div className="page-grid-contactos">
         <div >
             <AsideUsuarias/>
         </div>

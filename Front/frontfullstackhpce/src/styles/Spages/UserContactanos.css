@@ -1,6 +1,6 @@
-.page-grid {
+.page-grid-contactos {
   display: grid;
-  grid-template-columns: 250px 1fr;
+  grid-template-columns: 28vh 1fr;
   grid-template-rows: 1fr auto;
   grid-template-areas:
     "aside main"
@@ -8,14 +8,16 @@
   min-height: 100vh;
 }
 
-.page-grid > :first-child {
+.page-grid-contactos > :first-child {
   grid-area: aside;
 }
 
-.page-grid > :nth-child(2) {
+.page-grid-contactos > :nth-child(2) {
   grid-area: main;
 }
 
-.page-grid > :last-child {
+.page-grid-contactos > :last-child {
   grid-area: footer;
+    background: #154360;
+
 }

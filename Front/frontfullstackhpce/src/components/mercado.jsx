@@ -221,15 +221,15 @@ export default function Mercado() {
     }
     let matchTitulo = false;
     if (filtros.titulo) {
-      matchTitulo = t.titulo.toLowerCase().includes(texto);
+      matchTitulo = (t.titulo || '').toLowerCase().includes(texto);
     }
     let matchContenido = false;
     if (filtros.contenido) {
-      matchContenido = t.trueque.toLowerCase().includes(texto);
+      matchContenido = (t.trueque || '').toLowerCase().includes(texto);
     }
     let matchUbicacion = false;
     if (filtros.ubicacion) {
-      matchUbicacion = t.ubicacion.toLowerCase().includes(texto);
+      matchUbicacion = (t.ubicacion || '').toLowerCase().includes(texto);
     }
     let matchComentarios = false;
     if (filtros.comentarios && interacciones[t.id]) {
@@ -325,9 +325,19 @@ export default function Mercado() {
         inter.comentario === "Me interesa este trueque"
     );
 
+
+
+
+
   return (
     <div className="mercado-container">
-      <div>
+
+
+
+
+
+
+      <div className='publi-true'>
         <h2>{editandoId ? 'Editar trueque' : 'Publicar nuevo trueque'}</h2>
         <div className="mercado-form">
           <div>
@@ -403,16 +413,24 @@ export default function Mercado() {
           </div>
         </div>
       </div> <br />
-      <div>
+
+
+
+
+
+
+
+      <div className='busc-true'>
+        <div className='bus-true'>
         <h2>Buscar trueques</h2>
         <input
           type="text"
           placeholder="Buscar..."
           value={busqueda}
           onChange={e => setBusqueda(e.target.value)}
-          className="mercado-buscador mercado-mb8"
+          className="mercado-mb8"
           aria-label="Buscar trueques"
-        />
+        /></div>
         <div className="mercado-flex">
           <label><input type="checkbox" checked={filtros.usuaria} onChange={e => setFiltros(f => ({ ...f, usuaria: e.target.checked }))} /> Usuaria</label>
           <label><input type="checkbox" checked={filtros.titulo} onChange={e => setFiltros(f => ({ ...f, titulo: e.target.checked }))} /> Título</label>
@@ -424,28 +442,37 @@ export default function Mercado() {
           <label><input type="checkbox" checked={filtros.cancelado} onChange={e => setFiltros(f => ({ ...f, cancelado: e.target.checked }))} /> Cancelado</label>
         </div>
       </div> <br />
-      <div>
+
+
+
+
+
+
+
+
+      <div className='true-ques'>
         <h2>Trueques</h2>
+
+
         {truequesFiltrados.length === 0 ? (
           <div>No hay trueques publicados.</div>
         ) : (
           truequesFiltrados.map(t => (
             <div key={t.id} className="mercado-item">
-              <p>
+              <p> <strong>Usuaria:</strong>
                 <b>
                   {t.usuario_nombre ||
                     (interacciones[t.id] && interacciones[t.id].find(inter => inter.usuario_nombre)?.usuario_nombre) ||
                     t.usuario}
                 </b>
               </p>
-              <h3>{t.titulo}</h3>
+              <h3>Trueque: {t.titulo}</h3>
               <p>{t.trueque}</p>
               <p><b>Categoría:</b> {typeof t.categoria === 'object' ? t.categoria.nombre : t.categoria}</p>
               <p><b>Ubicación:</b> {t.ubicacion}</p>
               {t.imagen_url && <img src={t.imagen_url} alt="trueque" className="mercado-img-200" />}
               <p><b>Estado:</b> {t.estado}</p>
-              <p><b>Comentarios:</b></p>
-
+              
               {Number(t.usuario) === usuario_id && (
                 <div className="mercado-mt10">
                   <label>
@@ -467,30 +494,17 @@ export default function Mercado() {
                   </div>
                 </div>
               )}
+              <br />
+
+
+
+
+
+
 
               <div className="mercado-mt10">
-                <div>
-                  {(interacciones[t.id] || []).length === 0
-                    ? <div>No hay comentarios.</div>
-                    : interacciones[t.id].map(inter => (
-                        <div key={inter.id} style={{ marginBottom: 4 }}>
-                          <b>{inter.usuario_nombre || inter.usuario}</b>: {inter.comentario}
-                          {Number(inter.usuario) === usuario_id && (
-                            <button
-                              onClick={() => handleEliminarInteraccion(t.id, inter.id)}
-                              style={{ marginLeft: 8, color: 'red', background: 'none', border: 'none', cursor: 'pointer' }}
-                              title="Eliminar comentario"
-                              aria-label="Eliminar comentario"
-                            >
-                              🗑️
-                            </button>
-                          )}
-                        </div>
-                      ))
-                  }
-                </div>
 
-                {usuario_id && Number(t.usuario) !== usuario_id && (
+               {usuario_id && Number(t.usuario) !== usuario_id && (
                   <div style={{ margin: '10px 0' }}>
                     <label>
                       <input
@@ -521,14 +535,14 @@ export default function Mercado() {
                   </div>
                 )}
 
-                <div style={{ marginTop: 8 }}>
-                  <textarea
+                <div>
+                  <input
                     placeholder="Escribe un comentario..."
                     value={nuevoComentario[t.id] || ''}
                     onChange={e => handleComentarioChange(t.id, e.target.value)}
-                    style={{ width: '100%', minHeight: 40 }}
+                    
                     aria-label="Escribe un comentario"
-                    className="mercado-textarea"
+                    className="mercado-textarea-co"
                   />
                   <button
                     onClick={() => handleEnviarInteraccion(t.id)}
@@ -536,13 +550,41 @@ export default function Mercado() {
                     className="mercado-boton-enviar"
                   >
                     Enviar comentario
-                  </button>
+                  </button >
+                <div><p><b>Comentarios:</b></p>
+                  {(interacciones[t.id] || []).length === 0
+                    ? <div>No hay comentarios.</div>
+                    : interacciones[t.id].map(inter => (
+                        <div key={inter.id} style={{ marginBottom: 4 }}>
+                          <b>{inter.usuario_nombre || inter.usuario}</b>: {inter.comentario}
+                          {Number(inter.usuario) === usuario_id && (
+                            <button
+                              onClick={() => handleEliminarInteraccion(t.id, inter.id)}
+                              style={{ marginLeft: 8, color: 'red', background: 'none', border: 'none', cursor: 'pointer' }}
+                              title="Eliminar comentario"
+                              aria-label="Eliminar comentario"
+                            >
+                              🗑️
+                            </button>
+                          )}
+                        </div>
+                      ))
+                  }
+                </div>
+
+
+
+
                 </div>
               </div>
             </div>
           ))
         )}
       </div>
+
+
+
+
     </div>
   )
 }

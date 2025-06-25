@@ -1,24 +1,27 @@
-.page-grid {
+.page-grid-mercado {
   display: grid;
-  grid-template-columns: 250px 1fr;
+  grid-template-columns: 28vh 1fr;
   grid-template-rows: 1fr auto;
   grid-template-areas:
     "aside main"
     "footer footer";
-  min-height: 100vh;
+  height: 90vh;
 }
 
-.page-grid > :first-child {
+.page-grid-mercado > :first-child {
   grid-area: aside;
   background: #d7bde2;
 }
 
-.page-grid > :nth-child(2) {
+.page-grid-mercado > :nth-child(2) {
   grid-area: main;
   background: #d7bde2;
 
 }
 
-.page-grid > :last-child {
+.page-grid-mercado > :last-child {
   grid-area: footer;
+   background: #154360;
+position: relative;
+bottom: 2vh;
 }

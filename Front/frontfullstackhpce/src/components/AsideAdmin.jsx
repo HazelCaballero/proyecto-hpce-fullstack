@@ -9,6 +9,7 @@ import '../styles/Scomponents/AsideAdmin.css';
 function AsideAdmin() {
   return (
     <aside className="aside-admin">
+      
       <div className="aside-admin__logo-container">
         <img
           className="aside-admin__logo"
@@ -16,6 +17,7 @@ function AsideAdmin() {
           alt="LogoConexCreat"
         />
       </div>
+
         <ul className="aside-admin__nav-list">
           <li className="aside-admin__nav-item">
             <Link to="/AdminUsuarias">Usuarias</Link>
@@ -33,6 +35,7 @@ function AsideAdmin() {
             <Link to="/AdminPublicidad">Publicidad</Link>
           </li>
         </ul>
+        
     </aside>
   )
 }

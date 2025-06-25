@@ -101,9 +101,9 @@ export default function Contactos() {
     <div className="acontactos-container">
       <div className='acontactos-resumen'>
         <h2>Mensajes por revisar</h2>
-        <p className='p-p'>{mensajes.filter(m => !m.leido).length}</p>
+        <p className='n-n'>{mensajes.filter(m => !m.leido).length}</p>
         <h2>Mensajes revisados</h2>
-        <p className='p-p'>{mensajes.filter(m => m.leido).length}</p>
+        <p className='n-n'>{mensajes.filter(m => m.leido).length}</p>
       </div>
       <div className="acontactos-listas">
         <div className="acontactos-bloque acontactos-bloque-norevisados">

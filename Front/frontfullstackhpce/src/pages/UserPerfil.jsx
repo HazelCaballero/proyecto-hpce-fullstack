@@ -12,7 +12,7 @@ import '../styles/Spages/UserPerfil.css';
  */
 export default function UserPerfil() {
   return (
-    <div className="page-grid">
+    <div className="page-grid-perfil">
         <div >
             <AsideUsuarias/>
         </div>

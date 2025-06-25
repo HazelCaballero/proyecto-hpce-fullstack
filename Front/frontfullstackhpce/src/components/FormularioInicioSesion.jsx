@@ -53,7 +53,7 @@ export default function FormularioInicioSesion() {
 
   return (
     <div className="formulario-inicio-sesion-container">
-      <h1 className="formulario-titulo">Formulario de Inicio de Sesión</h1>
+      <h1 className="formulario-titulo">Inicio de Sesión</h1>
       <form className="formulario-inicio-sesion-form" onSubmit={handleLogin}>
         <label htmlFor="name">Nombre</label>
         <input

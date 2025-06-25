@@ -1,13 +1,18 @@
 .formulario-inicio-sesion-container {
   background: #f5f6fa;
-   width: 320px;
+  width: 50vh;
+  height: 65vh;
+   border-radius: 25px;
 }
 
 .formulario-titulo {
   font-size: 2rem;
   margin-bottom: 2rem;
   color: #273c75;
+  text-align: center;
   font-weight: bold;
+  position: relative;
+  top: 2vh;
 }
 
 .formulario-inicio-sesion-form {
@@ -17,7 +22,11 @@
   padding: 2rem 2.5rem;
   border-radius: 12px;
   box-shadow: 0 4px 24px rgba(44, 62, 80, 0.10);
-  min-width: 320px;
+  width: 45vh;
+  height: 50vh;
+  text-align: center;
+  justify-self: center;
+  
 }
 
 .formulario-inicio-sesion-form label {
@@ -27,12 +36,13 @@
 }
 
 .formulario-inicio-sesion-form input {
-  padding: 0.7rem 1rem;
+  padding: 0.8rem 1rem;
   margin-bottom: 1.2rem;
   border: 1px solid #dcdde1;
   border-radius: 6px;
   font-size: 1rem;
   transition: border-color 0.2s;
+  text-align: center;
 }
 
 .formulario-inicio-sesion-form input:focus {
@@ -50,6 +60,7 @@
   font-weight: bold;
   cursor: pointer;
   transition: background 0.2s;
+  margin-top: 2vh;
 }
 
 .formulario-inicio-sesion-form button:hover {

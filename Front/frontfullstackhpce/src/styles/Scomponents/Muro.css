@@ -6,15 +6,58 @@
   border-left: 5px solid #154360;
   border-radius: 18px;
   height: 75vh;
+  margin: 4vh;
 }
 
-.muro-publicaciones, .muro-publicidad {
+.muro-publicaciones{
   background: #fff;
   padding: 1.5rem;
   border-radius: 10px;
   box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-  flex: 1;
+  
 }
+
+.muro-publicidad{
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  width: 55vh;
+}
+
+.over-anun{
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: #154360 transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+  height: 52vh;
+  position: relative;
+  top: 2vh;
+}
+
+
+.publi-title-sti{
+  position: sticky;
+  top: 0;
+  text-align: center;
+  background-color: #154360;
+  padding: 2vh;
+  color: #fff;
+  width: 25vh;
+  align-self: center;
+  border-radius: 15px;
+  justify-self: center;
+}
+.muro-anuncio {
+  padding: 0.7rem;
+  background-color: #154360;
+  border-radius: 6px;
+  color: #ffffff;
+  font-weight: 500;
+  text-align: center;
+}
+
 
 .muro-publicaciones {
   margin-right: 1rem;
@@ -46,19 +89,13 @@
   margin-bottom: 1rem;
   overflow-y: scroll;
   scrollbar-width: thin;
+  scrollbar-color: #154360 transparent;
   height: 38vh;
    position: relative;
   bottom: 4vh;
 }
 
-.muro-anuncio {
-  padding: 0.7rem;
-  background: #ffe082;
-  border-radius: 6px;
-  color: #7c5c00;
-  font-weight: 500;
-  text-align: center;
-}
+
 
 .muro-input-full {
   margin-bottom: 8px;
@@ -66,7 +103,7 @@
 }
 
 .muro-publicacion-item {
-  border: 1px solid #000000;
+  background-color: #2d5a88;
   border-radius: 6px;
   padding: 10px;
   margin-bottom: 8px;

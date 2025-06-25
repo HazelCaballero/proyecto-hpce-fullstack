@@ -84,6 +84,7 @@ export default function FormularioContacto() {
 
   return (
     <div className="formulario-contacto-container">
+      
       <div className="formulario-contacto-form" onSubmit={handleSubmit}>
         {nombreUsuario && <h3 className="saludo-contacto">¡Hola {nombreUsuario}! esperamos con gusto tu mensaje.</h3>}
         <h2>Formulario de Contacto</h2>
@@ -132,6 +133,7 @@ export default function FormularioContacto() {
           {loading ? 'Enviando...' : 'Enviar'}
         </button>
       </div>
+      
     </div>
   )
 }

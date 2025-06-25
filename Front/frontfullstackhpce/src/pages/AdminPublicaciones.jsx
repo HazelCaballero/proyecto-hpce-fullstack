@@ -12,7 +12,7 @@ import '../styles/Spages/AdminPublicaciones.css'
  */
 export default function AdminPublicaciones() {
   return (
-    <div className="page-grid">
+    <div className="page-grid-publicaciones">
       <div><AsideAdmin /></div>
       
       <div>

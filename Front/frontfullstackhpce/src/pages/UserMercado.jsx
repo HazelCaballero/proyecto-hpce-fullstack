@@ -12,7 +12,7 @@ import '../styles/Spages/UserMercado.css';
  */
 export default function UserMercado() {
   return (
-    <div className="page-grid">
+    <div className="page-grid-mercado">
             <div >
                 <AsideUsuarias/>
             </div>

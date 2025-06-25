@@ -8,7 +8,8 @@ import '../styles/Scomponents/Hogar.css'
 export default function Hogar() {
   return (
     <div className="hogar-container">
-      <div className="hogar-section">
+
+      <div className="hogar-section-uno">
         <h2 className="hogar-title">Conexión Creativa</h2>
         <p className="hogar-text">
           Es una plataforma digital dedicada a fomentar el intercambio de conocimiento, bienes 
@@ -19,7 +20,7 @@ export default function Hogar() {
         </p>
       </div>
 
-      <div className="hogar-section">
+      <div className="hogar-section-dos">
         <h2 className="hogar-title">Misión</h2>
         <p className="hogar-text">
           Crear una plataforma que permita a las mujeres conectarse, compartir conocimientos y 
@@ -27,12 +28,12 @@ export default function Hogar() {
         </p>
       </div>
 
-      <div className="hogar-section">
+      <div className="hogar-section-tres">
         <h2 className="hogar-title">Visión</h2>
         <p className="hogar-text">Una red global de mujeres conectadas</p>
       </div>
 
-      <div className="hogar-section">
+      <div className="hogar-section-cuatro">
         <h2 className="hogar-title">Valores</h2>
         <ul className="hogar-list">
           <li>Respeto: Fomentamos el respeto en todas las interacciones</li>
@@ -43,6 +44,7 @@ export default function Hogar() {
           <li>Libertad:  Las mujeres eligen su futuro</li>
         </ul>
       </div>
+
     </div>
   )
 }

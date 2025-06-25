@@ -13,7 +13,7 @@ import '../styles/Spages/UserInicio.css';
  */
 export default function UserInicio() {
   return (
-    <div className="page-grid">
+    <div className="page-grid-inicio">
          <div >
             <AsideUsuarias/>
           </div>

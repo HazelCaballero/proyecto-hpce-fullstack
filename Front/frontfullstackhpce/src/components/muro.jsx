@@ -335,8 +335,13 @@ export default function Muro() {
           )}
         </div>
       </div>
+
+
       <div className="muro-publicidad">
-        <h2>Publicidad</h2>
+       <h2 className='publi-title-sti'>Publicidad</h2> 
+       <div className='over-anun'>
+        
+
         {anuncios.length === 0 ? (
           <div className="muro-anuncio">No hay anuncios activos</div>
         ) : (
@@ -351,7 +356,9 @@ export default function Muro() {
             )
           })
         )}
+</div>
       </div>
+      
     </div>
   )
 }

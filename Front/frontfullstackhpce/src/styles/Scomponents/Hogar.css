@@ -1,38 +1,124 @@
 .hogar-container {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 32px;
-  background: #fff;
+  width: 176vh;
+  height: 80vh;
+  padding: 12px;
+  margin: 1vh;
+  margin-left: 4vh;
+background: linear-gradient(135deg, rgba(21,67,97,0.5) 60%, rgba(40,21,73,0.7) 100%);
   border-radius: 18px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.08);
   font-family: 'Segoe UI', Arial, sans-serif;
+  display: grid;
+  grid-template-areas: 
+  " hogar-section-uno hogar-section-cuatro"
+  " hogar-section-dos hogar-section-cuatro"
+  " hogar-section-tres hogar-section-cuatro";
 }
 
-.hogar-section {
-  margin-bottom: 32px;
+
+.hogar-section-uno {
+ grid-area: hogar-section-uno;
+ background-image: url('/main-background-remove.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: rgba(255, 255, 255, 0.8);
+  margin: 1vh;
+  border-radius: 2vh;
+  gap: 12px;
+  padding: 2vh;
+  border-radius: 8px;
+  width: 100vh;
+  height: 30vh;
+}
+
+.hogar-section-dos {
+grid-area: hogar-section-dos;
+background-image: url('/main-background-remove.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: rgba(255, 255, 255, 0.8);
+  margin: 2vh;
+  border-radius: 2vh;
+  gap: 12px;
+  padding: 2vh;
+  border-radius: 8px;
+  width: 100vh;
+   height: 20vh;
+}
+
+.hogar-section-tres {
+grid-area: hogar-section-tres;
+background-image: url('/main-background-remove.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: rgba(255, 255, 255, 0.8);
+  margin: 2vh;
+  border-radius: 2vh;
+  gap: 12px;
+  padding: 2vh;
+  border-radius: 8px;
+  width: 100vh;
+  height: 17vh;
+}
+
+.hogar-section-cuatro {
+grid-area: hogar-section-cuatro;
+background-image: url('/main-background-remove.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: rgba(255, 255, 255, 0.8);
+  margin: 2vh;
+  border-radius: 2vh;
+  gap: 12px;
+  padding: 2vh;
+  border-radius: 8px;
+  height: 65vh;
+  align-self: center;
 }
 
 .hogar-title {
-  color: #7c3aed;
-  margin-bottom: 10px;
-  font-size: 1.7rem;
+color:  rgba(40, 21, 73);
+  font-size: 1.2rem;
   font-weight: 600;
-  letter-spacing: 1px;
+  text-shadow: 2px 2px 20px rgb(234, 222, 255),
+             -2px 2px 20px rgb(234, 222, 255),
+             2px -2px 20px rgb(234, 222, 255),
+             -2px -2px 20px rgb(234, 222, 255);
+  padding-bottom: 2vh;
 }
 
 .hogar-text {
-  color: #333;
-  font-size: 1.1rem;
-  line-height: 1.6;
+  color: #ffffff;
+  font-size: 0.8rem;
+  width: 90vh;
+  text-align: justify;
+  text-align: center;
+  justify-self: center;
+   background: rgba(40, 21, 73, 0.9);
+   padding: 2vh;
+   border-radius: 2vh;
 }
 
+
 .hogar-list {
-  padding-left: 20px;
-  color: #444;
+  color: #ffffff;
   font-size: 1.05rem;
+  width: 58vh;
+  background: rgba(40, 21, 73, 0.9);
+  padding: 2vh;
+  border-radius: 2vh;
 }
 
 .hogar-list li {
-  margin-bottom: 8px;
-  list-style-type: disc;
+  list-style: none;
+  font-size: 1.05rem;
+  text-align: center;
+  width: 55vh;
+  padding: 1vh;
+ 
 }
+
