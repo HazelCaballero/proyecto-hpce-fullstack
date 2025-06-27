@@ -1,61 +1,88 @@
 .mercado-container {
-  max-width: 500px;
-  margin: 40px auto;
-  padding: 32px 24px;
-  background: #f8f9fa;
-  border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  max-width: 540px;
+  margin: 48px auto;
+  padding: 36px 28px;
+  background: linear-gradient(120deg, #e4dcf9 60%, #fff 100%);
+  border-radius: 20px;
+  box-shadow: 0 6px 32px rgba(121,95,159,0.13);
   text-align: center;
+  border-left: 4px solid #795f9f;
+  animation: fadeInMercado 0.7s;
+}
+
+@keyframes fadeInMercado {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .mercado-title {
-  color: #2d6a4f;
-  margin-bottom: 24px;
-  font-size: 2rem;
+  color: #795f9f;
+  margin-bottom: 28px;
+  font-size: 2.2rem;
   font-weight: bold;
-  letter-spacing: 1px;
+  letter-spacing: 1.2px;
+  text-shadow: 0 2px 8px #e4dcf9;
 }
 
 .mercado-item {
-  background: #e9ecef;
-  margin: 12px 0;
-  padding: 14px 0;
-  border-radius: 8px;
-  font-size: 1.1rem;
-  color: #333;
-  transition: background 0.2s;
+  background: linear-gradient(90deg, #f8f9fa 80%, #e4dcf9 100%);
+  margin: 16px 0;
+  padding: 18px 0;
+  border-radius: 10px;
+  font-size: 1.15rem;
+  color: #281549;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(121,95,159,0.07);
+  border-left: 3px solid #795f9f;
+  transition: background 0.2s, box-shadow 0.2s, border 0.2s;
 }
 
 .mercado-item:hover {
-  background: #b7e4c7;
-  cursor: pointer;
+  background: #d7bde2;
+  box-shadow: 0 6px 24px rgba(121,95,159,0.13);
+  border-left: 4px solid #281549;
+  color: #fff;
 }
 
 .mercado-btn-cancel {
   margin-left: 8px;
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
 }
 
-.mercado-mb8 {
-  margin-bottom: 8px;
+.mercado-btn-cancel:hover {
+  background: #c0392b;
 }
 
 .mercado-flex-wrap {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin: 8px 0;
+  gap: 12px;
+  margin: 12px 0;
 }
 
 .mercado-img-200 {
   max-width: 200px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(121,95,159,0.10);
+  border: 1.5px solid #d7bde2;
 }
 
 .mercado-mt10 {
-  margin-top: 10px;
+  margin-top: 12px;
 }
 
 .mercado-actions {
-  margin-top: 10px;
+  margin-top: 14px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
 }
 
 .mercado-coment-meta {

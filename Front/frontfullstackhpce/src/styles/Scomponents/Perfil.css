@@ -1,17 +1,21 @@
+/* Replica visual admin para perfil usuaria */
 .perfil-container {
   max-width: 400px;
   margin: 40px auto;
   padding: 32px 24px;
-  background: #fff;
+  background: linear-gradient(135deg, rgba(21,67,97,0.5) 60%, rgba(40,21,73,0.7) 100%);
   border-radius: 18px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 24px rgba(21,67,97,0.08);
   text-align: center;
+  border-left: 4px solid #154360;
+  color: #fff;
 }
 
 .perfil-nombre {
   font-size: 2rem;
   margin-bottom: 16px;
-  color: #2d2d2d;
+  color: #fff;
+  font-weight: 700;
 }
 
 .perfil-img-wrapper {
@@ -40,6 +44,7 @@
   padding: 10px 0;
   border-bottom: 1px solid #ececec;
   font-size: 1.05rem;
+  color: #e4dcf9;
 }
 
 .perfil-lista li:last-child {

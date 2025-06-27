@@ -20,10 +20,78 @@
   grid-area: footer;
 }
 
+/* Estilos avanzados para formularios de inicio y registro */
 .formularios-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  gap: 2.5rem;
   justify-items: center;
   align-items: start;
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+  animation: fadeInInicio 0.7s;
+}
+
+@keyframes fadeInInicio {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.formulario-inicio-sesion-container, .registro-container {
+  background: linear-gradient(120deg, #e4dcf9 60%, #fff 100%);
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(121,95,159,0.10);
+  padding: 2.5rem 2rem;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid #795f9f;
+  transition: box-shadow 0.2s, border 0.2s;
+}
+
+.formulario-inicio-sesion-container:hover, .registro-container:hover {
+  box-shadow: 0 8px 32px rgba(21,67,97,0.18);
+  border-left: 5px solid #281549;
+}
+
+.formulario-titulo {
+  font-size: 2.1rem;
+  margin-bottom: 2rem;
+  color: #795f9f;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+/* Mejoras para inputs y botones */
+.formulario-inicio-sesion-form input, .registro-form input {
+  background: #f8f9fa;
+  border: 1.5px solid #d7bde2;
+  border-radius: 7px;
+  padding: 0.7rem 1rem;
+  font-size: 1rem;
+  margin-bottom: 1.2rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.formulario-inicio-sesion-form input:focus, .registro-form input:focus {
+  border-color: #795f9f;
+  box-shadow: 0 2px 8px rgba(121,95,159,0.10);
+  outline: none;
+}
+
+.formulario-inicio-sesion-form button, .registro-form button {
+  background: #795f9f;
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0.8rem 0;
+  margin-top: 1rem;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 4px rgba(121,95,159,0.10);
+}
+
+.formulario-inicio-sesion-form button:hover, .registro-form button:hover {
+  background: #281549;
 }
