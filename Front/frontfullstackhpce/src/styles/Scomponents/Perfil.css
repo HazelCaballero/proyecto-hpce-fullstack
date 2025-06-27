@@ -1,20 +1,35 @@
+/* Replica visual admin para perfil usuaria */
 .perfil-container {
   width: 174vh;
   margin: 5vh;
   padding: 32px 24px;
+<<<<<<< HEAD
    background: linear-gradient(135deg, rgba(21,67,97,0.5) 60%, rgba(40,21,73,0.7) 100%);
+=======
+  background: linear-gradient(135deg, rgba(21,67,97,0.5) 60%, rgba(40,21,73,0.7) 100%);
+>>>>>>> d4aa540f066aa45f15417225637008d5e3f89b8a
   border-radius: 18px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 24px rgba(21,67,97,0.08);
   text-align: center;
+<<<<<<< HEAD
   height: 70vh;
+=======
+  border-left: 4px solid #154360;
+  color: #fff;
+>>>>>>> d4aa540f066aa45f15417225637008d5e3f89b8a
 }
 
 .perfil-nombre {
   font-size: 2rem;
   margin-bottom: 16px;
+<<<<<<< HEAD
   color: #2d2d2d;
   text-align: center;
   vertical-align: middle;
+=======
+  color: #fff;
+  font-weight: 700;
+>>>>>>> d4aa540f066aa45f15417225637008d5e3f89b8a
 }
 
 .perfil-img-wrapper {
@@ -43,7 +58,14 @@
 }
 
 .perfil-lista li {
+<<<<<<< HEAD
   justify-self: center;
+=======
+  padding: 10px 0;
+  border-bottom: 1px solid #ececec;
+  font-size: 1.05rem;
+  color: #e4dcf9;
+>>>>>>> d4aa540f066aa45f15417225637008d5e3f89b8a
 }
 
 .perfil-lista li:last-child {
