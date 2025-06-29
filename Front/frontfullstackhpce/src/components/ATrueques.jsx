@@ -124,6 +124,11 @@ export default function Trueques() {
       })
   }
 
+
+  const removeTruequeLocal = (id) => {
+    setTrueques(prev => prev.filter(t => t.id !== id));
+  };
+
   const handleEliminar = async (id) => {
     const confirm = await Swal.fire({
       title: '¿Estás seguro?',
@@ -137,12 +142,17 @@ export default function Trueques() {
       try {
         await CallsTrueques.DeleteTrueque(id)
         Swal.fire('Eliminado', 'El trueque ha sido eliminado.', 'success')
-        cargarTrueques()
+        removeTruequeLocal(id);
       } catch (error) {
         Swal.fire('Error', 'No se pudo eliminar el trueque.', 'error')
       }
     }
   }
+
+
+  const updateTruequeLocal = (id, cambios) => {
+    setTrueques(prev => prev.map(t => t.id === id ? { ...t, ...cambios } : t));
+  };
 
   const handleEditar = async (trueque) => {
     const { value: formValues } = await Swal.fire({
@@ -175,7 +185,6 @@ export default function Trueques() {
         return
       }
       try {
-        // No enviar usuario, el backend lo toma del token
         const truequeAEnviar = {
           titulo,
           trueque: truequeDesc,
@@ -183,9 +192,9 @@ export default function Trueques() {
           imagen_url,
           categoria_id: Number(categoria)
         }
-        await CallsTrueques.UpdateTrueques(trueque.id, truequeAEnviar)
+        const actualizado = await CallsTrueques.UpdateTrueques(trueque.id, truequeAEnviar);
         Swal.fire('Éxito', 'Trueque actualizado.', 'success')
-        cargarTrueques()
+        updateTruequeLocal(trueque.id, actualizado || truequeAEnviar);
       } catch (error) {
         Swal.fire('Error', 'No se pudo actualizar el trueque.', 'error')
       }
@@ -197,16 +206,20 @@ export default function Trueques() {
   const activos = trueques.filter(t => t.estado === 'pendiente' || t.estado === 'aceptado').length
   const registrados = trueques.length
 
+
   const TruequeItem = memo(function TruequeItem({ t, onVer, onEditar, onEliminar }) {
     return (
       <li className='li-trueque'>
-       <span className='descrip-trueque'>Trueque:<strong>{t.titulo}</strong> <br /> Estado: {t.estado}</span>
+        <span className='descrip-trueque'>
+          <b>Usuaria:</b> {t.usuario_nombre || t.usuario || 'Desconocida'}<br />
+          Trueque:<strong>{t.titulo}</strong> <br /> Estado: {t.estado}
+        </span>
         <br />
         <span className='btn-trueque'>
-        <button onClick={() => onVer(t)} className="trueques-ver"> <img className='user-list-icon' src="../public/see-removebg-preview.png" alt="see-icon" /> </button>
-        <button onClick={() => onEditar(t)} className="trueques-editar"> <img className='user-list-icon' src="../public/edit-removebg-preview.png" alt="edit-icon" /></button>
-        <button onClick={() => onEliminar(t.id)} className="trueques-eliminar"><img className='user-list-icon' src="../public/trash-removebg-preview.png" alt="trash-icon" /></button>
-      </span>
+          <button onClick={() => onVer(t)} className="trueques-ver"> <img className='user-list-icon' src="../public/see-removebg-preview.png" alt="see-icon" /> </button>
+          <button onClick={() => onEditar(t)} className="trueques-editar"> <img className='user-list-icon' src="../public/edit-removebg-preview.png" alt="edit-icon" /></button>
+          <button onClick={() => onEliminar(t.id)} className="trueques-eliminar"><img className='user-list-icon' src="../public/trash-removebg-preview.png" alt="trash-icon" /></button>
+        </span>
       </li>
     );
   });
@@ -257,7 +270,7 @@ export default function Trueques() {
           ))}
         </ul><form onSubmit={handleCatSubmit} className="trueques-categorias-form">
           <label className='new-c' htmlFor="categoria">Nueva Categoría</label> <br />
-          <input name="categoria" value={catForm.nombre} onChange={handleCatChange} placeholder="Categoría" required /> <br />
+          <input name="nombre" value={catForm.nombre} onChange={handleCatChange} placeholder="Categoría" required /> <br />
           <button className='btn-createc' type="submit">{editCatId ? 'Actualizar' : 'Crear'} Categoría</button>
           {editCatId && <button type="button" onClick={()=>{setEditCatId(null);setCatForm({nombre:''})}}>Cancelar</button>}
         </form>

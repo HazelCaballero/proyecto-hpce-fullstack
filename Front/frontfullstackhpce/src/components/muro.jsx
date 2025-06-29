@@ -134,6 +134,7 @@ export default function Muro() {
       const CallsPublicaciones = (await import('../services/CallsPublicaciones')).default
       await CallsPublicaciones.PostPublicaciones(obj)
       setFormPub({ titulo: '', publicacion: '', imagen_url: '' })
+      Swal.fire('Publicado', '¡Tu publicación se ha publicado con éxito!', 'success');
 
       const data = await CallsPublicaciones.GetPublicaciones()
       setPublicaciones(Array.isArray(data) ? data : [])

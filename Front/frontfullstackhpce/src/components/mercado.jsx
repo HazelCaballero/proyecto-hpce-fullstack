@@ -59,10 +59,24 @@ export default function Mercado() {
 
   const cargarTrueques = async () => {
     try {
-      const data = await CallsTrueques.GetTrueques()
-      setTrueques(data)
+      const data = await CallsTrueques.GetTrueques();
+      // Enriquecer trueques con el nombre de la usuaria
+      const truequesConNombre = await Promise.all(
+        data.map(async t => {
+          if (!t.usuario_nombre && t.usuario) {
+            try {
+              const usuaria = await import('../services/CallsUsuarias').then(m => m.default.GetUsuaria(t.usuario));
+              return { ...t, usuario_nombre: usuaria.username || usuaria.nombre || usuaria.email || t.usuario };
+            } catch {
+              return { ...t };
+            }
+          }
+          return t;
+        })
+      );
+      setTrueques(truequesConNombre);
     } catch (error) {
-      Swal.fire('Error', 'No se pudieron cargar los trueques.', 'error')
+      Swal.fire('Error', 'No se pudieron cargar los trueques.', 'error');
     }
   }
 
@@ -104,14 +118,16 @@ export default function Mercado() {
         Swal.fire('Error', 'Completa todos los campos obligatorios.', 'error')
         return
       }
-      // No enviar usuario, el backend lo toma del token
+      // Enviar usuario para asociar el trueque correctamente
+      const usuario_id = Number(localStorage.getItem('usuario_id'));
       const truequeAEnviar = {
         titulo: nuevoTrueque.titulo,
         trueque: nuevoTrueque.trueque,
         ubicacion: nuevoTrueque.ubicacion,
         imagen_url: nuevoTrueque.imagen_url,
         categoria_id: Number(nuevoTrueque.categoria),
-        estado: 'pendiente'
+        estado: 'pendiente',
+        usuario: usuario_id
       }
       console.log('Enviando trueque:', truequeAEnviar)
       if (editandoId) {
@@ -504,7 +520,7 @@ export default function Mercado() {
 
               <div className="mercado-mt10">
 
-               {usuario_id && Number(t.usuario) !== usuario_id && (
+               {usuario_id && Number((t.usuario && t.usuario.id) || t.usuario) !== usuario_id && (
                   <div style={{ margin: '10px 0' }}>
                     <label>
                       <input

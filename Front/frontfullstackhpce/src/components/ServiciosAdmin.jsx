@@ -7,8 +7,7 @@ import '../styles/Scomponents/ServiciosAdmin.css';
  * Componente de administración de servicios.
  * Permite ver, crear, editar y eliminar servicios.
  */
-export default function ServiciosAdmin() {
-  const [servicios, setServicios] = useState([]);
+export default function ServiciosAdmin({ servicios, setServicios }) {
   const [servForm, setServForm] = useState({
     producto: '',
     contenido: '',
@@ -19,13 +18,7 @@ export default function ServiciosAdmin() {
   });
   const [editServId, setEditServId] = useState(null);
 
-  const cargarDatos = () => {
-    CallsServicios.GetServicios()
-      .then(data => setServicios(Array.isArray(data) ? data : []))
-      .catch(() => setServicios([]));
-  };
 
-  useEffect(() => { cargarDatos(); }, []);
 
   const handleServChange = e => {
     const { name, value } = e.target;
@@ -41,6 +34,8 @@ export default function ServiciosAdmin() {
     setServForm(newForm);
   };
 
+
+
   const handleServSubmit = async () => {
     try {
       const usuarioId = Number(localStorage.getItem('usuario_id'));
@@ -49,9 +44,19 @@ export default function ServiciosAdmin() {
         usuario: usuarioId
       };
       if (editServId) {
-        await CallsServicios.UpdateServicios(editServId, dataToSend);
+        const actualizado = await CallsServicios.UpdateServicios(editServId, dataToSend);
+        setServicios(prev => prev.map(s => s.id === editServId ? { ...s, ...(actualizado || dataToSend) } : s));
+        Swal.fire('Actualizado', 'El servicio ha sido actualizado.', 'success');
       } else {
-        await CallsServicios.PostServicios(dataToSend);
+        const nuevoServicio = await CallsServicios.PostServicios(dataToSend);
+        if (nuevoServicio && nuevoServicio.id) {
+          setServicios(prev => [nuevoServicio, ...prev]);
+          Swal.fire('Creado', 'El servicio ha sido creado con éxito.', 'success');
+        } else {
+          // fallback: recargar todo si la API no devuelve el objeto
+          const data = await CallsServicios.GetServicios();
+          setServicios(Array.isArray(data) ? data : []);
+        }
       }
       setServForm({
         producto: '',
@@ -62,9 +67,8 @@ export default function ServiciosAdmin() {
         dias_anuncio: ''
       });
       setEditServId(null);
-      cargarDatos();
     } catch (e) {
-      // Puedes mostrar un mensaje de error aquí si lo deseas
+      Swal.fire('Error', 'No se pudo crear o actualizar el servicio.', 'error');
     }
   };
 
@@ -110,9 +114,9 @@ export default function ServiciosAdmin() {
           precio_publicidad: Number(precio_publicidad),
           usuario: usuarioId
         };
-        await CallsServicios.UpdateServicios(s.id, dataToSend);
+        const actualizado = await CallsServicios.UpdateServicios(s.id, dataToSend);
         Swal.fire('Actualizado', 'El servicio ha sido actualizado.', 'success');
-        cargarDatos();
+        setServicios(prev => prev.map(serv => serv.id === s.id ? { ...serv, ...(actualizado || dataToSend) } : serv));
       } catch (error) {
         Swal.fire('Error', 'No se pudo actualizar el servicio.', 'error');
       }
@@ -134,7 +138,7 @@ export default function ServiciosAdmin() {
     try {
       await CallsServicios.DeleteServicios(id);
       Swal.fire('Eliminado', 'El servicio ha sido eliminado.', 'success');
-      cargarDatos();
+      setServicios(prev => prev.filter(s => s.id !== id));
     } catch (error) {
       Swal.fire('Error', 'No se pudo eliminar el servicio.', 'error');
     }
