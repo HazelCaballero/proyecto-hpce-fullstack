@@ -1,11 +1,12 @@
 .contactanos-container {
   display: grid;
   grid-template-areas: 
-  "contactanos-form contactanos-fundadora"
-  "contactanos-horario contactanos-horario";
+  "contactanos-form contactanos-fundadora contactanos-horario";
   align-items: center;
   padding: 2rem;
-  background: #ffffff;
+   background: linear-gradient(135deg, rgba(21,67,97,0.5) 60%, rgba(40,21,73,0.7) 100%);
+  border-left: 5px solid #154360;
+  border-radius: 18px;
   border-radius: 16px;
   width: 174vh;
   margin: 1rem;
@@ -25,16 +26,21 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: blueviolet;
+  background: #ffffff;
+border-radius: 12px;
+background-image: url('/main-background-remove.png');
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+  width: 45vh;
+  height: 50vh;
 }
 
 .contactanos-fundadora img {
-  width: 160px;
+  width: 36vh;
   height: auto;
-  border: 3px solid #b6a1e6;
   margin-bottom: 0.5rem;
-  background: #fff;
-  
+
 }
 
 .contactanos-fundadora h3 {

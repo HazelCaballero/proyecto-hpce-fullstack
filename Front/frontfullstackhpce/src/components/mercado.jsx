@@ -420,7 +420,7 @@ export default function Mercado() {
 
 
 
-      <div className='busc-true'>
+      <div className='bus-cont'>
         <div className='bus-true'>
         <h2>Buscar trueques</h2>
         <input

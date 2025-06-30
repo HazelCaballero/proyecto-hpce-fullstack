@@ -10,23 +10,32 @@ export default function AsideUsuarias() {
   return (
     <div className="aside-usuarias">
 
-      <div className="aside-logo">
-        <img src="../public/Screenshot_2025-05-22_082701-removebg-preview.png" alt="LogoConexCreat" />
+      <div className="aside-usuarias__logo-container">
+        <img
+          className="aside-usuarias__logo"
+          src="../public/Screenshot_2025-05-22_082701-removebg-preview.png"
+          alt="LogoConexCreat"
+        />
       </div>
 
-      <div className="aside-menu">
-        <ul>
-            <li><Link to="/UserMuro">Muro</Link></li>
-            <li><Link to="/UserHogar">Hogar</Link></li>
-            <li><Link to="/UserPerfil">Perfil</Link></li>
-            <li><Link to="/UserInicio">Inicio</Link></li>
-            <li><Link to="/UserMercado">Mercado</Link></li>
-         </ul>   
-      </div>
+      <ul className="aside-usuarias__nav-list">
+        <li className="aside-usuarias__nav-item">
+          <Link to="/UserMuro">Muro</Link>
+        </li>
+        <li className="aside-usuarias__nav-item">
+          <Link to="/UserHogar">Hogar</Link>
+        </li>
+        <li className="aside-usuarias__nav-item">
+          <Link to="/UserPerfil">Perfil</Link>
+        </li>
+        <li className="aside-usuarias__nav-item">
+          <Link to="/UserInicio">Inicio</Link>
+        </li>
+        <li className="aside-usuarias__nav-item">
+          <Link to="/UserMercado">Mercado</Link>
+        </li>
+      </ul>
 
     </div>
   )
 }
-
-
-/* aside-admin__logo-container */

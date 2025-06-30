@@ -86,10 +86,8 @@ export default function FormularioContacto() {
     <div className="formulario-contacto-container">
       
       <div className="formulario-contacto-form" onSubmit={handleSubmit}>
-        {nombreUsuario && <h3 className="saludo-contacto">¡Hola {nombreUsuario}! esperamos con gusto tu mensaje.</h3>}
-        <h2>Formulario de Contacto</h2>
-
-        <label htmlFor="email">Email</label>
+        {nombreUsuario && <h3 className="saludo-contacto">¡Hola {nombreUsuario}! con gusto esperamos tu mensaje.</h3>}
+        <label htmlFor="email">Email</label> <br />
         <input
           id="email"
           className="contacto-input"
@@ -100,8 +98,8 @@ export default function FormularioContacto() {
           placeholder="Tu correo electrónico"
           required
         />
-
-        <label htmlFor="mensaje">Mensaje</label>
+<br />
+        <label htmlFor="mensaje">Mensaje</label> <br />
         <textarea
           id="mensaje"
           className="contacto-input"
@@ -111,7 +109,7 @@ export default function FormularioContacto() {
           placeholder="Escribe tu mensaje"
           required
         />
-
+<br />
         <div className="contacto-checkbox-row">
           <input
             type="checkbox"

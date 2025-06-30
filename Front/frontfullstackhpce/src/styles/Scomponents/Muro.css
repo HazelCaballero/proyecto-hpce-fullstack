@@ -6,35 +6,40 @@
   border-left: 5px solid #154360;
   border-radius: 18px;
   height: 75vh;
-<<<<<<< HEAD
   margin: 4vh;
 }
 
 .muro-publicaciones{
-  background: #fff;
   padding: 1.5rem;
   border-radius: 10px;
   box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-  
-=======
   box-shadow: 0 4px 24px rgba(21,67,97,0.08);
+
+
 }
 
-.muro-publicaciones, .muro-publicidad {
+.muro-publicaciones{
   background: rgba(255,255,255,0.95);
   padding: 1.5rem;
   border-radius: 10px;
   box-shadow: 0 2px 12px rgba(21,67,97,0.10);
-  flex: 1;
+
   border-left: 3px solid #795f9f;
->>>>>>> d4aa540f066aa45f15417225637008d5e3f89b8a
 }
 
 .muro-publicidad{
-  background: #fff;
+    background-image: url('/main-background-remove.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: rgba(255, 255, 255, 0.8);
   padding: 1.5rem;
   border-radius: 10px;
-  width: 55vh;
+  width: 45vh;
+  padding: 1.5rem;
+  border-radius: 10px;
+  flex: 1;
+  border-left: 3px solid #795f9f;
 }
 
 .over-anun{
@@ -74,12 +79,17 @@
 
 .muro-publicaciones {
   margin-right: 1rem;
+    background-image: url('/main-background-remove.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 .muro-publicar {
   margin: 1rem 0;
   padding: 0.7rem;
-  background: #e1ecf4;
+   background-color:  rgba(40, 21, 73, 0.8);
   border-radius: 6px;
   color: #2d5a88;
   font-weight: 500;
@@ -111,32 +121,28 @@
   box-shadow: 0 1px 4px rgba(21,67,97,0.06);
 }
 
-<<<<<<< HEAD
 
-=======
 .muro-anuncio {
   padding: 0.7rem;
-  background: #ffe082;
+  background: #154360;
   border-radius: 6px;
-  color: #7c5c00;
+  color: #ffffff;
   font-weight: 500;
   text-align: center;
   border: 1.5px solid #795f9f;
 }
->>>>>>> d4aa540f066aa45f15417225637008d5e3f89b8a
 
 .muro-input-full {
   margin-bottom: 8px;
   width: 100%;
+  text-align: center;
 }
 
 /* Ultra mejora visual para publicaciones y comentarios del muro */
 .muro-publicacion-item {
-<<<<<<< HEAD
   background-color: #2d5a88;
   border-radius: 6px;
   padding: 10px;
-=======
   border: 3px solid #795f9f;
   border-radius: 18px;
   padding: 28px 22px 20px 22px;
@@ -164,7 +170,6 @@
 .muro-publicacion-meta, .muro-publicacion-autor {
   font-size: 15px;
   color: #795f9f;
->>>>>>> d4aa540f066aa45f15417225637008d5e3f89b8a
   margin-bottom: 8px;
   font-weight: 800;
   letter-spacing: 1px;

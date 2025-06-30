@@ -1,68 +1,76 @@
 .mercado-container {
-<<<<<<< HEAD
-  width: 175vh;
-  margin: 40px auto;
-  padding: 32px 24px;
-  background: #f8f9fa;
-  border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  width: 170vh;
+  margin: 4vh;
+  padding: 32px;
+  background: rgb(21, 67, 97, 0.4); /* azul oscuro semitransparente */
+  border-left: 4px solid #154360;
+  border-radius: 14px;
   text-align: center;
-  height: 70vh;
+  height: 72vh;
   display: grid;
   grid-template-areas: 
-  "publi-true busc-true"
-  "publi-true true-ques";
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 11vh auto;
-  justify-items: center;
+    "publi-true true-ques"
+    "busc-true true-ques";
+  grid-template-columns: 40vh 1fr;
+  gap: 16px;
+  justify-items: stretch;
+  align-items: stretch;
+ 
 }
 
-.publi-true{
+.publi-true {
   background-color: #2d6a4f;
   grid-area: publi-true;
   width: 40vh;
-  height: 60vh;
+  height: 100%;
+  min-width: 200px;
+  min-height: 200px;
+  overflow: auto;
 }
 
-.busc-true{
+.busc-true {
   background-color: blueviolet;
-  width: 110vh;
   grid-area: busc-true;
-  height: 10vh;
+  width: 100%;
+  height: 100%;
+  display: flex;
   justify-content: center;
-  align-content: center;
+  align-items: center;
 }
 
-.true-ques{
-  background-color: yellow;
+.true-ques {
+ 
   grid-area: true-ques;
-  margin-top: 1vh;
-  width: 120vh;
-  height: 48vh;
-  overflow-y: scroll;
-
+  width: 100%;
+  height: 50vh;
+  margin-top: 0;
+    background-image: url('/main-background-remove.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 
 .bus-true{
   display: flex;
+  flex-direction: column;
   justify-content: center;
-=======
-  max-width: 540px;
-  margin: 48px auto;
-  padding: 36px 28px;
   background: linear-gradient(120deg, #e4dcf9 60%, #fff 100%);
-  border-radius: 20px;
-  box-shadow: 0 6px 32px rgba(121,95,159,0.13);
-  text-align: center;
-  border-left: 4px solid #795f9f;
-  animation: fadeInMercado 0.7s;
+  width: 40vh;
+  position: relative;
+  bottom: 18vh;
+  font-size: 14px;
 }
 
-@keyframes fadeInMercado {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
->>>>>>> d4aa540f066aa45f15417225637008d5e3f89b8a
+.bus-cont{
+  display: flex;
+  flex-direction: column;
+  background-color: #281549;
+  width: 40vh;
+  height: 10vh;
+  position: relative;
+  bottom: 8vh;
 }
 
 .mercado-title {
@@ -75,7 +83,6 @@
 }
 
 .mercado-item {
-<<<<<<< HEAD
   background: #e9ecef;
   margin: 12px;
   padding: 14px;
@@ -87,18 +94,10 @@
 
 
 .mercado-mb8{
-  height: 3vh;
-  width: 40vh;
+  width: 36vh;
   align-self: center;
-  margin-left: 4vh;
-  margin-bottom: 3vh;
-  position: relative;
-  top: 1vh;
-}
-=======
-  background: linear-gradient(90deg, #f8f9fa 80%, #e4dcf9 100%);
-  margin: 16px 0;
-  padding: 18px 0;
+  margin: 1vh;
+  padding: 2px;
   border-radius: 10px;
   font-size: 1.15rem;
   color: #281549;
@@ -134,8 +133,10 @@
 .mercado-flex-wrap {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin: 12px 0;
+}
+
+.mercado-flex{
+  background-color: #c0392b;
 }
 
 .mercado-img-200 {
@@ -189,4 +190,3 @@
 .mercado-mr4 {
   margin-right: 4px;
 }
->>>>>>> d4aa540f066aa45f15417225637008d5e3f89b8a

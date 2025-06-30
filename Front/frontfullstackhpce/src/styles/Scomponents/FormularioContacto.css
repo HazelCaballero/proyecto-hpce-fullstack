@@ -1,6 +1,32 @@
 .formulario-contacto-label {
-  margin-left: 8px;
+  margin: 2vh;
 }
 .formulario-contacto-container{
-  background-color: aquamarine;
+background: #ffffff;
+border-radius: 12px;
+background-image: url('/main-background-remove.png');
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+  justify-items: center;
+  text-align: center;
+  width: 45vh;
+  padding: 4vh;
+  height: 50vh;
+
 }
+
+
+.formulario-contacto-form{
+  color: #ffffff;
+  padding: 4vh;
+  width: 42vh;
+  height: 44vh;
+   background-color:  rgba(40, 21, 73, 0.8);
+   border-radius: 2vh;
+}
+
+.contacto-input{
+  margin: 1vh;
+}
+

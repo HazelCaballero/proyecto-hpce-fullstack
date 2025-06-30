@@ -1,5 +1,9 @@
 .registro-container {
-  background: #f5f6fa;
+    background-image: url('/main-background-remove.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: rgba(255, 255, 255, 0.8);
    width: 90vh;
    height: 65vh;
    display: flex;

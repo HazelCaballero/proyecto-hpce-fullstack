@@ -21,7 +21,10 @@ export default function Contactanos() {
         
         <div className="contactanos-horario">
           <h4>Horario</h4>
-          <p>Lunes a Viernes 10:00 am a 6:00 pm, Sábados de 11:00 am a 5:00 pm</p>
+          <p>Lunes a Viernes: <br />
+           10:00 am a 6:00 pm <br />
+            Sábados: <br />
+             11:00 am a 5:00 pm</p>
         </div>
     </div>
   )
