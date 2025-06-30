@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import CallsServicios from '../services/CallsServicios';
 import '../styles/Spages/AdminPublicidad.css';
 import AsideAdmin from '../components/AsideAdmin';
 import Header from '../components/Header';
@@ -12,7 +13,12 @@ import Publicity from '../components/Publicity';
  * Permite gestionar anuncios, servicios y categorías desde un solo panel.
  */
 export default function AdminPublicidad() {
-  const [reload, setReload] = useState(false);
+  const [servicios, setServicios] = useState([]);
+  useEffect(() => {
+    CallsServicios.GetServicios()
+      .then(data => setServicios(Array.isArray(data) ? data : []))
+      .catch(() => setServicios([]));
+  }, []);
   return (
     <div className="page-grid">
       <div>
@@ -24,9 +30,9 @@ export default function AdminPublicidad() {
           <div className="adminpub-main">
             <div className="adminpub-section">
               <h2>Servicio a usuarias</h2>
-              <ServiciosAdmin />
+              <ServiciosAdmin servicios={servicios} setServicios={setServicios} />
             </div>
-            <Publicity onCreated={() => setReload(r => !r)} />
+            <Publicity servicios={servicios} setServicios={setServicios} />
           </div>
         </Main>
       </div>

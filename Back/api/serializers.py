@@ -51,14 +51,17 @@ class TruequeSerializer(serializers.ModelSerializer):
     """
     Serializador para el modelo Trueque, incluye la categoría relacionada.
     """
+
     categoria = CategoriaSerializer(read_only=True)
     categoria_id = serializers.PrimaryKeyRelatedField(
         queryset=Categoria.objects.all(), source='categoria', write_only=True
     )
+    usuario = serializers.PrimaryKeyRelatedField(read_only=True)
+    usuario_nombre = serializers.CharField(source='usuario.username', read_only=True)
 
     class Meta:
         model = Trueque
-        fields = ['id', 'titulo', 'estado', 'categoria', 'categoria_id', 'ubicacion', 'imagen_url']
+        fields = ['id', 'titulo', 'estado', 'categoria', 'categoria_id', 'ubicacion', 'imagen_url', 'usuario', 'usuario_nombre']
 
 # Serializador para el modelo Publicacion
 class PublicacionSerializer(serializers.ModelSerializer):

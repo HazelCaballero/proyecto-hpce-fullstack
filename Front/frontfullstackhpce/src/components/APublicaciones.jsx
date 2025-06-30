@@ -38,6 +38,10 @@ export default function APublicaciones() {
 
   useEffect(() => { cargarPublicaciones(); }, []);
 
+  const updatePublicacionLocal = (id, cambios) => {
+    setPublicaciones(prev => prev.map(p => p.id === id ? { ...p, ...cambios } : p));
+  };
+
   const handleEdit = async pub => {
     const { value: formValues } = await Swal.fire({
       title: 'Editar publicación',
@@ -59,8 +63,8 @@ export default function APublicaciones() {
     });
     if (formValues) {
       try {
-        await CallsPublicaciones.UpdatePublicaciones(pub.id, { ...pub, ...formValues });
-        cargarPublicaciones();
+        const actualizado = await CallsPublicaciones.UpdatePublicaciones(pub.id, { ...pub, ...formValues });
+        updatePublicacionLocal(pub.id, actualizado || formValues);
         Swal.fire('Actualizado', 'La publicación ha sido actualizada.', 'success');
       } catch (e) {
         Swal.fire('Error', 'No se pudo actualizar la publicación.', 'error');

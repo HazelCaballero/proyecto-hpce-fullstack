@@ -44,11 +44,21 @@ export default function Contactos() {
     setForm({ ...form, [e.target.id.toLowerCase()]: e.target.value });
   };
 
+ 
+  const addPublicidadLocal = (nuevaPublicidad) => {
+    setPublicidades(prev => [nuevaPublicidad, ...prev]);
+  };
+
   const handleCrearAnuncio = async () => {
     try {
-      await CallsPublicidades.PostPublicidad(form);
-      CallsPublicidades.GetPublicidad()
-        .then(data => setPublicidades(data));
+      const nuevaPublicidad = await CallsPublicidades.PostPublicidad(form);
+      if (nuevaPublicidad && nuevaPublicidad.id) {
+        addPublicidadLocal(nuevaPublicidad);
+      } else {
+
+        CallsPublicidades.GetPublicidad()
+          .then(data => setPublicidades(data));
+      }
       setForm({ producto: '', contenido: '', precio: '', imagen: '' });
     } catch (error) {
       Swal.fire('Error', 'Error al crear el anuncio', 'error');
