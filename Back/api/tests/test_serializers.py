@@ -179,10 +179,10 @@ def test_publicidades_serializer():
         producto='ProdPubli', contenido='Desc', precio_producto=100, monto_pagado=500, usuario=user
     )
     publi = Publicidades.objects.create(
-        precio_publicidad=250, usuario=user, estado='activada', servicio=servicio, fecha_inicio=None
+        precio_publicidad=1, usuario=user, estado='activada', servicio=servicio, fecha_inicio=None
     )
     serializer = PublicidadesSerializer(publi)
-    assert serializer.data['precio_publicidad'] == '250.00'
+    assert serializer.data['precio_publicidad'] == '1.00'
     assert serializer.data['producto'] == 'ProdPubli'
 
 @pytest.mark.django_db

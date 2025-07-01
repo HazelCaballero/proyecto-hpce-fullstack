@@ -151,14 +151,14 @@ class Servicio(models.Model):
     precio_producto = models.DecimalField(max_digits=10, decimal_places=2)  # Precio
     monto_pagado = models.DecimalField(max_digits=10, decimal_places=2)  # Monto pagado
     dias_anuncio = models.PositiveIntegerField(editable=False)  # Días de anuncio (calculado)
-    precio_publicidad = models.DecimalField(max_digits=10, decimal_places=2, default=250, editable=False)  # Precio fijo de publicidad
+    precio_publicidad = models.DecimalField(max_digits=10, decimal_places=2, default=1, editable=False)  # Precio fijo de publicidad
     usuario = models.ForeignKey(CustomUser, on_delete=models.CASCADE)  # Usuario oferente
 
     def save(self, *args, **kwargs):
         """
         Calcula los días de anuncio en base al monto pagado y guarda el servicio.
         """
-        self.precio_publicidad = 250
+        self.precio_publicidad = 1
         self.dias_anuncio = int(self.monto_pagado // self.precio_publicidad) if self.precio_publicidad > 0 else 0
         super().save(*args, **kwargs)
 

@@ -22,6 +22,4 @@
 .page-grid-mercado > :last-child {
   grid-area: footer;
    background: #154360;
-position: relative;
-bottom: 2vh;
 }

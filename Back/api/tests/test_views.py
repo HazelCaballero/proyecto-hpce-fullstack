@@ -104,7 +104,7 @@ def test_publicidades_detail_view():
         producto='ProdViewPubli', contenido='Desc', precio_producto=100, monto_pagado=500, usuario=user
     )
     publi = Publicidades.objects.create(
-        precio_publicidad=250, usuario=user, estado='activada', servicio=servicio, fecha_inicio=None
+        precio_publicidad=1, usuario=user, estado='activada', servicio=servicio, fecha_inicio=None
     )
     client = APIClient()
     response = client.get(f'/publicidades/{publi.id}/')
@@ -619,7 +619,7 @@ def test_publicidades_update_invalid():
         producto='ProdPubliUpInv', contenido='Desc', precio_producto=100, monto_pagado=500, usuario=user
     )
     publi = Publicidades.objects.create(
-        precio_publicidad=250, usuario=user, estado='activada', servicio=servicio, fecha_inicio=None
+        precio_publicidad=1, usuario=user, estado='activada', servicio=servicio, fecha_inicio=None
     )
     # Precio negativo
     response = client.patch(f'/publicidades/{publi.id}/', {'precio_publicidad': -1})
@@ -639,7 +639,7 @@ def test_publicidades_delete():
         producto='ProdPubliDel', contenido='Desc', precio_producto=100, monto_pagado=500, usuario=user
     )
     publi = Publicidades.objects.create(
-        precio_publicidad=250, usuario=user, estado='activada', servicio=servicio, fecha_inicio=None
+        precio_publicidad=1, usuario=user, estado='activada', servicio=servicio, fecha_inicio=None
     )
     response = client.delete(f'/publicidades/{publi.id}/')
     assert response.status_code in [204, 200]

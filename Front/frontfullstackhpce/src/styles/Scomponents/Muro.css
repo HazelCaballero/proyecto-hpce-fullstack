@@ -155,10 +155,7 @@
   animation: fadeInPublicacion 0.7s;
 }
 
-@keyframes fadeInPublicacion {
-  from { opacity: 0; transform: translateY(40px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+
 
 .muro-publicacion-item:hover {
   box-shadow: 0 16px 48px rgba(121,95,159,0.22);
@@ -311,3 +308,12 @@
   background: #fff;
   box-shadow: 0 2px 12px rgba(121,95,159,0.13);
 }
+
+
+.grid-publica{
+  display: grid;
+  grid-template-areas:
+  "" ;
+}
+
+

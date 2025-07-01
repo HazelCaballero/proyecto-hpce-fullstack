@@ -28,7 +28,7 @@ class UrlsTestCase(APITestCase):
         trueque = Trueque.objects.create(titulo='TQ', trueque='desc', usuario=user, estado='pendiente', categoria=categoria, ubicacion='Ciudad')
         publicacion = Publicacion.objects.create(titulo='Pub', publicacion='desc', usuario=user)
         servicio = Servicio.objects.create(producto='Prod', contenido='desc', precio_producto=100, monto_pagado=500, usuario=user)
-        publi = Publicidades.objects.create(precio_publicidad=250, usuario=user, estado='activada', servicio=servicio, fecha_inicio=None)
+        publi = Publicidades.objects.create(precio_publicidad=1, usuario=user, estado='activada', servicio=servicio, fecha_inicio=None)
         contacto = Contactos.objects.create(usuario=user, correo='urluser@example.com', promocionarse=True, mensaje='Hola', leido=False)
         detail_urls = [
             reverse('usuarios-detalle', args=[user.id]),

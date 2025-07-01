@@ -226,9 +226,9 @@ def test_publicidades_creation():
         producto='ProdZ', contenido='Desc', precio_producto=100, monto_pagado=500, usuario=user
     )
     publi = Publicidades.objects.create(
-        precio_publicidad=250, usuario=user, estado='activada', servicio=servicio, fecha_inicio=None
+        precio_publicidad=1, usuario=user, estado='activada', servicio=servicio, fecha_inicio=None
     )
-    assert publi.precio_publicidad == 250
+    assert publi.precio_publicidad == 1
     assert publi.usuario == user
     assert publi.servicio == servicio
 
@@ -243,7 +243,7 @@ def test_publicidades_list_endpoint():
         producto='ProdW', contenido='Desc', precio_producto=200, monto_pagado=500, usuario=user
     )
     Publicidades.objects.create(
-        precio_publicidad=250, usuario=user, estado='activada', servicio=servicio, fecha_inicio=None
+        precio_publicidad=1, usuario=user, estado='activada', servicio=servicio, fecha_inicio=None
     )
     response = client.get('/publicidades/')
     assert response.status_code == 200

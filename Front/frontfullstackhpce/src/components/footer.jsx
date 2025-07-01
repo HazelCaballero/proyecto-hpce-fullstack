@@ -11,12 +11,21 @@ export default function Footer() {
 
   return (
     <footer className="footer-container">
+      <div>
       <button
-        className="contact-btn"
-        onClick={() => navigate('/UserContactanos')}
-      >
-        Contáctanos
-      </button>
+          className="contact-btn"
+          onClick={() => navigate('/UserContactanos')}
+        >
+          Contáctanos
+        </button>
+      </div>
+
+      <div>
+        <a href="">preguntas frecuentes</a>
+
+      </div>
+
+
       <div className="footer-info">
         <ul>
           <li><strong>Teléfono:</strong > 83031497</li>
@@ -32,8 +41,16 @@ export default function Footer() {
                 <img className='insta-icon' src="../public/insta-icon.png" alt="insta-icon" />
               </a>
             </strong>
+            <a href="">facebook</a>
+            <a href="">tiktok</a>
+            <a href="">youtube</a>
           </li>
         </ul>
+      </div>
+
+      <div>
+        Hazel Caballero <br />
+        Hazel, desarrolladora y consultora web independiente.
       </div>
     </footer>
   )

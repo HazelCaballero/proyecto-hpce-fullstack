@@ -34,6 +34,9 @@ export default function AsideUsuarias() {
         <li className="aside-usuarias__nav-item">
           <Link to="/UserMercado">Mercado</Link>
         </li>
+        <li className="aside-usuarias__nav-item">
+          <Link to="/UserDonacion" >Donación</Link>
+        </li>
       </ul>
 
     </div>

@@ -243,10 +243,11 @@ export default function Muro() {
               return (
                 <div key={pub.id} className="muro-publicacion-item">
                   <div className="muro-publicacion-autor">
-                  <span className='publi-por'> Publicado por: <b>{usuarioNombre}</b></span> 
+                  <span className='publi-por'> Usuaria: <b>{usuarioNombre}</b></span> 
                   </div>
-                  <b>{pub.titulo}</b>
-                  <div>{pub.publicacion}</div>
+
+                  <b>Titulo: {pub.titulo}</b>
+                  <div>Publicacion: {pub.publicacion}</div>
                   {pub.imagen_url && <img src={pub.imagen_url} alt="imagen" className="muro-publicacion-img" />}
                   {esPropia && (
                     <div className="muro-publicacion-propia-btns">

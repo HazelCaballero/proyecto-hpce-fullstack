@@ -31,11 +31,10 @@
 
 
 .perfil-img {
-  width: 120px;
-  height: 120px;
+  width: 20vh;
+  height: 20vh;
   object-fit: cover;
   border-radius: 50%;
-  border: 3px solid #e0e0e0;
   background: #f5f5f5;
 }
 
@@ -46,6 +45,8 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr); 
   grid-template-rows: 1fr 1fr 1fr; 
+  position: relative;
+  bottom: 1vh;
 }
 
 .perfil-lista li {

@@ -1,0 +1,33 @@
+/*estilos*/
+
+
+.donacion-User-Cont{
+    height: 80vh;
+    background: linear-gradient(135deg, rgba(21,67,97,0.5) 60%, rgba(40,21,73,0.7) 100%);
+  border-left: 5px solid #154360;
+  border-radius: 18px;
+  margin: 4vh;
+  padding: 4vh;
+}
+
+.dona-info{
+    background-color:  rgba(40,21,73,0.7);
+    border-radius: 2vh;
+    padding: 2vh;
+    color: white;
+    text-align: center;
+    font-size: 4vh;
+}
+
+.btn-pay-cont{
+ display: flex;       
+ justify-content: center; 
+ align-items: center;  
+}
+
+.btn-pay{
+margin: 2vh;
+padding: 1vh;
+font-size: 0.9rem;
+
+}

@@ -13,7 +13,7 @@ export default function ServiciosAdmin({ servicios, setServicios }) {
     contenido: '',
     precio_producto: '',
     monto_pagado: '',
-    precio_publicidad: 250,
+    precio_publicidad: 1,
     dias_anuncio: ''
   });
   const [editServId, setEditServId] = useState(null);
@@ -26,7 +26,7 @@ export default function ServiciosAdmin({ servicios, setServicios }) {
     if (name === 'monto_pagado') {
       const monto = parseFloat(value);
       if (monto > 0) {
-        newForm.dias_anuncio = Math.floor(monto / 250);
+        newForm.dias_anuncio = Math.floor(monto / 1);
       } else {
         newForm.dias_anuncio = '';
       }
@@ -63,7 +63,7 @@ export default function ServiciosAdmin({ servicios, setServicios }) {
         contenido: '',
         precio_producto: '',
         monto_pagado: '',
-        precio_publicidad: 250,
+        precio_publicidad: 1,
         dias_anuncio: ''
       });
       setEditServId(null);
@@ -151,7 +151,7 @@ export default function ServiciosAdmin({ servicios, setServicios }) {
       contenido: '',
       precio_producto: '',
       monto_pagado: '',
-      precio_publicidad: 250,
+      precio_publicidad: 1,
       dias_anuncio: ''
     });
   };

@@ -12,6 +12,7 @@ import UserPerfil from '../pages/UserPerfil';
 import UserContactanos from '../pages/UserContactanos';
 import UserMercado from '../pages/UserMercado';
 import UserMuro from '../pages/UserMuro';
+import UserDonacion from '../pages/UserDonacion';
 
 /**
   Componente principal de ruteo de la aplicación.
@@ -58,6 +59,11 @@ function RountingCC() {
         <Route path="/UserMuro" element={
           <ProtectedRoute>
             <UserMuro />
+          </ProtectedRoute>
+        } />
+         <Route path="/UserDonacion" element={
+          <ProtectedRoute>
+            <UserDonacion />
           </ProtectedRoute>
         } />
       </Routes>

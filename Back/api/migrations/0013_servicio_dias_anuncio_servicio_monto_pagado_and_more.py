@@ -25,6 +25,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='servicio',
             name='precio_publicidad',
-            field=models.DecimalField(decimal_places=2, default=250, editable=False, max_digits=10),
+            field=models.DecimalField(decimal_places=2, default=1, editable=False, max_digits=10),
         ),
     ]
