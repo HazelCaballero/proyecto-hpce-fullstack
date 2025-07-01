@@ -9,7 +9,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 # Serializadores de la app
 
-# Serializador para el modelo de usuario personalizado
+
 class CustomUserSerializer(serializers.ModelSerializer):
     """
     Serializador para el modelo CustomUser.
@@ -23,12 +23,11 @@ class CustomUserSerializer(serializers.ModelSerializer):
             'telefono', 'fecha_nacimiento', 'intereses',
             'aportaciones', 'ubicacion', 'imagen_url', 'rol', 'is_active'
         ]
-        # Si descomento esto la contraseña será solo de escritura
+        # Si se descomenta la siguiente línea, la contraseña será solo de escritura
         # extra_kwargs = {
         #     'password': {'write_only': True}
         # }
 
-    # Validación personalizada para el campo teléfono
     def validate_telefono(self, value):
         """
         Valida que el teléfono tenga un formato correcto.
@@ -37,7 +36,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Número de teléfono inválido.")
         return value
 
-# Serializador para el modelo Categoria
+
 class CategoriaSerializer(serializers.ModelSerializer):
     """
     Serializador para el modelo Categoria.
@@ -46,12 +45,12 @@ class CategoriaSerializer(serializers.ModelSerializer):
         model = Categoria
         fields = '__all__'
 
-# Serializador para el modelo Trueque
+
 class TruequeSerializer(serializers.ModelSerializer):
     """
-    Serializador para el modelo Trueque, incluye la categoría relacionada.
+    Serializador para el modelo Trueque.
+    Incluye la categoría relacionada y el nombre del usuario creador.
     """
-
     categoria = CategoriaSerializer(read_only=True)
     categoria_id = serializers.PrimaryKeyRelatedField(
         queryset=Categoria.objects.all(), source='categoria', write_only=True
@@ -63,7 +62,7 @@ class TruequeSerializer(serializers.ModelSerializer):
         model = Trueque
         fields = ['id', 'titulo', 'estado', 'categoria', 'categoria_id', 'ubicacion', 'imagen_url', 'usuario', 'usuario_nombre']
 
-# Serializador para el modelo Publicacion
+
 class PublicacionSerializer(serializers.ModelSerializer):
     """
     Serializador para el modelo Publicacion.
@@ -72,7 +71,7 @@ class PublicacionSerializer(serializers.ModelSerializer):
         model = Publicacion
         fields = '__all__'
 
-# Serializador para el modelo InteraccionPublicacion
+
 class InteraccionPublicacionSerializer(serializers.ModelSerializer):
     """
     Serializador para el modelo InteraccionPublicacion.
@@ -81,7 +80,7 @@ class InteraccionPublicacionSerializer(serializers.ModelSerializer):
         model = InteraccionPublicacion
         fields = '__all__'
 
-# Serializador para el modelo Servicio
+
 class ServicioSerializer(serializers.ModelSerializer):
     """
     Serializador para el modelo Servicio.
@@ -90,7 +89,7 @@ class ServicioSerializer(serializers.ModelSerializer):
         model = Servicio
         fields = '__all__'
 
-# Serializador para el modelo InteraccionTrueque
+
 class InteraccionTruequeSerializer(serializers.ModelSerializer):
     """
     Serializador para el modelo InteraccionTrueque.
@@ -102,9 +101,12 @@ class InteraccionTruequeSerializer(serializers.ModelSerializer):
         model = InteraccionTrueque
         fields = ['id', 'trueque', 'usuario', 'usuario_nombre', 'comentario', 'me_interesa']
 
-# Serializador para el modelo Publicidades
+
 class PublicidadesSerializer(serializers.ModelSerializer):
-    # Incluir datos del servicio relacionado
+    """
+    Serializador para el modelo Publicidades.
+    Incluye datos del servicio relacionado (producto, contenido, precio, imagen).
+    """
     producto = serializers.CharField(source='servicio.producto', read_only=True)
     contenido = serializers.CharField(source='servicio.contenido', read_only=True)
     precio_servicio = serializers.DecimalField(source='servicio.precio_producto', max_digits=10, decimal_places=2, read_only=True)
@@ -115,7 +117,7 @@ class PublicidadesSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ('fecha_inicio', 'fecha_fin', 'precio_publicidad', 'producto', 'contenido', 'precio_servicio', 'imagen_url')
 
-# Serializador para el modelo Contactos
+
 class ContactosSerializer(serializers.ModelSerializer):
     """
     Serializador para el modelo Contactos.
@@ -128,17 +130,19 @@ class ContactosSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contactos
         fields = ['id', 'correo', 'mensaje', 'promocionarse', 'usuario', 'usuario_nombre', 'usuario_email', 'fecha_envio', 'leido']
-        
 
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    """
+    Serializador personalizado para la obtención de tokens JWT.
+    Agrega el campo 'is_superuser' al token y a la respuesta.
+    """
     @classmethod
     def get_token(cls, user):
-        token= super().get_token(user)
-        token ['is_superuser'] = user.is_superuser
+        token = super().get_token(user)
+        token['is_superuser'] = user.is_superuser
         return token
-    
-    
+
     def validate(self, attrs):
         data = super().validate(attrs)
         data['is_superuser'] = self.user.is_superuser

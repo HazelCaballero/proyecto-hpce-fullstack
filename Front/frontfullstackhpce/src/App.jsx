@@ -1,14 +1,19 @@
-import React from 'react'; 
+import React from 'react';
 import RountingCC from '../src/routes/RountingCC';
 
-function App() { 
-  return ( 
-    <> 
+/* 
+Componente principal de la aplicación.
+Renderiza el contenedor principal y el sistema de rutas.
+ */
+function App() {
+  return (
+    <>
+      {/* Contenedor principal de la app */}
       <div className='AppContainer'>
-        <RountingCC/>
-      </div> 
-    </> 
-  ); 
+        <RountingCC />
+      </div>
+    </>
+  );
 }
 
-export default App; 
+export default App;

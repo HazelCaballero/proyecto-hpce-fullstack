@@ -1,7 +1,9 @@
-// utils.js - utilidades para servicios API
+// Funciones utilitarias para la gestión de headers y manejo de errores en servicios API.
 
 /**
  * Construye los headers para peticiones fetch, incluyendo JWT si existe.
+ * Si el usuario está autenticado, agrega el header Authorization con el token JWT.
+ * Si isJson es true, agrega el header Content-Type para JSON.
  * @param {boolean} isJson - Si se debe incluir 'Content-Type: application/json'.
  * @returns {Object} Headers para fetch
  */
@@ -15,6 +17,8 @@ export function buildHeaders(isJson = true) {
 
 /**
  * Maneja errores de respuesta de fetch y logs condicionales según entorno.
+ * Si la respuesta no es exitosa, extrae el texto del error y lo muestra en consola (solo en desarrollo).
+ * Lanza un error con el mensaje y detalles obtenidos.
  * @param {Response} response - Respuesta de fetch
  * @param {string} context - Contexto del error (ej: 'superuser', 'servicio')
  * @returns {Promise<never>} Lanza error con mensaje adecuado

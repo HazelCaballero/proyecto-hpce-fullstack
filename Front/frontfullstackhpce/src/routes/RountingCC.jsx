@@ -14,8 +14,12 @@ import UserMercado from '../pages/UserMercado';
 import UserMuro from '../pages/UserMuro';
 
 /**
- * Componente principal de ruteo de la aplicación.
- * Define las rutas públicas y protegidas para admin y usuarias.
+  Componente principal de ruteo de la aplicación.
+  Define las rutas públicas y protegidas para admin y usuarias.
+ 
+ - Las rutas de administración no requieren autenticación especial.
+ - Las rutas de usuaria protegidas requieren un token de acceso válido (ver ProtectedRoute).
+ - La ruta raíz redirige a /UserInicio.
  */
 function RountingCC() {
   return (
@@ -29,7 +33,7 @@ function RountingCC() {
         <Route path="/AdminPublicaciones" element={<AdminPublicaciones />} />
         <Route path="/AdminContactos" element={<AdminContactos />} />
         <Route path="/AdminPublicidad" element={<AdminPublicidad />} />
-        {/* Rutas de usuaria */}
+        {/* Rutas de usuaria protegidas por autenticación */}
         <Route path="/UserInicio" element={<UserInicio />} />
         <Route path="/UserHogar" element={
           <ProtectedRoute>
@@ -56,7 +60,6 @@ function RountingCC() {
             <UserMuro />
           </ProtectedRoute>
         } />
-        
       </Routes>
     </Router>
   );

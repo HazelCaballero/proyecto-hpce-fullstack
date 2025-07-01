@@ -1,4 +1,5 @@
 # Importaciones necesarias de DRF y modelos propios
+
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from .models import (
     CustomUser, Categoria, Trueque, Publicacion, InteraccionPublicacion,
@@ -14,45 +15,41 @@ from .serializers import (
     InteraccionPublicacionSerializer, ServicioSerializer, InteraccionTruequeSerializer,
     PublicidadesSerializer, ContactosSerializer
 )
-
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .serializers import CustomTokenObtainPairSerializer
 from rest_framework.decorators import action
 
+
 # Permisos personalizados
 
-# Permiso personalizado para verificar si el usuario es superusuario
 class IsSuperUser(BasePermission):
     """
+    Permiso personalizado para verificar si el usuario es superusuario.
     Permite el acceso solo a superusuarios o usuarios con rol 'superusuario'.
     """
     def has_permission(self, request, view):
         return request.user and (request.user.is_superuser or getattr(request.user, 'rol', None) == 'superusuario')
 
-
-# Permiso personalizado para verificar si el usuario es moderador
 class IsModerator(BasePermission):
     """
+    Permiso personalizado para verificar si el usuario es moderador.
     Permite el acceso a usuarios con rol 'moderador', 'superusuario' o superusuarios.
     """
     def has_permission(self, request, view):
         return request.user and (getattr(request.user, 'rol', None) == 'moderador' or getattr(request.user, 'rol', None) == 'superusuario' or request.user.is_superuser)
 
-
-# Permiso personalizado para verificar si el usuario es soporte
 class IsSupport(BasePermission):
     """
+    Permiso personalizado para verificar si el usuario es soporte.
     Permite el acceso a usuarios con rol 'soporte', 'superusuario' o superusuarios.
     """
     def has_permission(self, request, view):
         return request.user and (getattr(request.user, 'rol', None) == 'soporte' or getattr(request.user, 'rol', None) == 'superusuario' or request.user.is_superuser)
 
-
-# Permiso personalizado para verificar si el usuario es el propietario del objeto, un moderador o un superusuario
 class IsOwnerOrModeratorOrSuperUser(BasePermission):
     """
-    Permite el acceso si el usuario es el propietario del objeto,
-    un moderador o un superusuario.
+    Permiso personalizado para verificar si el usuario es el propietario del objeto, un moderador o un superusuario.
+    Permite el acceso si el usuario es el propietario del objeto, un moderador o un superusuario.
     """
     def has_object_permission(self, request, view, obj):
         return (
@@ -62,12 +59,10 @@ class IsOwnerOrModeratorOrSuperUser(BasePermission):
             obj.usuario == request.user
         )
 
-
-# Permiso personalizado para verificar si el usuario es el propietario del objeto o un superusuario
 class IsOwnerOrSuperUser(BasePermission):
     """
-    Permite el acceso si el usuario es el propietario del objeto
-    o un superusuario.
+    Permiso personalizado para verificar si el usuario es el propietario del objeto o un superusuario.
+    Permite el acceso si el usuario es el propietario del objeto o un superusuario.
     """
     def has_object_permission(self, request, view, obj):
         return request.user.is_superuser or getattr(request.user, 'rol', None) == 'superusuario' or obj.usuario == request.user
@@ -76,35 +71,44 @@ class IsOwnerOrSuperUser(BasePermission):
 
 # Vistas
 
-# Vista para listar y crear usuarios personalizados
+
 class CustomUserListCreateView(ListCreateAPIView):
+    """
+    Vista para listar y crear usuarios personalizados.
+    Al crear un usuario, se asegura de que la contraseña se guarde de forma segura.
+    """
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
-    
-    # Al crear un usuario, se asegura de que la contraseña se guarde de forma segura
+
     def perform_create(self, serializer):
         user = serializer.save()
         user.set_password(user.password)
         user.save()
 
-
-# Vista para obtener, actualizar o eliminar un usuario específico
 class CustomUserDetailView(RetrieveUpdateDestroyAPIView):
+    """
+    Vista para obtener, actualizar o eliminar un usuario específico.
+    Solo usuarios autenticados pueden acceder.
+    """
     permission_classes = [IsAuthenticated]
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
 
-
-
-# Vista para listar y crear categorías
 class CategoriaListCreateView(ListCreateAPIView):
+    """
+    Vista para listar y crear categorías.
+    Solo usuarios autenticados pueden acceder.
+    """
     permission_classes = [IsAuthenticated]
     queryset = Categoria.objects.all()
     serializer_class = CategoriaSerializer
 
-
-# Vista para obtener, actualizar o eliminar una categoría (solo superusuarios pueden modificar)
 class CategoriaDetailView(RetrieveUpdateDestroyAPIView):
+    """
+    Vista para obtener, actualizar o eliminar una categoría.
+    Solo superusuarios pueden modificar o eliminar.
+    Si la categoría tiene trueques asociados, requiere confirmación para eliminar.
+    """
     permission_classes = [IsAuthenticated, IsSuperUser]
     queryset = Categoria.objects.all()
     serializer_class = CategoriaSerializer
@@ -118,9 +122,11 @@ class CategoriaDetailView(RetrieveUpdateDestroyAPIView):
             }, status=status.HTTP_409_CONFLICT)
         return super().delete(request, *args, **kwargs)
 
-
-# Vista para listar y crear trueques
 class TruequeListCreateView(ListCreateAPIView):
+    """
+    Vista para listar y crear trueques.
+    El usuario autenticado se asigna automáticamente como creador del trueque.
+    """
     permission_classes = [IsAuthenticated]
     queryset = Trueque.objects.select_related('categoria', 'usuario').all()
     serializer_class = TruequeSerializer
@@ -128,52 +134,65 @@ class TruequeListCreateView(ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(usuario=self.request.user)
 
-
-# Vista para obtener, actualizar o eliminar un trueque
 class TruequeDetailView(RetrieveUpdateDestroyAPIView):
+    """
+    Vista para obtener, actualizar o eliminar un trueque.
+    Solo usuarios autenticados pueden acceder.
+    """
     permission_classes = [IsAuthenticated]
     queryset = Trueque.objects.select_related('categoria', 'usuario').all()
     serializer_class = TruequeSerializer
 
-
-# Vista para listar y crear publicaciones
 class PublicacionListCreateView(ListCreateAPIView):
+    """
+    Vista para listar y crear publicaciones generales.
+    Solo usuarios autenticados pueden acceder.
+    """
     permission_classes = [IsAuthenticated]
     queryset = Publicacion.objects.all()
     serializer_class = PublicacionSerializer
 
-
-# Vista para obtener, actualizar o eliminar una publicación
 class PublicacionDetailView(RetrieveUpdateDestroyAPIView):
+    """
+    Vista para obtener, actualizar o eliminar una publicación.
+    Solo el propietario, moderador o superusuario pueden modificar/eliminar.
+    """
     permission_classes = [IsAuthenticated, IsOwnerOrModeratorOrSuperUser]
     queryset = Publicacion.objects.all()
     serializer_class = PublicacionSerializer
 
-
-
-# Vista para listar y crear interacciones en publicaciones
 class InteraccionPublicacionListCreateView(ListCreateAPIView):
+    """
+    Vista para listar y crear interacciones en publicaciones.
+    Solo usuarios autenticados pueden acceder.
+    """
     permission_classes = [IsAuthenticated]
     queryset = InteraccionPublicacion.objects.all()
     serializer_class = InteraccionPublicacionSerializer
 
-
-# Vista para obtener, actualizar o eliminar una interacción en publicación
 class InteraccionPublicacionDetailView(RetrieveUpdateDestroyAPIView):
+    """
+    Vista para obtener, actualizar o eliminar una interacción en publicación.
+    Solo el propietario, moderador o superusuario pueden modificar/eliminar.
+    """
     permission_classes = [IsAuthenticated, IsOwnerOrModeratorOrSuperUser]
     queryset = InteraccionPublicacion.objects.all()
     serializer_class = InteraccionPublicacionSerializer
 
-
-# Vista para listar y crear servicios
 class ServicioListCreateView(ListCreateAPIView):
+    """
+    Vista para listar y crear servicios ofrecidos.
+    Solo usuarios autenticados pueden acceder.
+    """
     permission_classes = [IsAuthenticated]
     queryset = Servicio.objects.all()
     serializer_class = ServicioSerializer
 
-
-# Vista para obtener, actualizar o eliminar un servicio (solo superusuarios pueden modificar)
 class ServicioDetailView(RetrieveUpdateDestroyAPIView):
+    """
+    Vista para obtener, actualizar o eliminar un servicio.
+    Solo superusuarios pueden modificar/eliminar.
+    """
     permission_classes = [IsAuthenticated, IsSuperUser]
     queryset = Servicio.objects.all()
     serializer_class = ServicioSerializer
@@ -284,8 +303,24 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 
 
 class AsignarRolUsuariaView(APIView):
+    """
+    Vista para asignar o cambiar el rol de una usuaria.
+    Solo superusuarios pueden acceder a este endpoint.
+    El método PATCH permite actualizar el campo 'rol' de una usuaria específica.
+    """
     permission_classes = [IsAuthenticated, IsSuperUser]
+
     def patch(self, request, pk):
+        """
+        Actualiza el rol de una usuaria.
+        Parámetros:
+            - pk: ID de la usuaria a modificar
+            - rol: nuevo rol a asignar (en el body de la petición)
+        Respuestas:
+            - 200 OK: Rol actualizado correctamente
+            - 400 BAD REQUEST: Rol no válido
+            - 404 NOT FOUND: Usuaria no encontrada
+        """
         try:
             usuaria = CustomUser.objects.get(pk=pk)
             nuevo_rol = request.data.get('rol')
