@@ -354,7 +354,7 @@ export default function Mercado() {
 
 
       <div className='publi-true'>
-        <h2>{editandoId ? 'Editar trueque' : 'Publicar nuevo trueque'}</h2>
+        <h2 className='mensaje-style'>{editandoId ? 'Editar trueque' : 'Un nuevo futuro'}</h2>
         <div className="mercado-form">
           <div>
             <input
@@ -371,7 +371,7 @@ export default function Mercado() {
           <div>
             <textarea
               name="trueque"
-              placeholder="Descripción del trueque"
+              placeholder="Trueque"
               value={nuevoTrueque.trueque}
               onChange={handleChange}
               required
@@ -418,7 +418,7 @@ export default function Mercado() {
             />
           </div>
           <div>
-            <button onClick={handleGuardar}>
+            <button className='btn-pu-true' onClick={handleGuardar}>
               {editandoId ? 'Guardar cambios' : 'Publicar Trueque'}
             </button>
             {editandoId && (
@@ -428,7 +428,7 @@ export default function Mercado() {
             )}
           </div>
         </div>
-      </div> <br />
+      </div>
 
 
 
@@ -446,8 +446,9 @@ export default function Mercado() {
           onChange={e => setBusqueda(e.target.value)}
           className="mercado-mb8"
           aria-label="Buscar trueques"
-        /></div>
-        <div className="mercado-flex">
+        />
+        
+         <div className="mercado-flex">
           <label><input type="checkbox" checked={filtros.usuaria} onChange={e => setFiltros(f => ({ ...f, usuaria: e.target.checked }))} /> Usuaria</label>
           <label><input type="checkbox" checked={filtros.titulo} onChange={e => setFiltros(f => ({ ...f, titulo: e.target.checked }))} /> Título</label>
           <label><input type="checkbox" checked={filtros.contenido} onChange={e => setFiltros(f => ({ ...f, contenido: e.target.checked }))} /> Contenido</label>
@@ -457,7 +458,10 @@ export default function Mercado() {
           <label><input type="checkbox" checked={filtros.aceptado} onChange={e => setFiltros(f => ({ ...f, aceptado: e.target.checked }))} /> Aceptado</label>
           <label><input type="checkbox" checked={filtros.cancelado} onChange={e => setFiltros(f => ({ ...f, cancelado: e.target.checked }))} /> Cancelado</label>
         </div>
-      </div> <br />
+        
+        </div>
+       
+      </div>
 
 
 
@@ -510,8 +514,7 @@ export default function Mercado() {
                   </div>
                 </div>
               )}
-              <br />
-
+            
 
 
 
