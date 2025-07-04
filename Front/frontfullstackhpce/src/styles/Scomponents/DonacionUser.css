@@ -31,3 +31,41 @@ padding: 1vh;
 font-size: 0.9rem;
 
 }
+
+.dona-label{
+  text-align: center;
+  display: flex;
+  justify-self: center;
+  padding: 2vh;
+  font-size: larger;
+  color: aliceblue;
+  background-color: #154360;
+  margin: 2vh;
+  border-radius: 2vh;
+  
+}
+
+.dona-input{
+  text-align: center;
+  display: flex;
+  justify-self: center;
+  padding: 1vh;
+  font-size: larger;
+  margin: 2vh;
+  border-radius: 2vh;
+}
+
+
+.otroM{
+    text-align: center;
+  display: flex;
+  justify-self: center;
+  padding: 1vh;
+  font-size: larger;
+  margin: 2vh;
+  border-radius: 2vh;
+}
+
+.pay-btn{
+  width: 40vh;
+}

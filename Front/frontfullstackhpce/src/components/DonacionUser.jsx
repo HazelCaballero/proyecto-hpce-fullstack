@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import '../styles/Scomponents/DonacionUser.css'
 import {PayPalScriptProvider,PayPalButtons} from "@paypal/react-paypal-js"
+import Swal from 'sweetalert2';
 export default function DonacionUser() {
 
     const [monto, setMonto] = useState("5");
@@ -30,11 +31,19 @@ export default function DonacionUser() {
 
     const onApprove = (data,actions)=> {
       return actions.order.capture().then(function(details){
-        alert("Pago Completado" + details.payer.name.given_name)
+        Swal.fire({
+          icon: 'success',
+          title: '¡Pago Completado!',
+          text: `Gracias, ${details.payer.name.given_name}`,
+        });
       })
     }
     const onCancel = () => {
-        alert("Pago Cancelado");
+        Swal.fire({
+          icon: 'info',
+          title: 'Pago Cancelado',
+          text: 'El pago fue cancelado por el usuario.',
+        });
     };
 
   return (
@@ -51,8 +60,8 @@ export default function DonacionUser() {
 
 
         <div>
-           <label htmlFor="valor-pagar">Selecione el monto a pagar</label> 
-           <select
+           <label className='dona-label' htmlFor="valor-pagar">Selecione el monto a pagar</label> 
+           <select className='dona-input'
              id="valor-pagar"
              value={monto}
              onChange={e => setMonto(e.target.value)}
@@ -65,6 +74,7 @@ export default function DonacionUser() {
            </select>
            {monto === "custom" && (
                     <input
+                  className='otroM'
                         type="text"
                         min="1"
                         placeholder="Ingrese el monto"
@@ -77,7 +87,7 @@ export default function DonacionUser() {
 
     <div className='btn-pay-cont'>
       
-          <div>
+          <div className='pay-btn'>
               <PayPalScriptProvider options={initianlOptions} >
                   <PayPalButtons
                   style={{
@@ -101,6 +111,3 @@ export default function DonacionUser() {
     </div>
   )
 }
-
-
-

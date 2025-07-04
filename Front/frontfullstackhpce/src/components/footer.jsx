@@ -21,10 +21,19 @@ export default function Footer() {
       </div>
 
       <div>
-        <a href="">preguntas frecuentes</a>
-
+        <button
+          className="contact-btn"
+          onClick={() => navigate('/UserContactanos')}
+        >
+          Fundadora
+        </button>
       </div>
 
+          <div>
+        Hazel Caballero <br />
+        Hazel, desarrolladora y consultora web.
+        Formada en el programa educativo de FWD Costa Rica Tech & Freedom
+      </div>
 
       <div className="footer-info">
         <ul>
@@ -33,25 +42,39 @@ export default function Footer() {
           <li>
             <strong>
               <a
-                href="https://www.instagram.com/imagenes_coloresypalabras/"
+                href="https://www.instagram.com/fwdcostarica/#"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="footer-link"
               >
-                <img className='insta-icon' src="../public/insta-icon.png" alt="insta-icon" />
+                <img className='insta-icon' src="../public/instagram.png" alt="insta-icon" />
               </a>
             </strong>
-            <a href="">facebook</a>
-            <a href="">tiktok</a>
-            <a href="">youtube</a>
+            
+            <a href="https://www.facebook.com/fwdcostarica"
+             target="_blank"
+                rel="noopener noreferrer"
+                className="footer-link"
+            ><img className='insta-icon' src="../public/facebook.png" alt="facebook-icon" />
+            </a>
+            
+            <a href="https://www.tiktok.com/@fwd0905"
+             target="_blank"
+                rel="noopener noreferrer"
+                className="footer-link"
+            ><img className='insta-icon' src="../public/tiktok.png" alt="tiktok-icon" />
+            </a>
+            
+            <a href="https://www.youtube.com/@forwardcr"
+             target="_blank"
+                rel="noopener noreferrer"
+                className="footer-link"
+            ><img className='insta-icon' src="../public/youtube.png" alt="youtube-icon" />
+            </a>
           </li>
         </ul>
       </div>
 
-      <div>
-        Hazel Caballero <br />
-        Hazel, desarrolladora y consultora web independiente.
-      </div>
     </footer>
   )
 }
